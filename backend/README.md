@@ -149,6 +149,22 @@ schema-qualified trading names. Alembic version tracking is explicitly public an
 excluded from domain autogeneration; no generated version-table deletion is accepted.
 Each integration fixture applies migrations independently of test collection order.
 
+## PAPER accounts and profiles (TAI-017)
+
+Revision 0003_accounts adds virtual paper_accounts, trading_profiles and scoped
+account_permissions. Accounts/profiles default disabled. DB constraints permit
+PAPER mode and LOCAL/STAGING environments only; LIVE/PROD identities cannot be
+stored here. No broker account ID or private broker credential is represented.
+Composite profile/permission foreign keys prevent mixing environment identities.
+
+`resolve_paper_account()` requires exact PAPER mode, enabled account, matching
+environment and PAPER_TRADE grant for the principal. It rejects unknown accounts,
+wrong principal, wrong environment, SHADOW/LIVE and missing grants. It resolves
+identity only; it does not approve risk or submit any order. Principal IDs are
+opaque UUIDs until authentication/authorization tasks bind them to verified users.
+No account mutation API is exposed by this task. Allowed scopes exclude withdrawals,
+transfers and LIVE trading. Initial cash/ledger is a later task, not stored here.
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`
