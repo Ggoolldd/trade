@@ -1,0 +1,3 @@
+﻿PASS: docs/MODES.md title, encoding and local links
+PASS: 2 local links resolved. Semantic review is not automated.
+REVIEW: PAPER uses virtual cash; SHADOW cannot submit; LIVE requires separate deployment and all gates. Recovery cancel distinguished from new order permission.
