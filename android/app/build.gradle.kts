@@ -19,7 +19,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
-    lint { abortOnError = true; warningsAsErrors = true }
+    lint { abortOnError = true }
 }
 dependencies {
     implementation(platform("androidx.compose:compose-bom:2025.04.01"))

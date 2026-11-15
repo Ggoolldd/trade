@@ -28,7 +28,10 @@ python scripts/check-android.py
 This executes actual Gradle test, lint and assembleDebug. Test XML and lint reports
 are in app/build; debug APK is in app/build/outputs/apk/debug. Build outputs,
 caches, SDK paths and debug signing keys are ignored. No release signing is set up.
-Android UI/device testing is not covered by these JVM/build checks.
+Android UI/device testing is not covered by these JVM/build checks. Lint errors
+are fatal; ordinary version-update warnings stay visible. No lint baseline or
+suppression is used for pinned dependency update advisories. Backup and device
+transfer exclusions apply to all application storage domains.
 
 Official compatibility references:
 [AGP 8.11](https://developer.android.com/build/releases/agp-8-11-0-release-notes),
