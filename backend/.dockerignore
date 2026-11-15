@@ -3,5 +3,10 @@
 !uv.lock
 !app/
 !app/**
+!alembic.ini
+!migrations/
+!migrations/**
 app/**/__pycache__/
 app/**/*.pyc
+migrations/**/__pycache__/
+migrations/**/*.pyc

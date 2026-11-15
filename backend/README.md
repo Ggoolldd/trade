@@ -53,6 +53,48 @@ flags are set. Settings cannot be changed after validation.
 
 Official source: [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).
 
+## PostgreSQL and migrations (TAI-014)
+
+SQLAlchemy 2.0 with psycopg 3 owns a lazy engine and sessionmaker. API lifespan
+creates/disposes the engine without claiming DB connectivity. `Database.transaction()`
+commits on success, rolls back on exception and always closes the session. SQL
+parameters are hidden in engine errors and SQL echo is disabled.
+
+Alembic reads validated TAI_DATABASE_URL at execution time; no credentials in ini
+or migration source. The initial revision creates the `trading` namespace; future
+domain tables live there. Version tracking remains in public.alembic_version.
+No cash, order or account data is seeded by a migration. Downgrade drops only an
+empty schema, without CASCADE. Do not run downgrade against owner data.
+
+With Compose healthy, an isolated test database is created automatically by:
+
+```powershell
+# From repository root; requires local PostgreSQL port 15432 and generated .env
+backend/.venv/Scripts/python.exe scripts/run-postgres-checks.py TAI-014
+```
+
+The runner names a newly-created database `tai_test_<uuid>`, executes all pytest
+tests with a private TEST_DATABASE_URL, and drops only that test-owned DB in finally.
+It never accepts a target DB name, never uses DROP FORCE, never deletes a volume
+and redacts the generated local password. Missing engine/DB fails the runner.
+Plain pytest without TEST_DATABASE_URL explicitly skips integration tests; those
+skips are not evidence of migration success. The PostgreSQL runner is mandatory
+for migration task acceptance.
+
+To apply the migration to the **development** project database explicitly:
+
+```powershell
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml exec -T backend alembic upgrade head
+```
+
+Run Compose commands from root. Test up/down/up uses an isolated empty database,
+not the project database. There are no manual SQL setup steps.
+
+Official references:
+[SQLAlchemy sessions](https://docs.sqlalchemy.org/en/20/orm/session_basics.html),
+[Alembic](https://alembic.sqlalchemy.org/en/latest/tutorial.html),
+[psycopg](https://www.psycopg.org/psycopg3/docs/basic/install.html).
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`

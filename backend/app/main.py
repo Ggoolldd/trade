@@ -8,6 +8,7 @@ from typing import Literal
 from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
 
+from app.database import Database
 from app.settings import Settings, load_settings
 
 logger = logging.getLogger(__name__)
@@ -23,13 +24,16 @@ class Health(BaseModel):
 async def lifespan(application: FastAPI) -> AsyncIterator[None]:
     application.state.ready = False
     logger.info("backend_starting mode=PAPER")
+    database = Database(application.state.settings)
+    application.state.database = database
     try:
-        # DB/queue dependencies are introduced by subsequent tasks.
+        # Engine is lazy: no connectivity claim until a real dependency check exists.
         application.state.ready = True
         logger.info("backend_ready mode=PAPER scope=process")
         yield
     finally:
         application.state.ready = False
+        database.close()
         logger.info("backend_stopped mode=PAPER")
 
 

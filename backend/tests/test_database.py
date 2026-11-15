@@ -1,0 +1,64 @@
+import os
+from collections.abc import Iterator
+from pathlib import Path
+
+import pytest
+from alembic import command
+from alembic.config import Config
+from pydantic import SecretStr
+from sqlalchemy import Column, Integer, MetaData, Table, inspect, select
+
+from app.database import Database
+from app.settings import Settings
+
+pytestmark = pytest.mark.integration
+
+
+@pytest.fixture
+def database() -> Iterator[Database]:
+    url = os.environ.get("TEST_DATABASE_URL")
+    if url is None:
+        pytest.skip("Run scripts/run-postgres-checks.py for real PostgreSQL evidence")
+    database = Database(Settings(database_url=SecretStr(url)))
+    try:
+        yield database
+    finally:
+        database.close()
+
+
+def migration_config() -> Config:
+    return Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+
+
+def test_baseline_up_down_up_on_empty_postgres(database: Database) -> None:
+    config = migration_config()
+    with database.engine.begin() as connection:
+        config.attributes["connection"] = connection
+        command.downgrade(config, "base")
+        assert "trading" not in inspect(connection).get_schema_names()
+        command.upgrade(config, "head")
+        assert "trading" in inspect(connection).get_schema_names()
+        assert inspect(connection).get_table_names(schema="trading") == []
+        command.check(config)
+        command.downgrade(config, "base")
+        assert "trading" not in inspect(connection).get_schema_names()
+        command.upgrade(config, "head")
+        assert "trading" in inspect(connection).get_schema_names()
+
+
+def test_session_commit_and_rollback(database: Database) -> None:
+    # Test-owned transient table only, not application schema or owner data.
+    metadata = MetaData()
+    probe = Table("session_probe", metadata, Column("id", Integer, primary_key=True))
+    metadata.create_all(database.engine)
+    try:
+        with database.transaction() as session:
+            session.execute(probe.insert().values(id=1))
+        with pytest.raises(RuntimeError, match="rollback probe"):
+            with database.transaction() as session:
+                session.execute(probe.insert().values(id=2))
+                raise RuntimeError("rollback probe")
+        with database.transaction() as session:
+            assert list(session.scalars(select(probe.c.id))) == [1]
+    finally:
+        metadata.drop_all(database.engine)

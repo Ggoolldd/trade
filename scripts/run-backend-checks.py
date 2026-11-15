@@ -5,6 +5,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from uuid import uuid4
 
 parser = argparse.ArgumentParser()
 parser.add_argument("task")
@@ -12,12 +13,14 @@ args = parser.parse_args()
 if not re.fullmatch(r"TAI-\d{3}", args.task):
     parser.error("expected TAI-XXX")
 root = Path(__file__).resolve().parents[1]
+temporary = root / "tmp" / ("pytest-" + uuid4().hex)
+assert not temporary.exists()
 commands = [
     [sys.executable, "--version"],
     [sys.executable, "-m", "ruff", "check", "."],
     [sys.executable, "-m", "ruff", "format", "--check", "."],
     [sys.executable, "-m", "mypy"],
-    [sys.executable, "-m", "pytest", "-q"],
+    [sys.executable, "-m", "pytest", "-q", "-m", "not integration", "--basetemp", str(temporary)],
 ]
 with (root / "docs" / "reports" / f"{args.task}-checks.txt").open("w", encoding="utf-8") as log:
     for command in commands:
