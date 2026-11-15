@@ -1,0 +1,4 @@
+android/app/build/test-results/testDebugUnitTest/TEST-hr.tradingai.ManifestSafetyTest.xml: tests=1, failures=0, errors=0
+android/app/build/test-results/testReleaseUnitTest/TEST-hr.tradingai.ManifestSafetyTest.xml: tests=1, failures=0, errors=0
+Lint: 0 errors; 4 visible warnings.
+Debug APK: app-debug.apk, 9270259 bytes. APK is ignored, not uploaded to Git.

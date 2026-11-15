@@ -52,4 +52,6 @@ NEXT RECOMMENDED TASK:
 
 At a blocking prerequisite, report concrete incomplete work and stop dependent
 tasks. Authorization to continue development does not authorize LIVE unlock,
-real orders, service purchases or external publication/deployment.
+real orders or service purchases. The owner separately authorized upload to
+Ggoolldd/trade and public visibility for TAI-024 on 2026-11-15; this does not
+authorize deploying services or publishing other repositories.
