@@ -12,8 +12,9 @@
 | TAI-008 | PASS | [Report](docs/reports/TAI-008.md) |
 | TAI-009 | PASS | [Report](docs/reports/TAI-009.md) |
 | TAI-010 | PASS | [Report](docs/reports/TAI-010.md) |
+| TAI-011 | PASS | [Report](docs/reports/TAI-011.md) |
 
-Next: TAI-011. Default PAPER. No application or broker transport yet.
+Next: TAI-012. Default PAPER. Backend health API exists; no broker transport.
 
 Owner instruction on 2026-11-15 authorizes sequential continuation through feasible
 tasks. It overrides per-task stopping instructions in supplied templates.
