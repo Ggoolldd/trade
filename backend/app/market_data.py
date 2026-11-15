@@ -90,11 +90,22 @@ class MarketBar(DataModel):
         return self
 
 
+class DataIssue(StrEnum):
+    UNCOMMITTED_DROPPED = "UNCOMMITTED_DROPPED"
+    PROVIDER_TIME_AHEAD = "PROVIDER_TIME_AHEAD"
+    RETENTION_GAP = "RETENTION_GAP"
+    MISSING_BARS = "MISSING_BARS"
+    PAGE_LIMIT = "PAGE_LIMIT"
+
+
 class BarPage(DataModel):
     bars: tuple[MarketBar, ...] = Field(max_length=5000)
     next_cursor: str | None = Field(default=None, max_length=128)
     retention_start: UtcTimestamp | None = None
     coverage_complete: bool = False
+    provider_cursor: str | None = Field(default=None, max_length=128)
+    source_sha256: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
+    issues: tuple[DataIssue, ...] = ()
 
 
 class HealthStatus(StrEnum):

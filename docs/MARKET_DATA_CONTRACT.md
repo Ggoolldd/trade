@@ -15,7 +15,8 @@ observed_at <= usable_at <= current time. Closed bars require coherent positive
 OHLC, nonnegative volume, an integer interval, and close <= observed <= usable.
 Partial/in-progress candles cannot masquerade as completed bars.
 
-BarPage has a bounded tuple, optional opaque cursor, optional known retention
+BarPage has a bounded tuple, optional opaque checkpoint/native provider cursor,
+optional raw source hash and typed quality issues (added by TAI-030), optional known retention
 start and coverage_complete=false by default. False/unknown coverage must not be
 promoted to a complete historical dataset. The client checks requested identity,
 provider, interval, limit, ordered nonoverlapping time bounds and retention claims.

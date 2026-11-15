@@ -1,0 +1,3 @@
+COMMAND: python -m app.kraken_ohlc --public --minutes 60
+EXIT CODE: 0
+Public closed OHLC sample: pair=BTC/EUR, bars=59, complete=False, checkpoint=1794775200, native=1794775560, issues=['PROVIDER_TIME_AHEAD', 'UNCOMMITTED_DROPPED'], source_sha256=e55c7d46c7c7a914fd26dcf206437d5220d543aa8048fad6c151a2b23c0cc041

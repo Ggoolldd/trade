@@ -1,0 +1,9 @@
+Actual public response research, no price payload published.
+URL: https://api.kraken.com/0/public/OHLC?pair=XBTEUR&interval=1
+File recorded UTC: 2026-11-15T20:29:44+00:00
+Raw JSON SHA256: 84fd57a97bbf3b767bc2512497cbcbd806c05abc66b7247bb89354f093c3b629
+Rows: 721
+First open UTC: 2026-11-15T08:31:00+00:00
+Final raw open UTC: 2026-11-15T20:31:00+00:00
+Nonfinal rows closing after local observation: 2
+The adapter does not relabel these rows as usable; final row dropped and future rows excluded/flagged.
