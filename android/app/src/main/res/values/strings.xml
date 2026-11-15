@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Trading AI</string>
+    <string name="paper_status">PAPER ? trading is unavailable</string>
+</resources>

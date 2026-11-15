@@ -109,8 +109,18 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
-      - name: Require real Android scaffold and checks
+      - name: Real Android unit lint and debug build
         run: python scripts/check-android.py
+      - name: Preserve Android test and lint evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-checks
+          path: |
+            android/app/build/test-results/
+            android/app/build/reports/
+          retention-days: 14
+          if-no-files-found: warn
 
   required:
     name: required-quality

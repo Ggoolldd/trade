@@ -11,7 +11,9 @@ alwaysApply: true
   owner edits. Work only in this repository; never modify Vendor/BET AI.
 - The owner explicitly authorized sequential continuation on 2026-11-15. Execute
   one active task at a time; verify it, write its report and commit before starting
-  the next prerequisite-satisfied task. Stop on unresolved PARTIAL/FAIL. The source
+  the next prerequisite-satisfied task. Stop dependent work on unresolved PARTIAL/FAIL. On 2026-11-15 the owner explicitly
+  directed resolving TAI-024; the minimal real Android CI prerequisite is authorized
+  ahead of TAI-129. Full TAI-129 scope remains pending. The source
   templates' request for a new instruction per task is superseded by that request.
 - Keep changes minimal and typed. Do not introduce unrelated refactors. Do not
   reset, force-push, delete volumes/data or amend owner commits without approval.
