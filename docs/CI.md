@@ -47,9 +47,21 @@ The final Android command returns blocked exit 2 today, rather than test success
 
 ## GitHub target and enforcement
 
-No origin remote is configured. Connected GitHub discovery found no accessible
-TRADING-AI repository; the owner's intended owner/repo URL is still needed. No
-other repository has been modified and nothing has been pushed/published.
+Owner confirmed https://github.com/Ggoolldd/trade on 2026-11-15. Origin is
+configured. Git ls-remote succeeded with no refs: target is empty. Authenticated
+GitHub CLI verified private=true and admin/push permission. The connector returned
+404; the CLI succeeds outside the restricted network sandbox.
+
+GitHub rulesets API returned HTTP 403: upgrade to GitHub Pro or make the repository
+public to enable this feature. No subscription purchase or visibility change is
+authorized or performed. This remains a real enforcement blocker.
+
+Automatic approval review rejected git push because explicit approval to upload
+the complete project/history is required. No upload occurred. At review time the
+payload contains 370 tracked files and 26 commits; full-history Gitleaks scanned
+approximately 1.02 MB and found no leaks. Ignored credentials, virtualenv, caches
+and local infrastructure/.env are excluded. Scanner success cannot prove that all
+project content is suitable for external storage. Explicit approval is pending.
 
 [github-ruleset.json](../infrastructure/github-ruleset.json) is a prepared active
 main-branch ruleset requiring `required-quality` with strict/up-to-date checks and
@@ -70,8 +82,8 @@ gh api --method POST repos/OWNER/REPO/rulesets --input infrastructure/github-rul
 gh api repos/OWNER/REPO/rules/branches/main
 ```
 
-No remote API mutation was executed. Repo-specific changes remain pending target
-information and Android prerequisite resolution. Dependent TAI-025 is not started.
+No remote API mutation was executed. Remote changes remain pending upload approval, supported branch enforcement
+and Android prerequisite resolution. Dependent TAI-025 is not started.
 
 Official references reviewed:
 [GitHub rulesets REST](https://docs.github.com/en/rest/repos/rules#create-a-repository-ruleset),
