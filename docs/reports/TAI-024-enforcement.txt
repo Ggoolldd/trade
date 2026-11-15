@@ -1,0 +1,17 @@
+2026-11-15 owner approved public visibility for Ggoolldd/trade.
+GitHub API visibility readback: public.
+Ruleset POST id: 27327041, active, no bypass actors.
+GET repos/Ggoolldd/trade/rules/branches/main confirms required-quality,
+strict_required_status_checks_policy=true, do_not_enforce_on_create=false.
+Negative probe: empty commit 5a8e5b01b4b9c2baab2486cb0c5284a36130ad8a,
+identical tree to main, push without CI. Expected rejection observed (exit 1).
+Main was not changed by this rejected probe. No force push used.
+
+remote: error: GH013: Repository rule violations found for refs/heads/main.        
+remote: Review all repository rules at https://github.com/Ggoolldd/trade/rules?ref=refs%2Fheads%2Fmain        
+remote: 
+remote: - Required status check "required-quality" is expected.        
+remote: 
+To https://github.com/Ggoolldd/trade.git
+ ! [remote rejected] 5a8e5b01b4b9c2baab2486cb0c5284a36130ad8a -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/Ggoolldd/trade.git'

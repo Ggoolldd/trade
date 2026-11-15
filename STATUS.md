@@ -25,16 +25,16 @@
 | TAI-021 | PASS | [Report](docs/reports/TAI-021.md) |
 | TAI-022 | PASS | [Report](docs/reports/TAI-022.md) |
 | TAI-023 | PASS | [Report](docs/reports/TAI-023.md) |
-| TAI-024 | PARTIAL | [Report](docs/reports/TAI-024.md) |
+| TAI-024 | PASS | [Report](docs/reports/TAI-024.md) |
 
-Next: Finish TAI-024. TAI-025 not started because its prerequisite is incomplete.
-Target confirmed: private Ggoolldd/trade; origin configured; admin access verified.
-Owner approved upload; main pushed and tracking origin/main. Remote CI run 43749890200
-verified backend-quality (100 tests), secret scan and workflow lint PASS.
-Android and required aggregate fail on absent scaffold; merge enforcement unavailable.
-Blockers: GitHub rulesets return 403 (private repository plan limitation). Android scaffold is absent
-(planned TAI-129), so real Gradle checks cannot pass. Prepared CI deliberately
-fails that missing check rather than fabricating success. See docs/CI.md.
+Next: TAI-025 ? deterministic demo seed. No unresolved TAI-024 blocker.
+Owner approved Ggoolldd/trade upload and public visibility. Main is protected by
+active ruleset 27327041 (strict required-quality, no bypass). A real unchecked
+empty push was rejected with GH013. Real Android project now executes test/lint/
+assembleDebug locally and in GitHub Actions; remote run 43751964422 is all green.
+Final report changes are delivered through the protected PR and required checks.
+TAI-129 remains pending beyond this minimal Android CI prerequisite.
+See docs/CI.md and the TAI-024 report for logs, warnings and historical failures.
 Default PAPER. Backend/auth/roles/catalog/audit/worker/scheduler/read API verified;
 no ledger, strategy engine, broker transport or order execution yet.
 

@@ -19,5 +19,7 @@ if any(not path.is_file() for path in required) or not any(
     print("BLOCKED: real Android Gradle scaffold is absent (TAI-129); no Gradle PASS claimed")
     sys.exit(2)
 command = [str(wrapper)] if platform.system() == "Windows" else ["bash", str(wrapper)]
-result = subprocess.run(command + ["--no-daemon", "test", "lint"], cwd=android)
+result = subprocess.run(
+    command + ["--no-daemon", "--console=plain", "test", "lint", "assembleDebug"], cwd=android
+)
 sys.exit(result.returncode)

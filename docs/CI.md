@@ -1,99 +1,69 @@
-# CI quality gate and remaining setup
+# CI quality gate
 
-TAI-024 status: PARTIAL, 2026-11-15. Local backend/contract/DB/Redis checks and
-workflow/secret validation pass. Remote GitHub enforcement and real Gradle results
-are not claimed.
+TAI-024 status: PASS. Verification: all five GitHub jobs PASS on
+[run 43751964422](https://github.com/Ggoolldd/trade/actions/runs/43751964422),
+commit e27da4a. Android test (debug/release), lint and debug APK build executed.
+Local clean test/lint/assembleDebug also passed (75 tasks; no lint errors).
+Final report/status publication goes through the same protected PR checks.
 
-## Prepared workflow
+## Checks
 
-[quality.yml](../.github/workflows/quality.yml) runs on main pushes, pull requests
-and manual dispatch with contents:read only and no persisted checkout credential.
-Jobs cover locked Python 3.12/uv environment, pytest, strict mypy, Ruff, OpenAPI
-snapshot, docs, real PostgreSQL/Redis migration roundtrip, Gitleaks Git-history scan,
-actionlint workflow validation and actual Android Gradle test/lint.
+[quality.yml](../.github/workflows/quality.yml) runs on main push, pull requests and
+manual dispatch. The token has contents:read and no persisted checkout credential.
+It executes locked Python 3.12/uv, pytest, strict mypy, Ruff, OpenAPI snapshot,
+docs, real PostgreSQL/Redis and migration roundtrip, Gitleaks full-history scan,
+actionlint and Android Gradle test/lint/assembleDebug.
 
-All critical jobs feed the always-run `required-quality` aggregate. Any failed,
-cancelled or skipped required job fails the aggregate. No continue-on-error or
-placeholder Android success is used. The Android job currently fails explicitly
-because android contains only .gitkeep; TAI-129 has not supplied a real wrapper,
-settings or app. This is a backlog ordering conflict to resolve before TAI-024 can
-be certified PASS. Creating a dummy Gradle task would not resolve it.
+Every critical job feeds the always-run required-quality aggregate. A failed,
+cancelled or skipped critical job fails it. No continue-on-error or placeholder
+Android success is used. Backend and Android reports are retained as Actions
+artifacts for 14 days; credentials and expanded Compose env are never uploaded.
 
-Action references are immutable commit SHAs verified against official release tags;
-CLI binaries have verified official SHA256 checksums for Linux/Windows x86_64 in
-[ci-tools.json](../infrastructure/ci-tools.json). Tool installers extract only the
-named binary, never arbitrary archive paths. Versions are reviewed updates, not
-automatic latest downloads. Local tool binaries/cache stay in ignored tmp.
+The owner requested resolving TAI-024 and authorized the minimal real Android CI
+prerequisite ahead of TAI-129. See [Android README](../android/README.md).
+Full Hilt/client/lifecycle integration remains TAI-129 work. No trading UI, API
+credentials, network permissions or live orders are introduced by this scaffold.
 
-## Local equivalents
+Actions use immutable verified SHAs. CLI releases have official SHA256 pins in
+[ci-tools.json](../infrastructure/ci-tools.json). The installer checks archive hashes
+and extracts only the named executable. Gradle distribution and wrapper JAR
+checksums were checked against Gradle's official published values.
 
-```powershell
+## Real GitHub enforcement
+
+The owner selected Ggoolldd/trade, explicitly approved project/history upload and
+subsequently approved making it public after the private-plan rulesets API
+returned 403. Visibility was changed and read back as public. No purchase occurred.
+
+Active repository ruleset 27327041 applies to main: strict/up-to-date
+required-quality status, no bypass actors, enforced on branch creation.
+GitHub readback confirms it. A real empty-commit push without the status was rejected
+with GH013/required-quality expected; main contents were unchanged. Evidence:
+[enforcement log](reports/TAI-024-enforcement.txt). This is an executed rejection,
+not an inference from a local JSON configuration.
+
+Changes now go through a branch/PR and green checks. Do not bypass the ruleset.
+[infrastructure policy](../infrastructure/github-ruleset.json) matches the live rule.
+
+## Local checks
+
+```text
 backend/.venv/Scripts/python.exe scripts/run-backend-checks.py TAI-024
 backend/.venv/Scripts/python.exe scripts/run-postgres-checks.py TAI-024
-backend/.venv/Scripts/python.exe scripts/install-ci-tool.py actionlint --bin-dir tmp/ci-bin
-backend/.venv/Scripts/python.exe scripts/install-ci-tool.py gitleaks --bin-dir tmp/ci-bin
-tmp/ci-bin/actionlint.exe -shellcheck= -pyflakes= .github/workflows/quality.yml
-tmp/ci-bin/gitleaks.exe git --redact --no-banner --log-opts=--all .
-tmp/ci-bin/gitleaks.exe git --pre-commit --staged --redact --no-banner .
 backend/.venv/Scripts/python.exe scripts/check-android.py
 ```
 
-Use GIT_CONFIG_COUNT/KEY_0/VALUE_0 with process-local safe.directory=D:/TRADING on
-this filesystem as recorded in earlier reports; no global Git config changed.
-Run integration with only this project's PostgreSQL/Redis healthy and generated
-infrastructure/.env. It creates/removes only a new tai_test_<uuid> DB and exact
-test-owned Redis streams. Never upload infrastructure/.env or expanded Compose env.
-The final Android command returns blocked exit 2 today, rather than test success.
+Use the project's generated ignored local Compose env for PostgreSQL/Redis.
+Integration checks create/remove only a new test database and test-owned streams.
+On Windows the Python path differs from Linux. See Android README for JDK/SDK.
+Both test runners create their scratch parent on clean checkouts.
 
-## GitHub target and enforcement
+Initial remote run 43749739846 exposed a missing scratch parent and the absent
+Android scaffold. Run 43749890200 on 70fa69c proved backend (100 tests), workflow
+lint and secret checks; Android correctly failed before this real scaffold.
+Those historical failures remain visible; no previous result is relabeled PASS.
 
-Owner confirmed https://github.com/Ggoolldd/trade on 2026-11-15. Origin is
-configured. Git ls-remote succeeded with no refs: target is empty. Authenticated
-GitHub CLI verified private=true and admin/push permission. The connector returned
-404; the CLI succeeds outside the restricted network sandbox.
-
-GitHub rulesets API returned HTTP 403: upgrade to GitHub Pro or make the repository
-public to enable this feature. No subscription purchase or visibility change is
-authorized or performed. This remains a real enforcement blocker.
-
-Owner explicitly approved the complete project/history upload. Push to private
-Ggoolldd/trade succeeded; main tracks origin/main. Initial remote run:
-https://github.com/Ggoolldd/trade/actions/runs/43749739846 (commit 21fe19e).
-Secret scan and workflow lint passed. Android failed on the documented absent
-scaffold, and the required aggregate failed. Backend exposed a clean-checkout
-bug: pytest basetemp parent tmp did not exist. Both test runners now create only
-the tmp parent before choosing a fresh UUID test directory. Remote recheck completed on commit 70fa69c:
-https://github.com/Ggoolldd/trade/actions/runs/43749890200.
-Backend-quality PASS: Ruff, strict mypy, 57 unit tests, 100 full PostgreSQL/Redis
-integration tests, real migrations, docs/tooling. Workflow lint and secret scan
-PASS. Android fails on absent scaffold; required-quality fails as designed.
-This proves the aggregate reports failure, not that GitHub enforces merge blocking.
-Downloaded redacted backend evidence is stored in docs/reports/TAI-024-remote-*.txt.
-
-[github-ruleset.json](../infrastructure/github-ruleset.json) is a prepared active
-main-branch ruleset requiring `required-quality` with strict/up-to-date checks and
-an empty bypass list. A local JSON file is not a live GitHub rule. Repository
-administration permission and supported ruleset availability must be verified on
-the chosen target; no plan/subscription purchase was made.
-
-Once the target is explicitly identified: verify ownership/access, publish the
-reviewed workflow, run Actions, resolve the real Android prerequisite, and apply
-the ruleset as the final repository configuration step. Then read back the active
-branch rules and record run/check URLs proving failed critical checks block merge.
-Do not claim this enforcement based only on YAML syntax or local test results.
-
-Reference API operation, after target/setup are resolved:
-
-```text
-gh api --method POST repos/OWNER/REPO/rulesets --input infrastructure/github-ruleset.json
-gh api repos/OWNER/REPO/rules/branches/main
-```
-
-No remote API mutation was executed. Remote completion remains pending supported branch enforcement and Android
-prerequisite resolution. Upload is approved and completed. Dependent TAI-025 is not started.
-
-Official references reviewed:
+Official references:
 [GitHub rulesets REST](https://docs.github.com/en/rest/repos/rules#create-a-repository-ruleset),
 [protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches),
-[Gitleaks releases](https://github.com/gitleaks/gitleaks/releases),
-[actionlint releases](https://github.com/rhysd/actionlint/releases).
+[Gradle wrapper](https://docs.gradle.org/8.13/userguide/gradle_wrapper.html).

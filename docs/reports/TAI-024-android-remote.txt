@@ -1,0 +1,399 @@
+Run: https://github.com/Ggoolldd/trade/actions/runs/43751964422
+Commit: e27da4a55ee5ee12342e4eac3a1cb2bca1f6d858
+Actual GitHub android-gradle job log follows.
+
+android-gradle	Set up job	﻿2026-11-15T19:21:29.1564859Z Current runner version: '2.338.2'
+android-gradle	Set up job	2026-11-15T19:21:29.1589906Z ##[group]Runner Image Provisioner
+android-gradle	Set up job	2026-11-15T19:21:29.1590790Z Hosted Compute Agent
+android-gradle	Set up job	2026-11-15T19:21:29.1591339Z Version: 20261103.629
+android-gradle	Set up job	2026-11-15T19:21:29.1592031Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+android-gradle	Set up job	2026-11-15T19:21:29.1592772Z Build Date: 2026-11-03T17:26:59Z
+android-gradle	Set up job	2026-11-15T19:21:29.1593555Z Worker ID: {768e39dc-dfe2-4687-b8df-3b8110b9222b}
+android-gradle	Set up job	2026-11-15T19:21:29.1594295Z Region: us-east-1
+android-gradle	Set up job	2026-11-15T19:21:29.1594824Z Cloud: AWS
+android-gradle	Set up job	2026-11-15T19:21:29.1595351Z ##[endgroup]
+android-gradle	Set up job	2026-11-15T19:21:29.1596679Z ##[group]Operating System
+android-gradle	Set up job	2026-11-15T19:21:29.1597345Z Ubuntu
+android-gradle	Set up job	2026-11-15T19:21:29.1597828Z 24.04.5
+android-gradle	Set up job	2026-11-15T19:21:29.1598551Z LTS
+android-gradle	Set up job	2026-11-15T19:21:29.1599108Z ##[endgroup]
+android-gradle	Set up job	2026-11-15T19:21:29.1599637Z ##[group]Runner Image
+android-gradle	Set up job	2026-11-15T19:21:29.1600217Z Image: ubuntu-24.04
+android-gradle	Set up job	2026-11-15T19:21:29.1600762Z Version: 20261111.127.1
+android-gradle	Set up job	2026-11-15T19:21:29.1601771Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261111.127/images/ubuntu/Ubuntu2404-Readme.md
+android-gradle	Set up job	2026-11-15T19:21:29.1603523Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261111.127
+android-gradle	Set up job	2026-11-15T19:21:29.1604518Z ##[endgroup]
+android-gradle	Set up job	2026-11-15T19:21:29.1605608Z ##[group]GITHUB_TOKEN Permissions
+android-gradle	Set up job	2026-11-15T19:21:29.1607900Z Contents: read
+android-gradle	Set up job	2026-11-15T19:21:29.1608738Z Metadata: read
+android-gradle	Set up job	2026-11-15T19:21:29.1609295Z ##[endgroup]
+android-gradle	Set up job	2026-11-15T19:21:29.1611624Z Secret source: Actions
+android-gradle	Set up job	2026-11-15T19:21:29.1612480Z Cache mode: write
+android-gradle	Set up job	2026-11-15T19:21:29.1613167Z Prepare workflow directory
+android-gradle	Set up job	2026-11-15T19:21:29.1932088Z Prepare all required actions
+android-gradle	Set up job	2026-11-15T19:21:29.1981882Z Getting action download info
+android-gradle	Set up job	2026-11-15T19:21:29.3782074Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+android-gradle	Set up job	2026-11-15T19:21:30.2942310Z Download action repository 'actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880' (SHA:d1374f8ac74474200d16ef8ecee22c7ae7a51880)
+android-gradle	Set up job	2026-11-15T19:21:30.5846146Z Download action repository 'actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0' (SHA:6d4fd22b20465ccc0f7354476588e8df7c9ca0e0)
+android-gradle	Set up job	2026-11-15T19:21:30.7385597Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+android-gradle	Set up job	2026-11-15T19:21:30.9873771Z Complete job name: android-gradle
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	﻿2026-11-15T19:21:31.0448704Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0449338Z with:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0449666Z   persist-credentials: false
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0449971Z   repository: Ggoolldd/trade
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0451882Z   token: ***
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0452183Z   ssh-strict: true
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0452449Z   ssh-user: git
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0452712Z   clean: true
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0452983Z   sparse-checkout-cone-mode: true
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0453316Z   fetch-depth: 1
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0453613Z   fetch-tags: false
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0453894Z   show-progress: true
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0454225Z   lfs: false
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0454468Z   submodules: false
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0454723Z   set-safe-directory: true
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0455060Z   allow-unsafe-pr-checkout: false
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.0455459Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.3929375Z Syncing repository: Ggoolldd/trade
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.3930980Z ##[group]Getting Git version info
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.3931330Z Working directory is '/home/runner/work/trade/trade'
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.3931909Z [command]/usr/bin/git version
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4681826Z git version 2.56.1
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4695412Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4702629Z Temporarily overriding HOME='/home/runner/work/_temp/f4f13380-3462-49e9-a1fa-e622bd012843' before making global git config changes
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4703318Z Adding repository directory to the temporary git global config as a safe directory
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4706244Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/trade/trade
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4748959Z Deleting the contents of '/home/runner/work/trade/trade'
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4751117Z ##[group]Determining repository object format
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4751968Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4752426Z ##[group]Initializing the repository
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.4755219Z [command]/usr/bin/git init /home/runner/work/trade/trade
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5210430Z hint: Using 'master' as the name for the initial branch. This default branch name
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5211130Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5211566Z hint: to use in all of your new repositories, which will suppress this warning,
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5211905Z hint: call:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5212106Z hint:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5212441Z hint: 	git config --global init.defaultBranch <name>
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5212721Z hint:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5213024Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5213465Z hint: 'development'. The just-created branch can be renamed via this command:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5213818Z hint:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5214035Z hint: 	git branch -m <name>
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5214304Z hint:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5214597Z hint: Disable this message with "git config set advice.defaultBranchName false"
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5222271Z Initialized empty Git repository in /home/runner/work/trade/trade/.git/
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5230306Z [command]/usr/bin/git remote add origin https://github.com/Ggoolldd/trade
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5269313Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5269784Z ##[group]Disabling automatic garbage collection
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5272406Z [command]/usr/bin/git config --local gc.auto 0
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5294667Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5295414Z ##[group]Setting up auth
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5295845Z Removing SSH command configuration
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5299299Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.5326275Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.6929860Z Removing HTTP extra header
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.6934762Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.6966245Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7109015Z Removing includeIf entries pointing to credentials config files
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7112407Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7135905Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7280961Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7307087Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/trade/trade/.git.path /home/runner/work/_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7329863Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/trade/trade/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7351702Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7374387Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7394321Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7394764Z ##[group]Fetching the repository
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:31.7399183Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +531261b53df6c72aa7fde15217772b8cac120b64:refs/remotes/pull/1/merge
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0026226Z From https://github.com/Ggoolldd/trade
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0027305Z  * [new ref]         531261b53df6c72aa7fde15217772b8cac120b64 -> pull/1/merge
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0030342Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0030788Z ##[group]Determining the checkout info
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0031244Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0034658Z [command]/usr/bin/git sparse-checkout disable
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0087928Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0108865Z ##[group]Checking out the ref
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0111861Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0229566Z Note: switching to 'refs/remotes/pull/1/merge'.
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0229963Z
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0230176Z You are in 'detached HEAD' state. You can look around, make experimental
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0230610Z changes and commit them, and you can discard any commits you make in this
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0230998Z state without impacting any branches by switching back to a branch.
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0231224Z
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0231402Z If you want to create a new branch to retain commits you create, you may
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0231798Z do so (now or later) by using -c with the switch command. Example:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0232003Z
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0232113Z   git switch -c <new-branch-name>
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0232261Z
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0232370Z Or undo this operation with:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0232514Z
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0232600Z   git switch -
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0232732Z
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0232907Z Turn off this advice by setting config variable advice.detachedHead to false
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0233181Z
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0233451Z HEAD is now at 531261b Merge e27da4a55ee5ee12342e4eac3a1cb2bca1f6d858 into 4e01c0f9b2a61a228add13d80d20523f86f9ce9b
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0237818Z ##[endgroup]
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0268759Z [command]/usr/bin/git log -1 --format=%H
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0287147Z 531261b53df6c72aa7fde15217772b8cac120b64
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0293493Z ##[group]Removing auth
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0293856Z Removing SSH command configuration
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0296496Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0318503Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0464337Z Removing HTTP extra header
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0467251Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0489649Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0632115Z Removing includeIf entries pointing to credentials config files
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0634624Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0655741Z includeif.gitdir:/home/runner/work/trade/trade/.git.path
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0656411Z includeif.gitdir:/home/runner/work/trade/trade/.git/worktrees/*.path
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0656965Z includeif.gitdir:/github/workspace/.git.path
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0657411Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0661583Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/trade/trade/.git.path
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0678743Z /home/runner/work/_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0684868Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/trade/trade/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-3f3db278\-4caf\-4b5d\-9eed\-b147ae21c299\.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0709313Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/trade/trade/.git/worktrees/*.path
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0727486Z /home/runner/work/_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0733113Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/trade/trade/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-3f3db278\-4caf\-4b5d\-9eed\-b147ae21c299\.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0755796Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0773120Z /github/runner_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0777441Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-3f3db278\-4caf\-4b5d\-9eed\-b147ae21c299\.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0801023Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0818686Z /github/runner_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0823370Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-3f3db278\-4caf\-4b5d\-9eed\-b147ae21c299\.config
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0846777Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0986020Z Removing credentials config '/home/runner/work/_temp/git-credentials-3f3db278-4caf-4b5d-9eed-b147ae21c299.config'
+android-gradle	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:21:32.0991244Z ##[endgroup]
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	﻿2026-11-15T19:21:32.1216637Z ##[group]Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1216984Z with:
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1217174Z   distribution: temurin
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1217383Z   java-version: 17
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1217595Z   java-package: jdk
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1217798Z   check-latest: false
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1218001Z   force-download: false
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1218404Z   set-default: true
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1218615Z   server-id: github
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1218853Z   mvn-repositories-include-central: true
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1219137Z   mvn-repositories-prioritize-central: true
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1219425Z   overwrite-settings: true
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1219659Z   cache-read-only: false
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1219871Z   job-status: success
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1221666Z   token: ***
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1221873Z   show-download-progress: false
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1222111Z   problem-matcher: false
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1222322Z ##[endgroup]
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.1754798Z ##[group]Installed distributions
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3029280Z Resolved Java 17.0.21+9 from tool-cache
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3029798Z Setting Java 17.0.21+9 as the default
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3032651Z
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3032935Z Java configuration:
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3033264Z   Distribution: temurin
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3033529Z   Version: 17.0.21+9
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3033818Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3034043Z
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3034376Z ##[endgroup]
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3052692Z Creating settings.xml with server-id: github
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3057024Z Creating toolchains.xml for JDK version 17 from temurin
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3059656Z Writing to /home/runner/.m2/settings.xml
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3069502Z Writing to /home/runner/.m2/toolchains.xml
+android-gradle	Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	2026-11-15T19:21:32.3075321Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	﻿2026-11-15T19:21:32.3195043Z ##[group]Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3195438Z with:
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3195639Z   python-version: 3.12
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3195864Z   check-latest: false
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3197691Z   token: ***
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3198284Z   mirror: https://raw.githubusercontent.com/actions/python-versions/main
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3198664Z   update-environment: true
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3198897Z   allow-prereleases: false
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3199130Z   freethreaded: false
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3199330Z env:
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3199604Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3200028Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3200408Z   MAVEN_ARGS: -ntp
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.3200611Z ##[endgroup]
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.4087233Z ##[group]Installed versions
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.5403872Z Successfully set up CPython (3.12.16)
+android-gradle	Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	2026-11-15T19:21:32.5404739Z ##[endgroup]
+android-gradle	Real Android unit lint and debug build	﻿2026-11-15T19:21:32.5503744Z ##[group]Run python scripts/check-android.py
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.5504332Z ^[[36;1mpython scripts/check-android.py^[[0m
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8341960Z shell: /usr/bin/bash -e {0}
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8342307Z env:
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8342610Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8343035Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8343392Z   MAVEN_ARGS: -ntp
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8343656Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8344022Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8344383Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8344711Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8345041Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8345373Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:32.8345704Z ##[endgroup]
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:34.5889384Z Downloading https://services.gradle.org/distributions/gradle-8.13-bin.zip
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:36.2567467Z .............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4018887Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4049689Z Welcome to Gradle 8.13!
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4050467Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4072810Z Here are the highlights of this release:
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4094373Z  - Daemon JVM auto-provisioning
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4095188Z  - Enhancements for Scala plugin and JUnit testing
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4095817Z  - Improvements for build authors and plugin developers
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4097706Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4098363Z For more details see https://docs.gradle.org/8.13/release-notes.html
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4098839Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:37.4099873Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:21:38.2996662Z Daemon will be stopped at the end of the build
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:15.6007353Z > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:15.6010848Z > Task :app:preBuild UP-TO-DATE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:15.6011193Z > Task :app:preDebugBuild UP-TO-DATE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:21.9019980Z > Task :app:generateDebugResValues
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:21.9020501Z > Task :app:checkDebugAarMetadata
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:21.9986980Z > Task :app:mapDebugSourceSetPaths
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:22.0010395Z > Task :app:generateDebugResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:22.5982347Z > Task :app:packageDebugResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:22.9981680Z > Task :app:mergeDebugResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:23.8005293Z > Task :app:createDebugCompatibleScreenManifests
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:23.8007627Z > Task :app:extractDeepLinksDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:23.9007361Z > Task :app:parseDebugLocalResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.0998939Z > Task :app:processDebugMainManifest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.0999511Z > Task :app:processDebugManifest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.1981167Z > Task :app:processDebugManifestForPackage
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.1982140Z > Task :app:javaPreCompileDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.8014795Z > Task :app:preDebugUnitTestBuild UP-TO-DATE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.8015337Z > Task :app:javaPreCompileDebugUnitTest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.9009776Z > Task :app:buildKotlinToolingMetadata
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.9029507Z > Task :app:preReleaseBuild UP-TO-DATE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.9049235Z > Task :app:generateReleaseResValues
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.9109051Z > Task :app:checkReleaseAarMetadata
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.9136407Z > Task :app:mapReleaseSourceSetPaths
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:24.9139203Z > Task :app:generateReleaseResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:25.0989313Z > Task :app:processDebugResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:25.3989490Z > Task :app:mergeReleaseResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.2984463Z > Task :app:packageReleaseResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.3009485Z > Task :app:createReleaseCompatibleScreenManifests
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.3011535Z > Task :app:parseReleaseLocalResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.3012081Z > Task :app:extractDeepLinksRelease
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.4031863Z > Task :app:processReleaseMainManifest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.4094688Z > Task :app:processReleaseManifest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.4118840Z > Task :app:processReleaseManifestForPackage
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.4987980Z > Task :app:preReleaseUnitTestBuild UP-TO-DATE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5069428Z > Task :app:javaPreCompileRelease
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5115101Z > Task :app:preDebugAndroidTestBuild SKIPPED
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5190900Z > Task :app:javaPreCompileReleaseUnitTest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5205781Z > Task :app:generateDebugAndroidTestResValues
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5242841Z > Task :app:extractProguardFiles
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5297096Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5329031Z > Task :app:mergeDebugShaders
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5346292Z > Task :app:compileDebugShaders NO-SOURCE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.5388983Z > Task :app:generateDebugAssets UP-TO-DATE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.6019343Z > Task :app:mergeDebugAssets
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.6059864Z > Task :app:compressDebugAssets
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:30.7009267Z > Task :app:desugarDebugFileDependencies
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:31.3047181Z > Task :app:processReleaseResources
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:31.3986281Z > Task :app:mergeDebugJniLibFolders
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:31.4009257Z > Task :app:checkDebugDuplicateClasses
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:31.4981095Z > Task :app:mergeDebugNativeLibs
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:55.3009419Z > Task :app:compileDebugKotlin
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:22:59.5994309Z > Task :app:compileReleaseKotlin
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:01.4981486Z > Task :app:mergeExtDexDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:03.9984207Z > Task :app:compileDebugJavaWithJavac NO-SOURCE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:03.9986146Z > Task :app:bundleDebugClassesToCompileJar
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:03.9986638Z > Task :app:bundleDebugClassesToRuntimeJar
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:03.9987314Z > Task :app:processDebugJavaRes
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:04.5019626Z > Task :app:compileReleaseJavaWithJavac NO-SOURCE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:04.5999533Z > Task :app:bundleReleaseClassesToRuntimeJar
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:04.6049208Z > Task :app:bundleReleaseClassesToCompileJar
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:04.6118834Z > Task :app:processReleaseJavaRes
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:05.9984643Z > Task :app:compileReleaseUnitTestKotlin
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:06.0058764Z > Task :app:compileDebugUnitTestKotlin
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:07.4999593Z > Task :app:generateDebugAndroidTestLintModel
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:07.5029473Z > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:07.5058904Z > Task :app:processDebugUnitTestJavaRes
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:09.9991552Z > Task :app:testDebugUnitTest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:09.9992611Z > Task :app:compileReleaseUnitTestJavaWithJavac NO-SOURCE
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:09.9993258Z > Task :app:processReleaseUnitTestJavaRes
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:10.3992143Z > Task :app:testReleaseUnitTest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:10.4010492Z > Task :app:test
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:10.4029108Z > Task :app:generateDebugLintReportModel
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:10.4980703Z > Task :app:generateDebugUnitTestLintModel
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:14.7999661Z > Task :app:dexBuilderDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:14.9001849Z > Task :app:mergeDebugGlobalSynthetics
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:15.2986659Z > Task :app:mergeDebugJavaResource
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:15.2988606Z > Task :app:mergeLibDexDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:15.4000947Z > Task :app:mergeProjectDexDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:15.4008799Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:15.4039399Z > Task :app:stripDebugDebugSymbols
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:15.4048204Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so. Run with --info option to learn more.
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:16.1979580Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:16.1980438Z > Task :app:validateSigningDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:16.1980806Z > Task :app:writeDebugAppMetadata
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:16.3009649Z > Task :app:writeDebugSigningConfigVersions
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:16.7990070Z > Task :app:packageDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:16.7999072Z > Task :app:createDebugApkListingFileRedirect
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:16.8028776Z > Task :app:assembleDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:21.2988710Z > Task :app:lintAnalyzeDebugAndroidTest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:23.3005804Z > Task :app:lintAnalyzeDebugUnitTest
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.3996666Z > Task :app:lintAnalyzeDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.5999017Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.6019228Z > Task :app:lintReportDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.6049564Z Wrote HTML report to file:///home/runner/work/trade/trade/android/app/build/reports/lint-results-debug.html
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.6077773Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.6078514Z > Task :app:lintDebug
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.6078792Z > Task :app:lint
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.6078895Z
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.6078994Z BUILD SUCCESSFUL in 1m 51s
+android-gradle	Real Android unit lint and debug build	2026-11-15T19:23:25.6079219Z 74 actionable tasks: 74 executed
+android-gradle	Preserve Android test and lint evidence	﻿2026-11-15T19:23:25.9899914Z ##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9900274Z with:
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9900452Z   name: android-checks
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9900717Z   path: android/app/build/test-results/
+android-gradle	Preserve Android test and lint evidence	android/app/build/reports/
+android-gradle	Preserve Android test and lint evidence
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9901009Z   retention-days: 14
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9901200Z   if-no-files-found: warn
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9901408Z   compression-level: 6
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9901625Z   overwrite: false
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9901810Z   include-hidden-files: false
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9902027Z   archive: true
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9902198Z env:
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9902436Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9902819Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9903130Z   MAVEN_ARGS: -ntp
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9903361Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9903703Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9904066Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9904373Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9904675Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9904986Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:25.9905241Z ##[endgroup]
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.1094465Z Multiple search paths detected. Calculating the least common ancestor of all paths
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.1096084Z The least common ancestor is /home/runner/work/trade/trade/android/app/build. This will be the root directory of the artifact
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.1096862Z With the provided path, there will be 23 files uploaded
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.1098857Z Artifact name is valid!
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.1099345Z Root directory input is valid!
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.3130783Z Uploading artifact: android-checks.zip
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.3157007Z Beginning upload of artifact content to blob storage
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.4652106Z Uploaded bytes 40739
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.4895980Z Finished uploading artifact content to blob storage!
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.4896709Z SHA256 digest of uploaded artifact is 25a029628e2133e5bc5facdbf1bcf65d9cc17db386fdb331bed9720df2fa4004
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.4897256Z Finalizing artifact upload
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.8329283Z Artifact android-checks successfully finalized. Artifact ID 14176143362
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.8330363Z Artifact android-checks has been successfully uploaded! Final size is 40739 bytes. Artifact ID is 14176143362
+android-gradle	Preserve Android test and lint evidence	2026-11-15T19:23:26.8331471Z Artifact download URL: https://github.com/Ggoolldd/trade/actions/runs/43751964422/artifacts/14176143362
+android-gradle	Post Run actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0	﻿2026-11-15T19:23:26.8478929Z Post job cleanup.
+android-gradle	Post Run actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880	﻿2026-11-15T19:23:26.9491282Z Post job cleanup.
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	﻿2026-11-15T19:23:27.0182884Z Post job cleanup.
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1014777Z [command]/usr/bin/git version
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1045662Z git version 2.56.1
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1072122Z Temporarily overriding HOME='/home/runner/work/_temp/ccf32f1d-c64b-4d93-8383-162c9e52527e' before making global git config changes
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1073342Z Adding repository directory to the temporary git global config as a safe directory
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1074993Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/trade/trade
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1110634Z Removing SSH command configuration
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1115570Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1155014Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1354441Z Removing HTTP extra header
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1358479Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1382316Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1554858Z Removing includeIf entries pointing to credentials config files
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1559302Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+android-gradle	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-11-15T19:23:27.1582414Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+android-gradle	Complete job	﻿2026-11-15T19:23:27.1885149Z Cleaning up orphan processes
+android-gradle	Complete job	2026-11-15T19:23:27.2119504Z Terminate orphan process: pid (2446) (java)

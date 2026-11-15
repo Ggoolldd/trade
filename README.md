@@ -1,9 +1,10 @@
 # TRADING-AI
 
-Private trading research project. TAI-001 through TAI-023 are implemented and
+PAPER-first trading research project. TAI-001 through TAI-024 are implemented and
 verified: FastAPI health/auth/roles, PostgreSQL catalog/accounts/audit, Redis worker,
 scheduler and a versioned read API. No broker transport, strategy execution, ledger
-or order execution exists yet. Android remains a future task.
+or order execution exists yet. A minimal Android Compose app supplies real CI
+test/lint/debug builds; full client functionality remains future work.
 
 Development starts in PAPER mode. LIVE requires separate owner authorization and
 the evidence gates in [ROADMAP.md](ROADMAP.md); completing development tasks does
@@ -13,7 +14,7 @@ not authorize real orders.
 
 | Directory | Purpose |
 | --- | --- |
-| android | Future Android client |
+| android | Minimal Compose app with genuine Gradle checks |
 | backend | FastAPI backend, migrations and automated checks |
 | docs | Decisions, specifications, and task evidence |
 | infrastructure | Local PAPER Compose stack and prepared CI configuration |
@@ -40,6 +41,6 @@ passwords are ignored; there are no default operator credentials or broker keys.
 
 Current full integration suite: 100 tests passing on real PostgreSQL/Redis, plus
 lint/type/contract checks. Evidence and exact commands are in [STATUS.md](STATUS.md).
-TAI-024 is [partially prepared](docs/CI.md): workflow lint and secret scans pass,
-but no GitHub target is configured and actual Gradle checks await the Android
-scaffold (TAI-129). No remote CI/merge protection success is claimed.
+[CI quality](docs/CI.md) runs on GitHub: backend and Android checks, workflow lint,
+secret scan and an always-run required-quality gate. The public repository has
+active main-branch enforcement; an unchecked test push was actually rejected.
