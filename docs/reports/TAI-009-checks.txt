@@ -1,0 +1,3 @@
+﻿PASS: docs/QUALITY_PLAN.md title, encoding and local links
+PASS: 3 local links resolved. Semantic review is not automated.
+REVIEW: All requested test types have concrete examples and PASS criteria; real PostgreSQL and forward evidence distinguished from fixtures; critical skipped suite blocks promotion.
