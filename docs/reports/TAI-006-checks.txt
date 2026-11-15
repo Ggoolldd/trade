@@ -1,0 +1,3 @@
+﻿PASS: docs/MONEY_TIME.md title, encoding and local links
+PASS: 1 local links resolved. Semantic review is not automated.
+REVIEW: EUR USD BTC and both DST transitions covered; ledger exact balance, stale FX and ambiguous local timestamps fail closed.
