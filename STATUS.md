@@ -28,8 +28,11 @@
 | TAI-024 | PASS | [Report](docs/reports/TAI-024.md) |
 | TAI-025 | PASS | [Report](docs/reports/TAI-025.md) |
 | TAI-026 | PASS | [Report](docs/reports/TAI-026.md) |
+| TAI-027 | PASS | [Report](docs/reports/TAI-027.md) |
 
-Next: TAI-027 ? configurable stock/UCITS metadata candidates.
+Next: TAI-028 ? exchange calendars, DST, holidays and early close.
+TAI-027: 139 tests PASS; actual candidate CLI twice; 10 stocks + 2 UCITS metadata
+candidates remain suspended, broker/HR eligibility UNKNOWN, liquidity UNVERIFIED.
 TAI-026: 124 real tests PASS; two public metadata CLI imports; rules versioning,
 strict canonical mapping and suspended instruments. Dev revision 0010_spot_rules.
 TAI-025: 103 real tests passed; seed CLI executed twice; four dev services healthy.
