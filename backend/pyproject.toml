@@ -12,6 +12,7 @@ dependencies = [
   "pwdlib[argon2]>=0.2,<1",
   "redis>=5,<9",
   "uvicorn>=0.30,<1",
+  "exchange-calendars==4.13.3",
 ]
 
 [dependency-groups]
