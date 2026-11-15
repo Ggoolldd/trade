@@ -31,8 +31,12 @@
 | TAI-027 | PASS | [Report](docs/reports/TAI-027.md) |
 | TAI-028 | PASS | [Report](docs/reports/TAI-028.md) |
 | TAI-029 | PASS | [Report](docs/reports/TAI-029.md) |
+| TAI-030 | PASS | [Report](docs/reports/TAI-030.md) |
 
-Next: TAI-030 ? Kraken public OHLC ingest.
+Next: TAI-031 ? Kraken public WebSocket stream.
+TAI-030: 209 tests PASS; real host/Linux public OHLC samples, 59 closed bars with
+explicit PROVIDER_TIME_AHEAD/incomplete coverage. No automatic feed or OHLC DB store.
+Owner confirmed no permitted stock history source yet (relevant to TAI-032).
 TAI-029: 182 real tests PASS; fixture-only provider contract, bounded read execution,
 shared in-process rate limits and cancellable streams; no provider auto-enabled.
 TAI-028: 159 tests PASS, scheduled XETR/XAMS/XNYS core windows plus crypto 24/7;
