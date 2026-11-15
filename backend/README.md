@@ -274,6 +274,40 @@ readonly. For example, append `--role owner` to the hidden-password creation com
 above when explicitly provisioning the private owner. No user/role was auto-created
 or elevated by this task. No role grants LIVE or bypasses risk/MFA/unlock requirements.
 
+## Redis queue and worker (TAI-021)
+
+Revision 0007_jobs adds jobs and dead_letters. PostgreSQL owns status, retry due
+times, attempts, UUID idempotency keys, queue identity and correlation IDs. Redis
+Streams is at-least-once transport with consumer groups and pending-message reclaim.
+Only the registered audit_checkpoint handler exists; it appends an actual SYSTEM
+audit event using the job UUID. There is no arbitrary task import/pickle/payload,
+broker operation or financial handler.
+
+Enqueue is idempotent for the same key and semantic fields; a different kind/entity/
+queue/attempt policy with that key is a conflict. Dispatcher publishes due jobs with
+bounded SKIP LOCKED batches and a 60-second re-publication cooldown. A lost publish
+response can duplicate delivery; it cannot duplicate the transactional effect.
+Worker locks the DB job, runs its handler in a savepoint, and commits status/effect
+before ACK. Retries back off 1, 2, 4... seconds capped at 60; default max attempts 3.
+Exhaustion commits a unique DB dead-letter row with sanitized code and trace IDs.
+
+ACKed messages are removed; abandoned pending deliveries are reclaimed after 60 s.
+Malformed/unknown/cross-queue references are discarded with a sanitized warning and
+never create a DB job. The DB remains the authoritative source; such transport
+poison is not reported as a failed business handler. Redis RESP2 is explicit for
+stable stream response parsing. Test namespace cleanup deletes only the exact
+test-owned stream in Redis DB15, never FLUSHDB or owner keys.
+
+Handlers currently perform DB-only effects in the caller's transaction. This is
+not an exactly-once guarantee for external HTTP/broker operations; those need their
+own idempotency/reconciliation design and later gates. Running a long external
+operation while holding this job transaction is outside the current handler contract.
+Audit/job logs contain UUID tracing and fixed codes, no exception payload or secrets.
+
+Sources: [Redis streams](https://redis.io/docs/latest/develop/data-types/streams/),
+[XAUTOCLAIM](https://redis.io/docs/latest/commands/xautoclaim/),
+[redis-py streams](https://redis.readthedocs.io/en/stable/examples/redis-stream-example.html).
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`

@@ -20,8 +20,11 @@ if not re.fullmatch(r"TAI-\d{3}", args.task):
 root = Path(__file__).resolve().parents[1]
 secrets = dotenv_values(root / "infrastructure" / ".env")
 password = secrets.get("POSTGRES_PASSWORD")
+redis_password = secrets.get("REDIS_PASSWORD")
 if not password or not re.fullmatch(r"[a-f0-9]{64}", password):
     raise SystemExit("Expected generated local-only PostgreSQL password; values not printed")
+if not redis_password or not re.fullmatch(r"[a-f0-9]{64}", redis_password):
+    raise SystemExit("Expected generated local-only Redis password; values not printed")
 name = "tai_test_" + uuid4().hex
 created = False
 with (root / "docs" / "reports" / f"{args.task}-postgres.txt").open("w", encoding="utf-8") as log:
@@ -44,6 +47,7 @@ with (root / "docs" / "reports" / f"{args.task}-postgres.txt").open("w", encodin
             environment["TEST_DATABASE_URL"] = (
                 f"postgresql+psycopg://trading:{password}@127.0.0.1:15432/{name}"
             )
+            environment["TEST_REDIS_URL"] = f"redis://:{redis_password}@127.0.0.1:16379/15"
             temporary = root / "tmp" / ("pytest-postgres-" + uuid4().hex)
             assert not temporary.exists()
             command = [
@@ -72,6 +76,7 @@ with (root / "docs" / "reports" / f"{args.task}-postgres.txt").open("w", encodin
             )
             output = result.stdout + result.stderr
             output = output.replace(password, "[REDACTED]")
+            output = output.replace(redis_password, "[REDACTED]")
             print(output, end="", flush=True)
             log.write(output)
             log.write(f"EXIT CODE: {result.returncode}\n")

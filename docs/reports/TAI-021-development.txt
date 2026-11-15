@@ -1,0 +1,16 @@
+﻿PASS: backend running/healthy; container 25f99683ed7c
+IMAGE: backend sha256:edff3a64f19d3fcf02bde76bb5b4c2480d4175d51356c64d3ab1d9ea4e6c954e
+PASS: postgres running/healthy; container 1871762455bf
+IMAGE: postgres sha256:431b070f8300b219ab7e6597e7ebb158df31767739896f53a936cfc749d8437a
+PASS: redis running/healthy; container 88e2ae551655
+IMAGE: redis sha256:a0d24678e92d89456dd5e332aae0b4b63d4b7556b166e6893e35de24cc1deaf6
+PASS: worker running/healthy; container 5484304893fb
+IMAGE: worker sha256:edff3a64f19d3fcf02bde76bb5b4c2480d4175d51356c64d3ab1d9ea4e6c954e
+PASS: backend UID 10001
+PASS: backend read-only root filesystem
+PASS: Redis authenticated PONG
+PASS: PostgreSQL query on trading_ai
+PASS: actual backend DB role trading_ai_app; audit SELECT/INSERT only
+PASS: /health/live 200 PAPER scope=process
+PASS: /health/ready 200 PAPER scope=process
+PASS: OpenAPI 200; order route absent (404)

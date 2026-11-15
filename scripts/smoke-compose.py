@@ -34,7 +34,7 @@ def run(command: list[str]) -> str:
 
 raw = run(compose + ["ps", "--format", "json"])
 rows = json.loads(raw) if raw.startswith("[") else [json.loads(line) for line in raw.splitlines()]
-assert {row["Service"] for row in rows} == {"postgres", "redis", "backend"}
+assert {row["Service"] for row in rows} == {"postgres", "redis", "backend", "worker"}
 for row in rows:
     assert row["State"] == "running", row["Service"]
     assert row["Health"] == "healthy", row["Service"]

@@ -9,7 +9,7 @@ docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up 
 docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml build backend
 docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml --profile tools run --rm migrate
 backend/.venv/Scripts/python.exe scripts/bootstrap-runtime-db.py
-docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up -d --wait --wait-timeout 120 backend
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up -d --wait --wait-timeout 120 backend worker
 docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml ps
 ```
 
@@ -44,6 +44,21 @@ docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml sto
 Do not delete volumes. Changing a password in .env does not rotate an already
 initialized DB; preserve the file and use a deliberate rotation procedure later.
 This is development infrastructure, not a production or LIVE deployment.
+
+## Worker (TAI-021)
+
+The worker uses the same restricted image/DB login and its own process, no ports.
+Its Redis heartbeat expires after 30 seconds; the healthcheck reads that key for
+the container hostname. Normal startup includes backend and worker. Shutdown sends
+SIGTERM; the worker finishes the current DB transaction and stops polling.
+Only non-financial audit_checkpoint jobs are registered. To exercise one deliberately:
+
+```powershell
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml exec -T backend python -m app.jobs_cli
+```
+
+The command prints only UUID job/correlation references and creates an actual SYSTEM
+audit event when handled. It does not import market data, run a strategy or trade.
 
 ## Version and license selection
 

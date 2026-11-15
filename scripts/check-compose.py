@@ -25,7 +25,7 @@ if result.returncode:
     raise SystemExit("Compose config failed; check local .env (values intentionally not printed)")
 config = json.loads(result.stdout)
 assert config["name"] == "trading-ai-dev"
-assert set(config["services"]) == {"postgres", "redis", "backend", "migrate"}
+assert set(config["services"]) == {"postgres", "redis", "backend", "migrate", "worker"}
 for name, service in config["services"].items():
     assert not service.get("privileged", False), name
     assert service.get("network_mode") != "host", name
