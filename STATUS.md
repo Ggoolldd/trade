@@ -29,8 +29,11 @@
 | TAI-025 | PASS | [Report](docs/reports/TAI-025.md) |
 | TAI-026 | PASS | [Report](docs/reports/TAI-026.md) |
 | TAI-027 | PASS | [Report](docs/reports/TAI-027.md) |
+| TAI-028 | PASS | [Report](docs/reports/TAI-028.md) |
 
-Next: TAI-028 ? exchange calendars, DST, holidays and early close.
+Next: TAI-029 ? MarketDataProvider interface.
+TAI-028: 159 tests PASS, scheduled XETR/XAMS/XNYS core windows plus crypto 24/7;
+actual Linux calendar probe, official early-close override, no DB/API migration.
 TAI-027: 139 tests PASS; actual candidate CLI twice; 10 stocks + 2 UCITS metadata
 candidates remain suspended, broker/HR eligibility UNKNOWN, liquidity UNVERIFIED.
 TAI-026: 124 real tests PASS; two public metadata CLI imports; rules versioning,
