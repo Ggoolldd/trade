@@ -1,0 +1,146 @@
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml build backend
+#1 [internal] load local bake definitions
+#1 reading from stdin 511B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 688B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/python:3.12.16-slim-bookworm
+#3 ...
+
+#4 [internal] load metadata for ghcr.io/astral-sh/uv:0.13.8
+#4 DONE 0.8s
+
+#3 [internal] load metadata for docker.io/library/python:3.12.16-slim-bookworm
+#3 DONE 0.9s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 204B done
+#5 DONE 0.0s
+
+#6 [uv 1/1] FROM ghcr.io/astral-sh/uv:0.13.8@sha256:5cc1805e2426484abca4ad46ea783bab281fdb225fd82d8ce6d66a81254bac85
+#6 DONE 0.0s
+
+#7 [stage-1 1/8] FROM docker.io/library/python:3.12.16-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 187.14kB 0.2s done
+#8 DONE 0.3s
+
+#9 [stage-1 2/8] COPY --from=uv /uv /usr/local/bin/uv
+#9 CACHED
+
+#10 [stage-1 3/8] WORKDIR /app
+#10 CACHED
+
+#11 [stage-1 4/8] COPY pyproject.toml uv.lock ./
+#11 CACHED
+
+#12 [stage-1 5/8] RUN uv sync --locked --no-dev --no-install-project     && groupadd --gid 10001 app     && useradd --uid 10001 --gid app --no-create-home app
+#12 CACHED
+
+#13 [stage-1 6/8] COPY --chown=app:app app ./app
+#13 DONE 0.1s
+
+#14 [stage-1 7/8] COPY --chown=app:app alembic.ini ./
+#14 DONE 0.0s
+
+#15 [stage-1 8/8] COPY --chown=app:app migrations ./migrations
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers 0.1s done
+#16 writing image sha256:375469aea6bd210332c2ff1246827a5c7437f45b6a873fa76b7c386319a58c95 done
+#16 naming to docker.io/library/trading-ai-backend:dev done
+#16 DONE 0.1s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ Image trading-ai-backend:dev Building
+ Image trading-ai-backend:dev Built
+
+EXIT CODE: 0
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml --profile tools run --rm migrate
+ Container trading-ai-dev-postgres-1 Running
+ Container trading-ai-dev-postgres-1 Waiting
+ Container trading-ai-dev-postgres-1 Healthy
+ Container trading-ai-dev-migrate-run-0895a3ad7071 Creating
+ Container trading-ai-dev-migrate-run-0895a3ad7071 Created
+
+EXIT CODE: 0
+COMMAND: D:\TRADING\backend\.venv\Scripts\python.exe scripts/bootstrap-runtime-db.py
+PASS: local trading_ai_app role configured; no owner/DDL/admin privileges; audit SELECT/INSERT only
+
+EXIT CODE: 0
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml run --rm backend python -m app.demo_seed --confirm-fixture
+Demo fixture ready: db14f392-6d26-511b-9d38-7d5b0501b408; disabled PAPER; scenario input 10000 EUR, not ledger cash
+ Container trading-ai-dev-postgres-1 Running
+ Container trading-ai-dev-redis-1 Running
+ Container trading-ai-dev-redis-1 Waiting
+ Container trading-ai-dev-postgres-1 Waiting
+ Container trading-ai-dev-redis-1 Healthy
+ Container trading-ai-dev-postgres-1 Healthy
+ Container trading-ai-dev-backend-run-ba1021c25424 Creating
+ Container trading-ai-dev-backend-run-ba1021c25424 Created
+
+EXIT CODE: 0
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml run --rm backend python -m app.demo_seed --confirm-fixture
+Demo fixture ready: db14f392-6d26-511b-9d38-7d5b0501b408; disabled PAPER; scenario input 10000 EUR, not ledger cash
+ Container trading-ai-dev-postgres-1 Running
+ Container trading-ai-dev-redis-1 Running
+ Container trading-ai-dev-postgres-1 Waiting
+ Container trading-ai-dev-redis-1 Waiting
+ Container trading-ai-dev-redis-1 Healthy
+ Container trading-ai-dev-postgres-1 Healthy
+ Container trading-ai-dev-backend-run-7e86114313d2 Creating
+ Container trading-ai-dev-backend-run-7e86114313d2 Created
+
+EXIT CODE: 0
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up -d --wait --wait-timeout 120 backend worker
+ Container trading-ai-dev-postgres-1 Running
+ Container trading-ai-dev-redis-1 Running
+ Container trading-ai-dev-backend-1 Recreate
+ Container trading-ai-dev-worker-1 Recreate
+ Container trading-ai-dev-backend-1 Recreated
+ Container trading-ai-dev-worker-1 Recreated
+ Container trading-ai-dev-postgres-1 Waiting
+ Container trading-ai-dev-redis-1 Waiting
+ Container trading-ai-dev-redis-1 Healthy
+ Container trading-ai-dev-postgres-1 Healthy
+ Container trading-ai-dev-worker-1 Starting
+ Container trading-ai-dev-backend-1 Starting
+ Container trading-ai-dev-worker-1 Started
+ Container trading-ai-dev-backend-1 Started
+ Container trading-ai-dev-postgres-1 Waiting
+ Container trading-ai-dev-redis-1 Waiting
+ Container trading-ai-dev-backend-1 Waiting
+ Container trading-ai-dev-worker-1 Waiting
+ Container trading-ai-dev-redis-1 Healthy
+ Container trading-ai-dev-postgres-1 Healthy
+ Container trading-ai-dev-backend-1 Healthy
+ Container trading-ai-dev-worker-1 Healthy
+
+EXIT CODE: 0
+COMMAND: D:\TRADING\backend\.venv\Scripts\python.exe scripts/smoke-compose.py --docker-config D:\TRADING\tmp\docker
+PASS: backend running/healthy; container 0687a76bb0f9
+IMAGE: backend sha256:375469aea6bd210332c2ff1246827a5c7437f45b6a873fa76b7c386319a58c95
+PASS: postgres running/healthy; container 1871762455bf
+IMAGE: postgres sha256:431b070f8300b219ab7e6597e7ebb158df31767739896f53a936cfc749d8437a
+PASS: redis running/healthy; container 88e2ae551655
+IMAGE: redis sha256:a0d24678e92d89456dd5e332aae0b4b63d4b7556b166e6893e35de24cc1deaf6
+PASS: worker running/healthy; container a17f2b0d6b6b
+IMAGE: worker sha256:375469aea6bd210332c2ff1246827a5c7437f45b6a873fa76b7c386319a58c95
+PASS: backend UID 10001
+PASS: backend read-only root filesystem
+PASS: Redis authenticated PONG
+PASS: PostgreSQL query on trading_ai
+PASS: actual backend DB role trading_ai_app; audit SELECT/INSERT only
+PASS: /health/live 200 PAPER scope=process
+PASS: /health/ready 200 PAPER scope=process
+PASS: OpenAPI 200; order route absent (404)
+
+EXIT CODE: 0
+PASS: real CLI twice; disabled PAPER account has exact Decimal starting config 10000 EUR; revision 0009_demo_cash.

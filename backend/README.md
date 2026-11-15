@@ -388,3 +388,9 @@ $env:UV_LINK_MODE = 'copy'
 Run that command from the repository root. On a normal filesystem, a standard uv
 installation and the commands above are sufficient. Tooling source:
 [uv Python management](https://docs.astral.sh/uv/guides/install-python/).
+
+## Demo fixture
+
+Explicit deterministic local seed and its limits are documented in
+[demo data](../docs/DEMO_DATA.md). It creates a disabled PAPER account and synthetic
+catalog; starting cash is configuration only, not an implemented ledger.
