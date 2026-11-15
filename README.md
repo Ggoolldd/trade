@@ -1,6 +1,6 @@
 # TRADING-AI
 
-PAPER-first trading research project. TAI-001 through TAI-026 are implemented and
+PAPER-first trading research project. TAI-001 through TAI-027 are implemented and
 verified: FastAPI health/auth/roles, PostgreSQL catalog/accounts/audit, Redis worker,
 scheduler and a versioned read API. No broker transport, strategy execution, ledger
 or order execution exists yet. A minimal Android Compose app supplies real CI
@@ -39,7 +39,7 @@ Start with [backend setup](backend/README.md) and
 Redis, backend and worker have separate healthchecks. Generated local-only DB/Redis
 passwords are ignored; there are no default operator credentials or broker keys.
 
-Current full integration suite: 124 tests passing on real PostgreSQL/Redis, plus
+Current full integration suite: 139 tests passing on real PostgreSQL/Redis, plus
 lint/type/contract checks. Evidence and exact commands are in [STATUS.md](STATUS.md).
 [CI quality](docs/CI.md) runs on GitHub: backend and Android checks, workflow lint,
 secret scan and an always-run required-quality gate. The public repository has

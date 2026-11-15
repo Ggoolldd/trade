@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "reviewed_at": "2026-11-15T19:54:24.966752+00:00",
+  "candidates": [
+    {
+      "ticker": "SAP",
+      "name": "SAP SE",
+      "isin": "DE0007164600",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.sap.com/investors/en/stock/basic-data.html"
+      ]
+    },
+    {
+      "ticker": "SIE",
+      "name": "Siemens AG",
+      "isin": "DE0007236101",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.siemens.com/de-de/company/investor-relations/share-bonds-rating/basic-data-key-share-figures/"
+      ]
+    },
+    {
+      "ticker": "ALV",
+      "name": "Allianz SE",
+      "isin": "DE0008404005",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.allianz.com/en/investor_relations/share/share-information.html/"
+      ]
+    },
+    {
+      "ticker": "DTE",
+      "name": "Deutsche Telekom AG",
+      "isin": "DE0005557508",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.telekom.com/en/investor-relations/share"
+      ]
+    },
+    {
+      "ticker": "BMW",
+      "name": "BMW AG ordinary shares",
+      "isin": "DE0005190003",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.bmwgroup.com/en/investor-relations/bmw-shares.html"
+      ]
+    },
+    {
+      "ticker": "BAS",
+      "name": "BASF SE",
+      "isin": "DE000BASF111",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.basf.com/global/en/investors/calendar-and-publications/service-for-shareholders/faq/share-and-dividend"
+      ]
+    },
+    {
+      "ticker": "MBG",
+      "name": "Mercedes-Benz Group AG",
+      "isin": "DE0007100000",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://group.mercedes-benz.com/investors/share/"
+      ]
+    },
+    {
+      "ticker": "DHL",
+      "name": "DHL AG",
+      "isin": "DE0005552004",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://group.dhl.com/en/investors/shares/share-performance.html"
+      ]
+    },
+    {
+      "ticker": "BAYN",
+      "name": "Bayer AG",
+      "isin": "DE000BAY0017",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.bayer.com/sites/default/files/managers-transactions-in-fiscal-year-2026-as-of-05-03.pdf",
+        "https://dev.ace.bayer.com/sites/default/files/2020-11/Bayer_AG_-_Capital_Increase_-_June_5__2018__secured_.pdf"
+      ]
+    },
+    {
+      "ticker": "ADS",
+      "name": "adidas AG",
+      "isin": "DE000A1EWWW0",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "EUR",
+      "kind": "STOCK",
+      "issuer_ucits": false,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.adidas-group.com/de/investoren/aktie/aktien-basisinformationen"
+      ]
+    },
+    {
+      "ticker": "EUNL",
+      "name": "iShares Core MSCI World UCITS ETF USD Acc",
+      "isin": "IE00B4L5Y983",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "USD",
+      "kind": "UCITS_ETF",
+      "issuer_ucits": true,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.ishares.com/uk/individual/en/products/251882/ishares-msci-world-ucits-etf-acc-fund"
+      ]
+    },
+    {
+      "ticker": "VUSA",
+      "name": "Vanguard S&P 500 UCITS ETF USD Distributing",
+      "isin": "IE00B3XXRP09",
+      "mic": "XETR",
+      "quote_currency": "EUR",
+      "share_class_currency": "USD",
+      "kind": "UCITS_ETF",
+      "issuer_ucits": true,
+      "broker_availability": "UNKNOWN",
+      "hr_retail_eligibility": "UNKNOWN",
+      "liquidity_status": "UNVERIFIED",
+      "source_urls": [
+        "https://www.vanguard.co.uk/professional/product/etf/equity/9503/sp-500-ucits-etf"
+      ]
+    }
+  ]
+}

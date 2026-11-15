@@ -3,6 +3,8 @@
 !uv.lock
 !app/
 !app/**
+!config/
+!config/security_candidates.json
 !alembic.ini
 !migrations/
 !migrations/**
