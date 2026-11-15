@@ -69,6 +69,27 @@ assert (
     == "trading_ai"
 )
 print("PASS: PostgreSQL query on trading_ai")
+runtime_probe = (
+    "import json; from app.settings import load_settings; "
+    "from app.database import Database; from sqlalchemy import text; "
+    "db=Database(load_settings()); conn=db.engine.connect(); "
+    'r=conn.execute(text("SELECT current_user, '
+    "has_table_privilege(current_user,'trading.audit_events','SELECT'), "
+    "has_table_privilege(current_user,'trading.audit_events','INSERT'), "
+    "has_table_privilege(current_user,'trading.audit_events','UPDATE'), "
+    "has_table_privilege(current_user,'trading.audit_events','DELETE'), "
+    "has_table_privilege(current_user,'trading.audit_events','TRUNCATE')\")).one(); "
+    "print(json.dumps(list(r))); conn.close(); db.close()"
+)
+assert json.loads(run(compose + ["exec", "-T", "backend", "python", "-c", runtime_probe])) == [
+    "trading_ai_app",
+    True,
+    True,
+    False,
+    False,
+    False,
+]
+print("PASS: actual backend DB role trading_ai_app; audit SELECT/INSERT only")
 with httpx.Client(base_url="http://127.0.0.1:18000", timeout=10, trust_env=False) as client:
     for path, expected in [("/health/live", "alive"), ("/health/ready", "ready")]:
         response = client.get(path)

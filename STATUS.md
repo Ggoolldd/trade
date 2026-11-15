@@ -19,8 +19,9 @@
 | TAI-015 | PASS | [Report](docs/reports/TAI-015.md) |
 | TAI-016 | PASS | [Report](docs/reports/TAI-016.md) |
 | TAI-017 | PASS | [Report](docs/reports/TAI-017.md) |
+| TAI-018 | PASS | [Report](docs/reports/TAI-018.md) |
 
-Next: TAI-018.
+Next: TAI-019.
 Default PAPER. Backend health API and validated config; no broker transport.
 
 Docker/WSL startup blockage resolved after explicit owner-requested WSL reset.

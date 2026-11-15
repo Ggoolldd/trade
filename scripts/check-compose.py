@@ -14,7 +14,7 @@ root = Path(__file__).resolve().parents[1]
 command = ["docker"]
 if args.docker_config:
     command += ["--config", args.docker_config]
-command += ["compose", "-f", str(root / "infrastructure" / "compose.yaml")]
+command += ["compose", "--profile", "tools", "-f", str(root / "infrastructure" / "compose.yaml")]
 result = subprocess.run(
     command + ["--env-file", str(root / "infrastructure" / ".env"), "config", "--format", "json"],
     capture_output=True,
@@ -25,17 +25,21 @@ if result.returncode:
     raise SystemExit("Compose config failed; check local .env (values intentionally not printed)")
 config = json.loads(result.stdout)
 assert config["name"] == "trading-ai-dev"
-assert set(config["services"]) == {"postgres", "redis", "backend"}
+assert set(config["services"]) == {"postgres", "redis", "backend", "migrate"}
 for name, service in config["services"].items():
     assert not service.get("privileged", False), name
     assert service.get("network_mode") != "host", name
     assert service["restart"] == "no", name
-    assert service["healthcheck"]["test"], name
-    assert all(port["host_ip"] == "127.0.0.1" for port in service["ports"]), name
+    if name != "migrate":
+        assert service["healthcheck"]["test"], name
+    assert all(port["host_ip"] == "127.0.0.1" for port in service.get("ports", [])), name
     assert all(volume["type"] != "bind" for volume in service.get("volumes", [])), name
 backend = config["services"]["backend"]
 assert backend["environment"]["TAI_TRADING_MODE"] == "PAPER"
 assert backend["environment"]["TAI_FEED_PROVIDER"] == "FIXTURE"
+assert "trading_ai_app:" in backend["environment"]["TAI_DATABASE_URL"]
+assert config["services"]["migrate"]["profiles"] == ["tools"]
+assert not config["services"]["migrate"].get("ports")
 assert backend["read_only"] is True
 assert "ALL" in backend["cap_drop"]
 assert all(

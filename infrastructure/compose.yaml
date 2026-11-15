@@ -46,7 +46,7 @@ services:
       dockerfile: Dockerfile
     environment:
       TAI_TRADING_MODE: PAPER
-      TAI_DATABASE_URL: postgresql+psycopg://trading:${POSTGRES_PASSWORD:?Run scripts/init-dev-env.py first}@postgres:5432/trading_ai
+      TAI_DATABASE_URL: postgresql+psycopg://trading_ai_app:${POSTGRES_APP_PASSWORD:?Run scripts/init-dev-env.py first}@postgres:5432/trading_ai
       TAI_REDIS_URL: redis://:${REDIS_PASSWORD:?Run scripts/init-dev-env.py first}@redis:6379/0
       TAI_FEED_PROVIDER: FIXTURE
       TAI_FEED_MAX_AGE_SECONDS: "60"
@@ -64,6 +64,25 @@ services:
       timeout: 3s
       retries: 12
       start_period: 10s
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: "no"
+
+  migrate:
+    profiles: ["tools"]
+    image: trading-ai-backend:dev
+    command: ["alembic", "upgrade", "head"]
+    environment:
+      TAI_TRADING_MODE: PAPER
+      TAI_DATABASE_URL: postgresql+psycopg://trading:${POSTGRES_PASSWORD:?Run scripts/init-dev-env.py first}@postgres:5432/trading_ai
+    depends_on:
+      postgres:
+        condition: service_healthy
     read_only: true
     tmpfs:
       - /tmp

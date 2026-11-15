@@ -84,7 +84,7 @@ for migration task acceptance.
 To apply the migration to the **development** project database explicitly:
 
 ```powershell
-docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml exec -T backend alembic upgrade head
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml --profile tools run --rm migrate
 ```
 
 Run Compose commands from root. Test up/down/up uses an isolated empty database,
@@ -164,6 +164,37 @@ identity only; it does not approve risk or submit any order. Principal IDs are
 opaque UUIDs until authentication/authorization tasks bind them to verified users.
 No account mutation API is exposed by this task. Allowed scopes exclude withdrawals,
 transfers and LIVE trading. Initial cash/ledger is a later task, not stored here.
+
+## Append-only metadata audit (TAI-018)
+
+Revision 0004_audit creates audit_events with UUID, correlation/actor/entity IDs,
+checked event/reason enums, PAPER mode, UTC timestamp, sequence, previous hash and
+SHA-256 event hash. No arbitrary payload, free text, headers or credential field
+exists. Financial/domain payloads remain separately versioned; audit references
+their UUIDs. Never encode a secret in an identity field.
+
+PostgreSQL BEFORE INSERT serializes appends with a transaction advisory lock,
+assigns sequence/previous hash and hashes a canonical pipe-separated set of typed
+fields (UTC with six fractional digits). It ignores caller-supplied chain values.
+Rollback does not consume a sequence. Unique event UUID prevents duplicate effects;
+duplicate insert is an explicit conflict, not silently accepted with different data.
+Append in the caller's financial transaction; acquire domain locks before the audit
+lock consistently to avoid future lock-order inversions.
+
+UPDATE/DELETE/TRUNCATE are blocked by triggers. Actual local backend uses
+trading_ai_app (non-owner, no admin/DDL privileges), with audit SELECT/INSERT only.
+An opt-in tools/migrate service holds the separate admin DSN. Configure permissions
+after migrations with scripts/bootstrap-runtime-db.py; generated admin/runtime
+passwords remain in ignored infrastructure/.env. See
+[infrastructure startup](../infrastructure/README.md) for ordering.
+
+`verify_chain()` requires trusted expected_head and expected_count, detects content
+changes, reordered/missing events and tail removal against that checkpoint. A
+checkpoint read from the same compromised DB is not an independent trust anchor.
+Off-host signed exports/checkpoint storage belong to TAI-171; a DB administrator
+could disable triggers and rewrite a local chain. pgcrypto is retained on downgrade
+because it may predate the project. No cryptographic signature or remote audit
+immutability is claimed by this task.
 
 ## Workspace tooling on Windows
 

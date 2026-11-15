@@ -5,12 +5,17 @@ From the repository root:
 ```powershell
 backend/.venv/Scripts/python.exe scripts/init-dev-env.py
 docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml config --quiet
-docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up --build -d --wait --wait-timeout 120
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up -d --wait postgres redis
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml build backend
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml --profile tools run --rm migrate
+backend/.venv/Scripts/python.exe scripts/bootstrap-runtime-db.py
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up -d --wait --wait-timeout 120 backend
 docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml ps
 ```
 
-The first command generates random development-only PostgreSQL and Redis passwords
-into ignored `infrastructure/.env`; it preserves an existing file. Do not print
+The first command generates random development-only admin/runtime PostgreSQL and
+Redis passwords into ignored `infrastructure/.env`; it preserves existing values
+and adds only missing credential fields. Do not print
 expanded Compose config or container environment into shared logs. The examples
 contain no broker credentials.
 
@@ -22,7 +27,11 @@ occupied, resolve the mapping deliberately; never stop an unrelated container.
 Backend image installs production dependencies from uv.lock, runs UID 10001 with
 read-only root filesystem, dropped capabilities and temporary /tmp. Database
 images manage their own data-directory permissions. All services have healthchecks;
-backend starts after DB and Redis are healthy. API readiness still covers process
+backend starts after DB and Redis are healthy. The opt-in tools profile contains a
+one-off migrator with the admin DSN and no ports. Normal backend uses non-owner
+trading_ai_app; bootstrap grants audit SELECT/INSERT only and no DDL/admin rights.
+Re-run bootstrap after migrations to grant access to newly-added domain tables.
+API readiness still covers process
 lifecycle; it is not yet a continuous dependency-connectivity check.
 
 All containers use `restart: no` to avoid accidental startup during later daemon
