@@ -30,8 +30,11 @@
 | TAI-026 | PASS | [Report](docs/reports/TAI-026.md) |
 | TAI-027 | PASS | [Report](docs/reports/TAI-027.md) |
 | TAI-028 | PASS | [Report](docs/reports/TAI-028.md) |
+| TAI-029 | PASS | [Report](docs/reports/TAI-029.md) |
 
-Next: TAI-029 ? MarketDataProvider interface.
+Next: TAI-030 ? Kraken public OHLC ingest.
+TAI-029: 182 real tests PASS; fixture-only provider contract, bounded read execution,
+shared in-process rate limits and cancellable streams; no provider auto-enabled.
 TAI-028: 159 tests PASS, scheduled XETR/XAMS/XNYS core windows plus crypto 24/7;
 actual Linux calendar probe, official early-close override, no DB/API migration.
 TAI-027: 139 tests PASS; actual candidate CLI twice; 10 stocks + 2 UCITS metadata
