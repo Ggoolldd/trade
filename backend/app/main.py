@@ -12,6 +12,7 @@ from app.auth_api import router as auth_router
 from app.authorization import router as authorization_router
 from app.database import Database
 from app.errors import ErrorResponse, install_errors
+from app.jobs_api import router as jobs_router
 from app.settings import Settings, load_settings
 
 logger = logging.getLogger(__name__)
@@ -54,6 +55,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     install_errors(application)
     application.include_router(auth_router)
     application.include_router(authorization_router)
+    application.include_router(jobs_router)
 
     @application.get("/health/live", response_model=Health, tags=["health"])
     def live() -> Health:

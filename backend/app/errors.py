@@ -54,7 +54,7 @@ class RequestIdMiddleware:
             if message["type"] == "http.response.start":
                 response_started = True
                 MutableHeaders(scope=message)["X-Request-ID"] = str(request_id)
-                if scope.get("path", "").startswith("/api/v1/auth/"):
+                if scope.get("path", "").startswith("/api/v1/"):
                     MutableHeaders(scope=message)["Cache-Control"] = "no-store"
             await send(message)
 
@@ -77,7 +77,10 @@ def install_errors(application: FastAPI) -> None:
     async def http_error(request: Request, exc: HTTPException) -> JSONResponse:
         # Never expose arbitrary detail strings, which can contain credentials.
         response = error_response(
-            request, exc.status_code, f"http_{exc.status_code}", "Request rejected"
+            request,
+            exc.status_code,
+            "validation_error" if exc.status_code == 422 else f"http_{exc.status_code}",
+            "Request validation failed" if exc.status_code == 422 else "Request rejected",
         )
         for name, value in (exc.headers or {}).items():
             if name.lower() in {"www-authenticate", "retry-after", "allow"}:

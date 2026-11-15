@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from app.audit import append_event
 from app.auth import AuthService, Identity
 from app.auth_api import current_identity, service
+from app.errors import ErrorResponse
 from app.models.audit import AuditReason, AuditType
 from app.models.auth import UserRole
 
@@ -68,7 +69,14 @@ class Capabilities(BaseModel):
     permissions: list[Permission]
 
 
-router = APIRouter(prefix="/api/v1", tags=["authorization"])
+router = APIRouter(
+    prefix="/api/v1",
+    tags=["authorization"],
+    responses={
+        401: {"model": ErrorResponse},
+        403: {"model": ErrorResponse},
+    },
+)
 
 
 @router.get("/capabilities", response_model=Capabilities)

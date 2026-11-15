@@ -333,6 +333,45 @@ redelivery; advisory locking alone is not an external exactly-once guarantee.
 References: [PostgreSQL advisory locks](https://www.postgresql.org/docs/17/explicit-locking.html#ADVISORY-LOCKS),
 [advisory lock functions](https://www.postgresql.org/docs/17/functions-admin.html#FUNCTIONS-ADVISORY-LOCKS).
 
+## API contracts, filters and pagination (TAI-023)
+
+Domain routes use /api/v1; unversioned /health/* are operational checks. Breaking
+domain changes require deliberate version/contract review. All /api/v1 responses
+are no-store and carry X-Request-ID; errors use the shared error envelope. Input
+validation and malformed cursor both return 422/validation_error without raw input.
+401/403/422/500 models and Bearer security are recorded in OpenAPI.
+
+GET /api/v1/jobs is authenticated read-only status monitoring (status:read guard).
+It returns Page[JobView]: items, limit, has_more and next_cursor. PageQuery defaults
+limit=50, bounds 1–100, and rejects unknown query fields. Supported filters are
+status (checked JobStatus) and queue_name (bounded ASCII queue identity). Offset
+and arbitrary sort/filter expressions are unsupported and rejected.
+
+Keyset order is created_at then UUID, ascending. Pass the returned opaque cursor
+with the same filters to fetch the next page; changing page size is allowed within
+bounds. Cursor version 1 contains UTC position and filter identity; malformed,
+oversized, unsupported-version and filter-mismatched cursors fail validation.
+Cursors are positions, not signed auth tokens; every page still checks bearer/role.
+No raw job payload, credentials or password/session hashes are exposed.
+
+Concurrent state changes can alter membership of a filtered live view. Pagination
+does not promise a frozen dataset or total count; use a future immutable dataset/
+export contract for reproducible research. No order-write API is introduced here.
+
+Contract tests compare the whole generated schema with tests/fixtures/openapi.json;
+a negative test proves endpoint removal is rejected. Tests never rewrite fixtures.
+For an intentional reviewed update from repo root:
+
+```powershell
+$env:PYTHONPATH = 'D:\TRADING\backend'
+backend/.venv/Scripts/python.exe scripts/update-openapi.py
+git diff -- backend/tests/fixtures/openapi.json
+```
+
+Inspect schema diff and compatibility before committing it; updating a snapshot is
+not itself approval for a breaking change. Dependency versions remain locked so
+schema generation is reproducible.
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`
