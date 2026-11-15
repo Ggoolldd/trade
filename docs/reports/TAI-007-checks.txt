@@ -1,0 +1,3 @@
+﻿PASS: docs/THREAT_MODEL.md title, encoding and local links
+PASS: 3 local links resolved. Semantic review is not automated.
+REVIEW: 18 threat rows exceed required 12; mobile, CI, API, feed, model, DB, queue and broker boundaries covered; withdrawal and transfer denied to every identity.
