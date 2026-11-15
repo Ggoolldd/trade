@@ -32,6 +32,9 @@ def test_baseline_up_down_up_on_empty_postgres(database: Database) -> None:
             "trading_profiles",
             "account_permissions",
             "audit_events",
+            "users",
+            "sessions",
+            "login_throttles",
         }
         command.check(config)
         command.downgrade(config, "base")

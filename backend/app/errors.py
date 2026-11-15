@@ -54,6 +54,8 @@ class RequestIdMiddleware:
             if message["type"] == "http.response.start":
                 response_started = True
                 MutableHeaders(scope=message)["X-Request-ID"] = str(request_id)
+                if scope.get("path", "").startswith("/api/v1/auth/"):
+                    MutableHeaders(scope=message)["Cache-Control"] = "no-store"
             await send(message)
 
         try:

@@ -2,9 +2,13 @@
 
 from app.models.accounts import AccountPermission, PaperAccount, TradingProfile
 from app.models.audit import AuditEvent
+from app.models.auth import AuthSession, LoginThrottle, User
 from app.models.catalog import Instrument, InstrumentAlias, QuoteCurrency, TradingHours, Venue
 
 __all__ = [
+    "AuthSession",
+    "LoginThrottle",
+    "User",
     "AuditEvent",
     "AccountPermission",
     "PaperAccount",

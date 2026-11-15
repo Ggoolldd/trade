@@ -8,6 +8,7 @@ from typing import Literal
 from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
 
+from app.auth_api import router as auth_router
 from app.database import Database
 from app.errors import ErrorResponse, install_errors
 from app.settings import Settings, load_settings
@@ -50,6 +51,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application.state.ready = False
     application.state.settings = validated_settings
     install_errors(application)
+    application.include_router(auth_router)
 
     @application.get("/health/live", response_model=Health, tags=["health"])
     def live() -> Health:

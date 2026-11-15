@@ -196,6 +196,51 @@ could disable triggers and rewrite a local chain. pgcrypto is retained on downgr
 because it may predate the project. No cryptographic signature or remote audit
 immutability is claimed by this task.
 
+## Local authentication (TAI-019)
+
+Revision 0005_auth adds users, sessions and durable login_throttles. Passwords use
+pwdlib Argon2id; users default disabled unless explicitly created/enabled by a local
+operator. There is no public registration, default password or automatically created
+owner. Login returns a cryptographically random 256-bit opaque bearer token valid
+for 15 minutes; only its SHA256 hash is stored. Every request checks expiry,
+revocation and user enabled state in PostgreSQL. Logout revokes the current session.
+No refresh token exists; expiry requires a new login.
+
+Routes: POST /api/v1/auth/login (username/password JSON), GET /api/v1/auth/me and
+POST /api/v1/auth/logout (Bearer Authorization). All auth responses use no-store;
+errors follow the canonical envelope. Login errors do not disclose whether a username
+exists, and unknown users execute a dummy Argon2 verification. Brute-force protection
+allows five failed attempts per 15-minute fixed window, checked for both normalized
+username and server-observed client source. Buckets are hashed, durable and locked
+transactionally; the sixth attempt returns 429/Retry-After. Forwarded headers are
+not used to choose the source. Failed counters/audit commit before HTTP rejection.
+
+Create a local user interactively after migration and runtime-role bootstrap:
+
+```powershell
+docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml exec backend python -m app.manage_users myuser
+```
+
+The command prompts twice through getpass (15–128 characters); do not put passwords
+in shell arguments, Git or chat. It grants no account trading permission. Role/owner
+assignment is TAI-020. No real operator user was created by the agent in TAI-019.
+For local tooling outside a container, use the same module with a validated DB env.
+
+Auth fixtures use synthetic passwords, a controlled clock and a real isolated
+PostgreSQL database. Tests cover expiry exactly at 15 minutes, logout, disabled
+users, unknown/malformed tokens, durable counters, concurrent attempts and rollback
+of session creation when audit storage fails. They do not claim MFA or LIVE unlock.
+TLS and broader endpoint abuse limits are later infrastructure tasks; keep this
+development server on localhost. A trusted proxy needs an explicit source policy
+before non-local deployment. Throttle windows are a private-app development policy,
+not a substitute for network-level DoS protection.
+
+Reviewed sources:
+[FastAPI password hashing](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/),
+[OWASP password storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html),
+[OWASP sessions](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html).
+Opaque server-side sessions were chosen instead of JWTs for immediate DB revocation.
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`

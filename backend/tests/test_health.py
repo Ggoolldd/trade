@@ -37,7 +37,8 @@ def test_openapi_and_absence_of_execution_routes() -> None:
         response = client.get("/openapi.json")
         assert response.status_code == 200
         paths = response.json()["paths"]
-        assert set(paths) == {"/health/live", "/health/ready"}
+        assert {"/health/live", "/health/ready"}.issubset(paths)
+        assert "/api/v1/orders" not in paths
         assert "503" in paths["/health/ready"]["get"]["responses"]
         assert client.post("/api/v1/orders", json={}).status_code == 404
 
