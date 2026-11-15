@@ -1,0 +1,3 @@
+﻿PASS: docs/PROJECT_CHARTER.md title, encoding and local links
+PASS: 1 local links resolved. Semantic review is not automated.
+REVIEW: Goals, non-goals, constraints and success criteria reviewed against PROJECT_SPEC; no real order authorization.
