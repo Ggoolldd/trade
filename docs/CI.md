@@ -62,7 +62,13 @@ https://github.com/Ggoolldd/trade/actions/runs/43749739846 (commit 21fe19e).
 Secret scan and workflow lint passed. Android failed on the documented absent
 scaffold, and the required aggregate failed. Backend exposed a clean-checkout
 bug: pytest basetemp parent tmp did not exist. Both test runners now create only
-the tmp parent before choosing a fresh UUID test directory. Remote recheck follows.
+the tmp parent before choosing a fresh UUID test directory. Remote recheck completed on commit 70fa69c:
+https://github.com/Ggoolldd/trade/actions/runs/43749890200.
+Backend-quality PASS: Ruff, strict mypy, 57 unit tests, 100 full PostgreSQL/Redis
+integration tests, real migrations, docs/tooling. Workflow lint and secret scan
+PASS. Android fails on absent scaffold; required-quality fails as designed.
+This proves the aggregate reports failure, not that GitHub enforces merge blocking.
+Downloaded redacted backend evidence is stored in docs/reports/TAI-024-remote-*.txt.
 
 [github-ruleset.json](../infrastructure/github-ruleset.json) is a prepared active
 main-branch ruleset requiring `required-quality` with strict/up-to-date checks and

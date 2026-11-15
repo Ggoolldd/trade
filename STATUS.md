@@ -29,8 +29,9 @@
 
 Next: Finish TAI-024. TAI-025 not started because its prerequisite is incomplete.
 Target confirmed: private Ggoolldd/trade; origin configured; admin access verified.
-Owner approved upload; main pushed and tracking origin/main. Initial remote CI
-ran; secret/workflow checks passed. Backend clean-checkout fix under verification.
+Owner approved upload; main pushed and tracking origin/main. Remote CI run 43749890200
+verified backend-quality (100 tests), secret scan and workflow lint PASS.
+Android and required aggregate fail on absent scaffold; merge enforcement unavailable.
 Blockers: GitHub rulesets return 403 (private repository plan limitation). Android scaffold is absent
 (planned TAI-129), so real Gradle checks cannot pass. Prepared CI deliberately
 fails that missing check rather than fabricating success. See docs/CI.md.
