@@ -9,6 +9,7 @@ from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
 
 from app.database import Database
+from app.errors import ErrorResponse, install_errors
 from app.settings import Settings, load_settings
 
 logger = logging.getLogger(__name__)
@@ -44,9 +45,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         version="0.1.0",
         description="PAPER development only. Health readiness currently covers process lifecycle.",
         lifespan=lifespan,
+        responses={422: {"model": ErrorResponse}, 500: {"model": ErrorResponse}},
     )
     application.state.ready = False
     application.state.settings = validated_settings
+    install_errors(application)
 
     @application.get("/health/live", response_model=Health, tags=["health"])
     def live() -> Health:

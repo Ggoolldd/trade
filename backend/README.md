@@ -95,6 +95,36 @@ Official references:
 [Alembic](https://alembic.sqlalchemy.org/en/latest/tutorial.html),
 [psycopg](https://www.psycopg.org/psycopg3/docs/basic/install.html).
 
+## Canonical types and errors (TAI-015)
+
+`domain_types.py` defines UUID entity IDs, UTC-aware timestamps, mode/side/instrument
+enums and financial Decimal scalars. Financial input accepts only decimal strings
+or Decimal instances, never float/int/bool; it rejects non-finite numbers and
+values beyond NUMERIC(38,18). JSON emits a decimal string without float conversion.
+Signed values are allowed for ledger use; order positivity is a separate domain rule.
+
+`orm_types.py` provides the same finite/precision checks before binding, UTC
+normalization on bind/read, and UUID/created_at mixin columns. PostgreSQL roundtrip
+tests prove 38-digit decimal precision and rollback after invalid input. No domain
+tables are added by these shared types; future models consume the mixin.
+
+Each HTTP response includes X-Request-ID. A single valid UUID header is retained;
+invalid/duplicate/missing values get a new UUID. Error responses use:
+
+```json
+{"error":{"code":"validation_error","message":"Request validation failed","request_id":"00000000-0000-0000-0000-000000000001"}}
+```
+
+404/405/HTTP errors, request validation and unexpected exceptions use this shape.
+Raw request inputs, exception text and traceback are not logged or exposed by the
+error middleware. Status-specific WWW-Authenticate/Retry-After/Allow headers are
+preserved. Health readiness uses its separate typed health body with scope=process.
+Request IDs correlate requests; they are not authentication or idempotency keys.
+
+References: [Pydantic types](https://docs.pydantic.dev/latest/concepts/types/),
+[FastAPI errors](https://fastapi.tiangolo.com/tutorial/handling-errors/),
+[SQLAlchemy custom types](https://docs.sqlalchemy.org/en/20/core/custom_types.html).
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`

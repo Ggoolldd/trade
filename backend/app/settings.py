@@ -8,13 +8,9 @@ from urllib.parse import urlsplit
 from pydantic import Field, SecretStr, ValidationError, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict, SettingsError
 
+from app.domain_types import TradingMode as TradingMode
+
 logger = logging.getLogger(__name__)
-
-
-class TradingMode(StrEnum):
-    PAPER = "PAPER"
-    SHADOW = "SHADOW"
-    LIVE = "LIVE"
 
 
 class FeedProvider(StrEnum):

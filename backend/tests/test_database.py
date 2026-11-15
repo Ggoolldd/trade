@@ -1,29 +1,13 @@
-import os
-from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
 from alembic import command
 from alembic.config import Config
-from pydantic import SecretStr
 from sqlalchemy import Column, Integer, MetaData, Table, inspect, select
 
 from app.database import Database
-from app.settings import Settings
 
 pytestmark = pytest.mark.integration
-
-
-@pytest.fixture
-def database() -> Iterator[Database]:
-    url = os.environ.get("TEST_DATABASE_URL")
-    if url is None:
-        pytest.skip("Run scripts/run-postgres-checks.py for real PostgreSQL evidence")
-    database = Database(Settings(database_url=SecretStr(url)))
-    try:
-        yield database
-    finally:
-        database.close()
 
 
 def migration_config() -> Config:
