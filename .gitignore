@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+# Android / Gradle
+.gradle/
+.kotlin/
+build/
+local.properties
+*.apk
+*.aab
+*.jks
+*.keystore
+# Local databases and runtime data
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.dump
+*.sql.gz
+data/
+logs/
+*.log
+# Secrets: examples must contain placeholders only
+.env
+.env.*
+!.env.example
+!.env.*.example
+secrets/
+.secrets/
+credentials/
+*.pem
+*.key
+*.p12
+*.pfx
+.aws/
+# Editors and operating system
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+tmp/
