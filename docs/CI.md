@@ -56,12 +56,13 @@ GitHub rulesets API returned HTTP 403: upgrade to GitHub Pro or make the reposit
 public to enable this feature. No subscription purchase or visibility change is
 authorized or performed. This remains a real enforcement blocker.
 
-Automatic approval review rejected git push because explicit approval to upload
-the complete project/history is required. No upload occurred. At review time the
-payload contains 370 tracked files and 26 commits; full-history Gitleaks scanned
-approximately 1.02 MB and found no leaks. Ignored credentials, virtualenv, caches
-and local infrastructure/.env are excluded. Scanner success cannot prove that all
-project content is suitable for external storage. Explicit approval is pending.
+Owner explicitly approved the complete project/history upload. Push to private
+Ggoolldd/trade succeeded; main tracks origin/main. Initial remote run:
+https://github.com/Ggoolldd/trade/actions/runs/43749739846 (commit 21fe19e).
+Secret scan and workflow lint passed. Android failed on the documented absent
+scaffold, and the required aggregate failed. Backend exposed a clean-checkout
+bug: pytest basetemp parent tmp did not exist. Both test runners now create only
+the tmp parent before choosing a fresh UUID test directory. Remote recheck follows.
 
 [github-ruleset.json](../infrastructure/github-ruleset.json) is a prepared active
 main-branch ruleset requiring `required-quality` with strict/up-to-date checks and
@@ -82,8 +83,8 @@ gh api --method POST repos/OWNER/REPO/rulesets --input infrastructure/github-rul
 gh api repos/OWNER/REPO/rules/branches/main
 ```
 
-No remote API mutation was executed. Remote changes remain pending upload approval, supported branch enforcement
-and Android prerequisite resolution. Dependent TAI-025 is not started.
+No remote API mutation was executed. Remote completion remains pending supported branch enforcement and Android
+prerequisite resolution. Upload is approved and completed. Dependent TAI-025 is not started.
 
 Official references reviewed:
 [GitHub rulesets REST](https://docs.github.com/en/rest/repos/rules#create-a-repository-ruleset),

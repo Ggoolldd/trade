@@ -13,6 +13,7 @@ args = parser.parse_args()
 if not re.fullmatch(r"TAI-\d{3}", args.task):
     parser.error("expected TAI-XXX")
 root = Path(__file__).resolve().parents[1]
+(root / "tmp").mkdir(exist_ok=True)
 temporary = root / "tmp" / ("pytest-" + uuid4().hex)
 assert not temporary.exists()
 commands = [

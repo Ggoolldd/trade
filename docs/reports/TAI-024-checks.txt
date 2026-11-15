@@ -10,7 +10,7 @@ EXIT CODE: 0
 $ D:\TRADING\backend\.venv\Scripts\python.exe -m mypy
 Success: no issues found in 26 source files
 EXIT CODE: 0
-$ D:\TRADING\backend\.venv\Scripts\python.exe -m pytest -q -m "not integration" --basetemp D:\TRADING\tmp\pytest-b2a89d0f7da3421eb0e3dca759579a8f
+$ D:\TRADING\backend\.venv\Scripts\python.exe -m pytest -q -m "not integration" --basetemp D:\TRADING\tmp\pytest-27ed97e2f98b4bc5891695e2fa419c4f
 .........................................................                [100%]
 ============================== warnings summary ===============================
 .venv\Lib\site-packages\fastapi\testclient.py:1
@@ -18,5 +18,5 @@ $ D:\TRADING\backend\.venv\Scripts\python.exe -m pytest -q -m "not integration" 
     from starlette.testclient import TestClient as TestClient  # noqa
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-57 passed, 43 deselected, 1 warning in 3.77s
+57 passed, 43 deselected, 1 warning in 7.62s
 EXIT CODE: 0

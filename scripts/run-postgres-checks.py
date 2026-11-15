@@ -18,6 +18,7 @@ args = parser.parse_args()
 if not re.fullmatch(r"TAI-\d{3}", args.task):
     parser.error("expected TAI-XXX")
 root = Path(__file__).resolve().parents[1]
+(root / "tmp").mkdir(exist_ok=True)
 secrets = dotenv_values(root / "infrastructure" / ".env")
 password = secrets.get("POSTGRES_PASSWORD")
 redis_password = secrets.get("REDIS_PASSWORD")
