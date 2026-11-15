@@ -3,6 +3,8 @@ from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
+from alembic import command
+from alembic.config import Config
 from pydantic import SecretStr
 
 from app.database import Database
@@ -25,6 +27,11 @@ def database() -> Iterator[Database]:
         pytest.skip("Run scripts/run-postgres-checks.py for real PostgreSQL evidence")
     database = Database(Settings(database_url=SecretStr(url)))
     try:
+        # Every integration test gets migrations regardless of collection order.
+        config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+        with database.engine.begin() as connection:
+            config.attributes["connection"] = connection
+            command.upgrade(config, "head")
         yield database
     finally:
         database.close()

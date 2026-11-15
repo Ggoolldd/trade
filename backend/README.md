@@ -125,6 +125,30 @@ References: [Pydantic types](https://docs.pydantic.dev/latest/concepts/types/),
 [FastAPI errors](https://fastapi.tiangolo.com/tutorial/handling-errors/),
 [SQLAlchemy custom types](https://docs.sqlalchemy.org/en/20/core/custom_types.html).
 
+## Catalog storage (TAI-016)
+
+Revision 0002_catalog adds trading.venues, quote_currencies, instruments,
+instrument_aliases and trading_hours. Every entity has UUID/UTC columns.
+Venue code and currency code are unique; instrument symbol is unique per venue;
+provider aliases are unique per venue/provider and carry a composite FK so they
+cannot refer to an instrument from another venue. Aliases preserve provider case.
+
+Instrument status is a checked enum (ACTIVE/SUSPENDED/DELISTED), default SUSPENDED.
+STOCK/UCITS_ETF/SPOT_CRYPTO describes kind, not market-data entitlement, UCITS
+eligibility evidence or trading permission. Catalog tables contain no seeded
+real-world instruments in this task. ISIN shape is checked, not its checksum.
+
+Trading hours store weekday 0=Monday through 6=Sunday, venue-local open/close and
+an explicit next-day flag. Full-day sessions use equal open/close with next-day true.
+Holidays, DST calendar expansion and overlap detection belong to TAI-028; stored
+hours alone are not an exchange calendar. ORM venue timezones validate IANA names;
+direct DB writers still must use the service boundary for semantic timezone checks.
+
+DB connections explicitly use UTC and public search_path, while domain tables use
+schema-qualified trading names. Alembic version tracking is explicitly public and
+excluded from domain autogeneration; no generated version-table deletion is accepted.
+Each integration fixture applies migrations independently of test collection order.
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`

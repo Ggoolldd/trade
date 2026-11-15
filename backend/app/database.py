@@ -29,7 +29,10 @@ class Database:
             pool_pre_ping=True,
             hide_parameters=True,
             echo=False,
-            connect_args={"connect_timeout": max(1, int(settings.service_timeout_seconds))},
+            connect_args={
+                "connect_timeout": max(1, int(settings.service_timeout_seconds)),
+                "options": "-csearch_path=public -ctimezone=UTC",
+            },
         )
         self.sessions = sessionmaker(bind=self.engine, expire_on_commit=False, autoflush=False)
 

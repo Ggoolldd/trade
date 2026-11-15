@@ -22,7 +22,13 @@ def test_baseline_up_down_up_on_empty_postgres(database: Database) -> None:
         assert "trading" not in inspect(connection).get_schema_names()
         command.upgrade(config, "head")
         assert "trading" in inspect(connection).get_schema_names()
-        assert inspect(connection).get_table_names(schema="trading") == []
+        assert set(inspect(connection).get_table_names(schema="trading")) == {
+            "venues",
+            "quote_currencies",
+            "instruments",
+            "instrument_aliases",
+            "trading_hours",
+        }
         command.check(config)
         command.downgrade(config, "base")
         assert "trading" not in inspect(connection).get_schema_names()
