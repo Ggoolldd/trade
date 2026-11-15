@@ -8,6 +8,8 @@ from typing import Literal
 from fastapi import FastAPI, Request, Response
 from pydantic import BaseModel
 
+from app.settings import Settings, load_settings
+
 logger = logging.getLogger(__name__)
 
 
@@ -31,7 +33,8 @@ async def lifespan(application: FastAPI) -> AsyncIterator[None]:
         logger.info("backend_stopped mode=PAPER")
 
 
-def create_app() -> FastAPI:
+def create_app(settings: Settings | None = None) -> FastAPI:
+    validated_settings = settings if settings is not None else load_settings()
     application = FastAPI(
         title="TRADING-AI",
         version="0.1.0",
@@ -39,6 +42,7 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
     application.state.ready = False
+    application.state.settings = validated_settings
 
     @application.get("/health/live", response_model=Health, tags=["health"])
     def live() -> Health:

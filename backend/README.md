@@ -26,6 +26,33 @@ Sources reviewed for TAI-011:
 [FastAPI lifespan](https://fastapi.tiangolo.com/advanced/events/),
 [TestClient](https://fastapi.tiangolo.com/tutorial/testing/).
 
+## Configuration (TAI-012)
+
+The app factory validates immutable settings before serving requests. Real environment
+variables override optional `.env` in the working directory; defaults follow. The
+service performs no network call just by selecting a feed or setting a URL.
+
+| Variable | Default / contract |
+| --- | --- |
+| TAI_TRADING_MODE | PAPER; LIVE and SHADOW rejected while not implemented |
+| TAI_DATABASE_URL | PostgreSQL psycopg URL with user, host and database; see .env.example; no query/fragment |
+| TAI_REDIS_URL | redis/rediss URL with host and explicit database index 0–15; no query/fragment |
+| TAI_FEED_PROVIDER | FIXTURE (offline); KRAKEN_PUBLIC allowed as configuration only |
+| TAI_FEED_MAX_AGE_SECONDS | 60; integer 1–3600 |
+| TAI_SERVICE_TIMEOUT_SECONDS | 5; finite number >0 and <=30 |
+
+Copy `.env.example` to ignored `.env` only for local values. No real broker keys
+are needed or accepted. Unknown TAI_ variables, invalid URLs and invalid mode fail
+startup. Values are not logged; service URLs use SecretStr and are masked in repr
+and JSON. Do not log raw ValidationError.errors(), since caller APIs may request
+raw input; `load_settings()` exposes only sanitized ConfigurationError.
+
+PostgreSQL/Redis configuration validity is not proof of connectivity. Connection
+readiness is introduced in later tasks. LIVE remains forbidden even if extra env
+flags are set. Settings cannot be changed after validation.
+
+Official source: [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`
