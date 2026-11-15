@@ -1,0 +1,127 @@
+name: quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: backend-quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+      - name: Locked environment
+        run: |
+          python -m pip install uv==0.13.8
+          uv sync --project backend --locked --python 3.12
+      - name: Unit lint types and OpenAPI contract
+        run: uv run --project backend --locked python scripts/run-backend-checks.py TAI-024
+      - name: Tooling lint and documentation
+        run: |
+          uv run --project backend --locked ruff check --config backend/pyproject.toml scripts
+          uv run --project backend --locked ruff format --check --config backend/pyproject.toml scripts
+          node scripts/check-docs.mjs README.md STATUS.md backend/README.md infrastructure/README.md docs/*.md docs/adr/*.md
+      - name: Isolated local services
+        run: |
+          python scripts/init-dev-env.py
+          docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml config --quiet
+          docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up -d --wait --wait-timeout 120 postgres redis
+      - name: Real PostgreSQL Redis and migration up down up
+        run: uv run --project backend --locked python scripts/run-postgres-checks.py TAI-024
+      - name: Preserve redacted check evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: backend-checks
+          path: docs/reports/TAI-024-*.txt
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Stop only this job's containers; preserve volumes
+        if: always()
+        run: |
+          if [ -f infrastructure/.env ]; then
+            docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml stop
+          fi
+
+  workflow_lint:
+    name: workflow-lint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Verify and install actionlint
+        run: python scripts/install-ci-tool.py actionlint --bin-dir "$RUNNER_TEMP/ci-bin"
+      - name: Validate workflow semantics
+        run: '"$RUNNER_TEMP/ci-bin/actionlint" -shellcheck="" -pyflakes=""'
+
+  secret_scan:
+    name: secret-scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Verify and install Gitleaks
+        run: python scripts/install-ci-tool.py gitleaks --bin-dir "$RUNNER_TEMP/ci-bin"
+      - name: Scan complete Git history with redaction
+        run: '"$RUNNER_TEMP/ci-bin/gitleaks" git --redact --no-banner --log-opts="--all" .'
+
+  android:
+    name: android-gradle
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Require real Android scaffold and checks
+        run: python scripts/check-android.py
+
+  required:
+    name: required-quality
+    if: always()
+    needs: [backend, workflow_lint, secret_scan, android]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require every critical job to succeed
+        run: |
+          test "${{ needs.backend.result }}" = success
+          test "${{ needs.workflow_lint.result }}" = success
+          test "${{ needs.secret_scan.result }}" = success
+          test "${{ needs.android.result }}" = success

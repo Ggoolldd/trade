@@ -1,0 +1,2 @@
+﻿BLOCKED: real Android Gradle scaffold is absent (TAI-129); no Gradle PASS claimed
+EXIT CODE: 2

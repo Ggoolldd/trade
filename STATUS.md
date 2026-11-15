@@ -25,14 +25,19 @@
 | TAI-021 | PASS | [Report](docs/reports/TAI-021.md) |
 | TAI-022 | PASS | [Report](docs/reports/TAI-022.md) |
 | TAI-023 | PASS | [Report](docs/reports/TAI-023.md) |
+| TAI-024 | PARTIAL | [Report](docs/reports/TAI-024.md) |
 
-Next: TAI-024.
-Default PAPER. Backend health API and validated config; no broker transport.
+Next: Finish TAI-024. TAI-025 not started because its prerequisite is incomplete.
+Blockers: no GitHub remote/confirmed target; Android Gradle scaffold is absent
+(planned TAI-129), so real Gradle checks cannot pass. Prepared CI deliberately
+fails that missing check rather than fabricating success. See docs/CI.md.
+Default PAPER. Backend/auth/roles/catalog/audit/worker/scheduler/read API verified;
+no ledger, strategy engine, broker transport or order execution yet.
 
 Docker/WSL startup blockage resolved after explicit owner-requested WSL reset.
 WslService Running; distribution listing succeeds; Docker engine 29.9.3 responds.
-All three project containers healthy; runtime evidence in TAI-013-smoke.txt.
-No distribution, volume or data was deleted; no Docker factory reset was performed.
+Four project containers healthy; latest runtime evidence in TAI-023-development.txt.
+No WSL distribution, project volume or owner data deleted; no Docker factory reset.
 
 Owner instruction on 2026-11-15 authorizes sequential continuation through feasible
 tasks. It overrides per-task stopping instructions in supplied templates.
