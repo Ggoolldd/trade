@@ -1,0 +1,3 @@
+﻿PASS: .cursor/rules/engineering.mdc title, encoding and local links
+PASS: 0 local links resolved. Semantic review is not automated.
+REVIEW: Mandatory scope, inspect, truthful PASS, other-project isolation, Git safety, checks and report fields all present; LIVE remains unauthorized.

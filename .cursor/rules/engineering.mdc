@@ -1,0 +1,53 @@
+---
+description: Task execution, evidence and safe Git for TRADING-AI
+alwaysApply: true
+---
+
+# Engineering workflow
+
+- Read PROJECT_SPEC.md, CURSOR_MASTER_PROMPT.md, ROADMAP.md, trading-ai.mdc,
+  STATUS.md and the active cursor_tasks/TAI-XXX.md before implementation.
+- Inspect branch, git status, latest commit and relevant existing code. Preserve
+  owner edits. Work only in this repository; never modify Vendor/BET AI.
+- The owner explicitly authorized sequential continuation on 2026-11-15. Execute
+  one active task at a time; verify it, write its report and commit before starting
+  the next prerequisite-satisfied task. Stop on unresolved PARTIAL/FAIL. The source
+  templates' request for a new instruction per task is superseded by that request.
+- Keep changes minimal and typed. Do not introduce unrelated refactors. Do not
+  reset, force-push, delete volumes/data or amend owner commits without approval.
+  Use explicit paths; no real broker credentials in code, fixtures, logs or Git.
+- PAPER default. No real orders or LIVE activation authorized. Never synthesize
+  evidence for gates, 90-day results, brokers, market-data entitlement or tests.
+- Decimal for financial quantities; aware UTC and usable_at; no lookahead.
+  Model cannot bypass risk. UNKNOWN blocks create retry until reconciliation.
+- Test relevant positive, negative, failure and race cases. Run available lint,
+  build and migration checks. Record commands, results, environment limitations
+  and artifact paths. Document checks verify documents, not runtime behavior.
+- Check staged diff for secrets/unrelated files and whitespace before commit.
+  Commit a logical task with its ID. Check post-commit status; do not claim clean
+  status without running it. Use Git history for task SHA, avoiding self-reference.
+- Update root STATUS.md and docs/reports/TAI-XXX.md. Preserve source task prompts.
+  PASS requires executed applicable checks and all acceptance criteria. Missing
+  runtime/integration evidence means PARTIAL, with exact recovery action.
+- For external API work verify current official documentation before coding;
+  fixture tests are not proof of a real broker connection.
+
+## Required report
+
+```text
+TASK: TAI-XXX — name
+STATUS: PASS | PARTIAL | FAIL
+BRANCH / HEAD SHA:
+CHANGED FILES:
+IMPLEMENTED:
+TESTS RUN: command and actual result
+SAFETY CHECK: PAPER default; no live calls; no secrets
+MIGRATIONS / BREAKING CHANGES:
+EVIDENCE:
+RISKS / BLOCKERS:
+NEXT RECOMMENDED TASK:
+```
+
+At a blocking prerequisite, report concrete incomplete work and stop dependent
+tasks. Authorization to continue development does not authorize LIVE unlock,
+real orders, service purchases or external publication/deployment.

@@ -9,8 +9,9 @@
 | TAI-005 | PASS | [Report](docs/reports/TAI-005.md) |
 | TAI-006 | PASS | [Report](docs/reports/TAI-006.md) |
 | TAI-007 | PASS | [Report](docs/reports/TAI-007.md) |
+| TAI-008 | PASS | [Report](docs/reports/TAI-008.md) |
 
-Next: TAI-008. Default PAPER. No application or broker transport yet.
+Next: TAI-009. Default PAPER. No application or broker transport yet.
 
 Owner instruction on 2026-11-15 authorizes sequential continuation through feasible
 tasks. It overrides per-task stopping instructions in supplied templates.
