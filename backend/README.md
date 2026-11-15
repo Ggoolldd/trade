@@ -308,6 +308,31 @@ Sources: [Redis streams](https://redis.io/docs/latest/develop/data-types/streams
 [XAUTOCLAIM](https://redis.io/docs/latest/commands/xautoclaim/),
 [redis-py streams](https://redis.readthedocs.io/en/stable/examples/redis-stream-example.html).
 
+## Scheduler and restart safety (TAI-022)
+
+Revision 0008_schedules adds schedules and scheduled_runs. Schedules default disabled;
+no live/strategy/import schedule is created automatically. Worker polls Scheduler.tick
+before queue dispatch. It takes a row lock with SKIP LOCKED and a transaction-scoped
+PostgreSQL advisory lock derived from schedule UUID. Both release on commit/rollback
+or connection loss; no stale Redis lease needs to be trusted.
+
+A UTC interval slot has a stable UUID5 idempotency key. Job enqueue, occurrence
+lineage and next-run cursor advance commit in one DB transaction. Parallel starts
+or restart in the same slot produce one job. After downtime, the explicit v1 policy
+coalesces missed slots to the latest due one, then advances to the next interval;
+it does not silently generate an unbounded backfill. Future import/research jobs
+must define whether this policy is suitable for them before registration.
+
+Intervals are 1–86400 seconds, UTC and fixed duration. This is not an exchange
+calendar or local-time/DST cron implementation. Actual import/evaluation handlers
+are not yet registered. Tests prove concurrent starts, held-lock skip/release,
+disabled scheduling and rollback after an injected pre-commit enqueue crash on
+real PostgreSQL. Worker idempotency remains the final defense against transport
+redelivery; advisory locking alone is not an external exactly-once guarantee.
+
+References: [PostgreSQL advisory locks](https://www.postgresql.org/docs/17/explicit-locking.html#ADVISORY-LOCKS),
+[advisory lock functions](https://www.postgresql.org/docs/17/functions-admin.html#FUNCTIONS-ADVISORY-LOCKS).
+
 ## Workspace tooling on Windows
 
 This workspace uses uv 0.13.8 and CPython 3.12.16 downloaded into ignored `tmp/`

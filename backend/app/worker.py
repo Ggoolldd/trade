@@ -10,6 +10,7 @@ from redis import Redis
 
 from app.database import Database
 from app.job_queue import JobQueue
+from app.scheduler import Scheduler
 from app.settings import load_settings
 
 
@@ -44,10 +45,12 @@ def main() -> None:
     signal.signal(signal.SIGTERM, stop)
     signal.signal(signal.SIGINT, stop)
     queue = JobQueue(database, redis, consumer=consumer)
+    scheduler = Scheduler(database)
     try:
         while running:
             try:
                 queue.prepare()
+                scheduler.tick()
                 queue.dispatch_due()
                 queue.process_one()
                 redis.set(heartbeat, "ready", ex=30)

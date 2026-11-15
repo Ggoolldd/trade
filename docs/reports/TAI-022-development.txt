@@ -1,0 +1,17 @@
+﻿PASS: backend running/healthy; container d10f46466ed8
+IMAGE: backend sha256:7f7ffcbc5ef5e705d1ed0193a580d8c974e6821c81fa3b0357990d45c22fc0e3
+PASS: postgres running/healthy; container 1871762455bf
+IMAGE: postgres sha256:431b070f8300b219ab7e6597e7ebb158df31767739896f53a936cfc749d8437a
+PASS: redis running/healthy; container 88e2ae551655
+IMAGE: redis sha256:a0d24678e92d89456dd5e332aae0b4b63d4b7556b166e6893e35de24cc1deaf6
+PASS: worker running/healthy; container 7ed8c0dca6b3
+IMAGE: worker sha256:7f7ffcbc5ef5e705d1ed0193a580d8c974e6821c81fa3b0357990d45c22fc0e3
+PASS: backend UID 10001
+PASS: backend read-only root filesystem
+PASS: Redis authenticated PONG
+PASS: PostgreSQL query on trading_ai
+PASS: actual backend DB role trading_ai_app; audit SELECT/INSERT only
+PASS: /health/live 200 PAPER scope=process
+PASS: /health/ready 200 PAPER scope=process
+PASS: OpenAPI 200; order route absent (404)
+Initial migrator attempt hit Docker unexpected EOF; engine restarted without volume deletion; dev revision verified 0007_jobs before retry. Final migrate/bootstrap/healthy succeeded.

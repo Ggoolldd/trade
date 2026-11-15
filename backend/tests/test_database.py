@@ -37,6 +37,8 @@ def test_baseline_up_down_up_on_empty_postgres(database: Database) -> None:
             "login_throttles",
             "jobs",
             "dead_letters",
+            "schedules",
+            "scheduled_runs",
         }
         command.check(config)
         command.downgrade(config, "base")
