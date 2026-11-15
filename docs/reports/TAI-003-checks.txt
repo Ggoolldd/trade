@@ -1,0 +1,3 @@
+﻿PASS: docs/adr/0001-stack.md title, encoding and local links
+PASS: 3 local links resolved. Semantic review is not automated.
+REVIEW: All mandated technologies covered; Redis license left version-specific; official FastAPI, Compose, PostgreSQL, Docker and Redis sources checked.
