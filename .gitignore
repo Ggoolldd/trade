@@ -49,3 +49,6 @@ credentials/
 .DS_Store
 Thumbs.db
 tmp/
+# Owner source archive; canonical backlog is imported at root
+/TRADING-AI-CURSOR-BACKLOG/
+/TRADING-AI-CURSOR-BACKLOG.zip

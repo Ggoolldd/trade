@@ -1,0 +1,3 @@
+﻿PASS: SHA256 identical for 196 source files
+PASS: six monorepo directories
+PASS: 13 ignore cases and example exception

@@ -20,9 +20,10 @@ not authorize real orders.
 
 ## Source and progress
 
-The supplied ROADMAP.md, TASKS_ALL.md, and cursor_tasks/TAI-001.md are preserved
-without editing. See [docs/STATUS.md](docs/STATUS.md) for implementation status
-and missing inputs. The owner's request authorizes continuation through tasks;
+The specifications and all 189 task definitions were imported from the supplied
+TRADING-AI-CURSOR-BACKLOG/TRADING-AI-CURSOR folder without editing.
+See [STATUS.md](STATUS.md) for implementation status.
+The owner's request authorizes continuation through tasks;
 the supplied template's per-task stopping text does not cancel that request.
 
 License selection is pending: [docs/LICENSE_DECISION.md](docs/LICENSE_DECISION.md).

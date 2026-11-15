@@ -1,0 +1,1892 @@
+[
+  {
+    "id": "TAI-001",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Inicijalizacija repozitorija",
+    "depends_on": "—",
+    "scope": "Kreiraj novi Git repozitorij TRADING-AI s monorepo mapama android, backend, docs, infrastructure, research i cursor_tasks; dodaj .gitignore za Python, Gradle, baze i tajne, LICENSE odluku ostavi dokumentiranom.",
+    "acceptance": "git status čist nakon inicijalnog commita; nijedna tajna nije verzionirana",
+    "file": "cursor_tasks/TAI-001.md"
+  },
+  {
+    "id": "TAI-002",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Projektni charter i granice",
+    "depends_on": "TAI-001",
+    "scope": "Napiši docs/PROJECT_CHARTER.md: privatna upotreba, dionice/UCITS ETF/spot kripto, bez poluge i shortanja, simulacija prvo, Android nije trading engine, nema obećanja povrata.",
+    "acceptance": "dokument pokriva ciljeve, non-goals, ograničenja i kriterije uspjeha",
+    "file": "cursor_tasks/TAI-002.md"
+  },
+  {
+    "id": "TAI-003",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "ADR odabira tehnologija",
+    "depends_on": "TAI-002",
+    "scope": "U docs/adr/0001-stack.md obrazloži Kotlin/Compose/Hilt, Python/FastAPI, PostgreSQL/Alembic, Redis, Docker; naznači verzioniranje, licence i održavanje.",
+    "acceptance": "ADR ima alternative, razloge i posljedice izbora",
+    "file": "cursor_tasks/TAI-003.md"
+  },
+  {
+    "id": "TAI-004",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Načini PAPER, SHADOW i LIVE",
+    "depends_on": "TAI-003",
+    "scope": "Definiraj strogu domensku specifikaciju režima PAPER, SHADOW, LIVE; PAPER koristi virtualni račun; SHADOW prati podatke ali ne trguje; LIVE zahtijeva svjesno otključavanje i odvojen deployment.",
+    "acceptance": "tablica dozvoljenih operacija i fail-closed prijelaza je testabilna",
+    "file": "cursor_tasks/TAI-004.md"
+  },
+  {
+    "id": "TAI-005",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Specifikacija trgovačkih događaja",
+    "depends_on": "TAI-004",
+    "scope": "Opiši evente signal, intent, risk_decision, submit, acknowledgment, partial_fill, fill, cancel i reconcile, uključujući correlation_id i idempotency_key.",
+    "acceptance": "postoji dijagram stanja i zabranjenih prijelaza",
+    "file": "cursor_tasks/TAI-005.md"
+  },
+  {
+    "id": "TAI-006",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Politika novca, valuta i vremena",
+    "depends_on": "TAI-005",
+    "scope": "Dokumentiraj Decimal umjesto float za iznose i količine, UTC u bazi, timezone burze za raspored, EUR izvještavanje, FX izvore i tolerancije.",
+    "acceptance": "primjeri pokrivaju EUR, USD, BTC, ljetno računanje vremena",
+    "file": "cursor_tasks/TAI-006.md"
+  },
+  {
+    "id": "TAI-007",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Threat model i matrica ovlasti",
+    "depends_on": "TAI-006",
+    "scope": "Popiši napadače, povjerljive podatke, API ključeve, uređaje, načine kompromitacije, zabranu withdrawal ovlasti i least-privilege matrice.",
+    "acceptance": "najmanje 12 konkretnih prijetnji i ublažavanja u dokumentu",
+    "file": "cursor_tasks/TAI-007.md"
+  },
+  {
+    "id": "TAI-008",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Pravila za Cursor agente",
+    "depends_on": "TAI-007",
+    "scope": "Kreiraj .cursor/rules/engineering.mdc s obvezom: samo aktivni task, prvo inspect, ne izmišljati PASS, ne mijenjati tuđe projekte, sigurni Git, testovi i final report.",
+    "acceptance": "pravila su primjenjiva i uključuju format izvještaja",
+    "file": "cursor_tasks/TAI-008.md"
+  },
+  {
+    "id": "TAI-009",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Plan kvalitete i testne piramide",
+    "depends_on": "TAI-008",
+    "scope": "Definiraj unit/integration/contract/e2e/fault-injection razine, minimalnu pokrivenost kritičnih grana risk/execution, CI blokade i artefakte.",
+    "acceptance": "svi tipovi testova imaju primjere i pravila prolaza",
+    "file": "cursor_tasks/TAI-009.md"
+  },
+  {
+    "id": "TAI-010",
+    "phase": "00",
+    "phase_title": "Arhitektura, sigurnosna pravila i radno okruženje",
+    "title": "Dokumentiranje kapaciteta i troškova",
+    "depends_on": "TAI-009",
+    "scope": "Procijeni minimalan lokalni i VPS razvojni profil, storage za OHLCV, rate limitove, trošak market data feedova i granice prvog releasea bez kupnje servisa.",
+    "acceptance": "tablica troškova razlikuje poznato, procjenu i nepoznato",
+    "file": "cursor_tasks/TAI-010.md"
+  },
+  {
+    "id": "TAI-011",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Backend FastAPI skeleton",
+    "depends_on": "TAI-010",
+    "scope": "Postavi backend kao Python projekt s paketom app, health endpointima /health/live i /health/ready, OpenAPI i urednim startup/shutdown lifecycleom.",
+    "acceptance": "pytest health test PASS; API se pokreće lokalno bez vanjskih API ključeva",
+    "file": "cursor_tasks/TAI-011.md"
+  },
+  {
+    "id": "TAI-012",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Konfiguracijski sustav",
+    "depends_on": "TAI-011",
+    "scope": "Dodaj tipizirane postavke za DB, Redis, trading_mode i feedove; provjeri konfiguraciju na startu; secure defaults PAPER, LIVE zabranjen bez eksplicitnih preduvjeta.",
+    "acceptance": "neispravan env fail-fast; default ne može poslati live order",
+    "file": "cursor_tasks/TAI-012.md"
+  },
+  {
+    "id": "TAI-013",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Docker Compose development",
+    "depends_on": "TAI-012",
+    "scope": "Kreiraj dev Compose s PostgreSQL, Redis i backendom; healthcheck, named volume i portovi na localhost gdje je moguće; bez privilegiranih kontejnera.",
+    "acceptance": "docker compose config PASS; servisi healthy",
+    "file": "cursor_tasks/TAI-013.md"
+  },
+  {
+    "id": "TAI-014",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "PostgreSQL i Alembic",
+    "depends_on": "TAI-013",
+    "scope": "Dodaj ORM/session layer, Alembic setup, baseline migraciju te test migracija up/down na praznoj bazi.",
+    "acceptance": "migracija naprijed/nazad PASS; nema ručnih SQL koraka",
+    "file": "cursor_tasks/TAI-014.md"
+  },
+  {
+    "id": "TAI-015",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Zajednički ID i tipovi",
+    "depends_on": "TAI-014",
+    "scope": "Implementiraj UUID primarne ključeve, Decimal tipove, enums, CreatedAt UTC, canonical error schema i request_id middleware.",
+    "acceptance": "testovi serijalizacije i grešaka PASS",
+    "file": "cursor_tasks/TAI-015.md"
+  },
+  {
+    "id": "TAI-016",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Instrumenti i tržišta u bazi",
+    "depends_on": "TAI-015",
+    "scope": "Modeliraj venues, instruments, instrument_aliases, quote_currencies, trading_hours i instrument_status uz jedinstvene indekse.",
+    "acceptance": "migracije i unique-constraint testovi PASS",
+    "file": "cursor_tasks/TAI-016.md"
+  },
+  {
+    "id": "TAI-017",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Računi i trading profili",
+    "depends_on": "TAI-016",
+    "scope": "Modeliraj paper accounts, trading_profiles, account_permissions i account_mode; live/prod identiteti strogo odvojeni.",
+    "acceptance": "testovi ne dopuštaju mapiranje PAPER naloga na LIVE račun",
+    "file": "cursor_tasks/TAI-017.md"
+  },
+  {
+    "id": "TAI-018",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Audit append-only",
+    "depends_on": "TAI-017",
+    "scope": "Implementiraj append-only audit_events, correlation ID i hash chain ili ekvivalentan tamper-evident potpis događaja; bez spremanja API tajni.",
+    "acceptance": "izmjena ili brisanje audit zapisa je odbijeno za aplikacijsku rolu",
+    "file": "cursor_tasks/TAI-018.md"
+  },
+  {
+    "id": "TAI-019",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Autentifikacija API-ja",
+    "depends_on": "TAI-018",
+    "scope": "Implementiraj siguran users/sessions model s hashiranim lozinkama, kratkotrajnim tokenima, revokacijom i ograničenjem pokušaja prijave.",
+    "acceptance": "auth integration tests pokrivaju expiry, logout, brute-force zaštitu",
+    "file": "cursor_tasks/TAI-019.md"
+  },
+  {
+    "id": "TAI-020",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Autorizacija i scope prava",
+    "depends_on": "TAI-019",
+    "scope": "Uvedi role owner, readonly i system_worker te permission guard za konfiguraciju, naloge, risk i STOP; samo owner može mijenjati kontrolne parametre.",
+    "acceptance": "403 za nedozvoljene scenarije kroz API testove",
+    "file": "cursor_tasks/TAI-020.md"
+  },
+  {
+    "id": "TAI-021",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Worker i queue infrastruktura",
+    "depends_on": "TAI-020",
+    "scope": "Postavi Redis queue/worker za asinkrone poslove s retry/backoff pravilima, dead-letter konceptom i request tracingom.",
+    "acceptance": "test idempotentnog posla i failed-job evidencije PASS",
+    "file": "cursor_tasks/TAI-021.md"
+  },
+  {
+    "id": "TAI-022",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Scheduler i zaključavanje poslova",
+    "depends_on": "TAI-021",
+    "scope": "Implementiraj scheduler s lease/advisory lock da se isti uvoz ili evaluacija ne izvodi dvaput pri restartu.",
+    "acceptance": "concurrent start test nema duplih jobova",
+    "file": "cursor_tasks/TAI-022.md"
+  },
+  {
+    "id": "TAI-023",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "OpenAPI stabilnost i paginacija",
+    "depends_on": "TAI-022",
+    "scope": "Standardiziraj paginaciju, filtriranje, API verzije, validaciju i greške; dodaj snapshot provjeru OpenAPI sheme.",
+    "acceptance": "API contract test detektira breaking change",
+    "file": "cursor_tasks/TAI-023.md"
+  },
+  {
+    "id": "TAI-024",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "CI kvaliteta",
+    "depends_on": "TAI-023",
+    "scope": "Uvedi GitHub Actions: pytest, ruff, mypy (postupno strict), migration smoke, secret scan te osnovni Gradle checks; zabrani merge kad ključni testovi padnu.",
+    "acceptance": "CI YAML validan; lokalne ekvivalentne provjere PASS",
+    "file": "cursor_tasks/TAI-024.md"
+  },
+  {
+    "id": "TAI-025",
+    "phase": "01",
+    "phase_title": "Backend i razvojna infrastruktura",
+    "title": "Demo seed podaci",
+    "depends_on": "TAI-024",
+    "scope": "Dodaj deterministički seed za instrumente, kalendar i fiktivni račun 10.000 EUR; seed ne sadrži stvarne ključeve.",
+    "acceptance": "ponovljeni seed ne duplicira podatke",
+    "file": "cursor_tasks/TAI-025.md"
+  },
+  {
+    "id": "TAI-026",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Catalog BTC/EUR i ETH/EUR",
+    "depends_on": "TAI-025",
+    "scope": "Kreiraj canonical identifikatore BTC/EUR i ETH/EUR, mapping na venue simbol, pravila tick/lot size dohvaćena iz metapodataka.",
+    "acceptance": "test mapiranja i odbijanja nepostojećeg para PASS",
+    "file": "cursor_tasks/TAI-026.md"
+  },
+  {
+    "id": "TAI-027",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Catalog dionica i UCITS ETF-ova",
+    "depends_on": "TAI-026",
+    "scope": "Dodaj 10-20 konfigurabilnih likvidnih dionica i 2-3 UCITS ETF kandidata kao metadata bez tvrde tvrdnje o dostupnosti; razluči ISIN, ticker, MIC i valutu.",
+    "acceptance": "ticker kolizije po burzi ne kvare identitet instrumenta",
+    "file": "cursor_tasks/TAI-027.md"
+  },
+  {
+    "id": "TAI-028",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Exchange calendar",
+    "depends_on": "TAI-027",
+    "scope": "Implementiraj burzovne kalendare, vikende, praznike, DST i early close; za kripto zaseban 24/7 calendar.",
+    "acceptance": "test praznika i DST-a za odabrana tržišta PASS",
+    "file": "cursor_tasks/TAI-028.md"
+  },
+  {
+    "id": "TAI-029",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "MarketDataProvider interface",
+    "depends_on": "TAI-028",
+    "scope": "Definiraj adapter ugovor fetch_bars, fetch_quote, stream_quotes i provider_health; normaliziraj timeouts, retries i rate-limits.",
+    "acceptance": "mock provider prolazi contract suite",
+    "file": "cursor_tasks/TAI-029.md"
+  },
+  {
+    "id": "TAI-030",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Kraken javni OHLC ingest",
+    "depends_on": "TAI-029",
+    "scope": "Implementiraj REST adapter za javne OHLC podatke s cursor/retention ograničenjima; dokumentiraj vremenske dosege i zamjenske izvore za staru povijest.",
+    "acceptance": "učitavanje demo uzorka + mocked HTTP edge tests PASS",
+    "file": "cursor_tasks/TAI-030.md"
+  },
+  {
+    "id": "TAI-031",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Kraken javni WebSocket stream",
+    "depends_on": "TAI-030",
+    "scope": "Dodaj streaming cijena s ping/heartbeat, reconnect/backoff, redoslijedom poruka i detekcijom prekida.",
+    "acceptance": "simulirani disconnect/reconnect ne proizvodi lažne tickove",
+    "file": "cursor_tasks/TAI-031.md"
+  },
+  {
+    "id": "TAI-032",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Dionice: historijski feed adapter",
+    "depends_on": "TAI-031",
+    "scope": "Implementiraj apstrakciju i jedan legalno dopušten historical provider; bez hardcodiranih besplatnih feedova za produkciju; provenance u bazi.",
+    "acceptance": "fixture-based ingest i license/coverage dokument PASS",
+    "file": "cursor_tasks/TAI-032.md"
+  },
+  {
+    "id": "TAI-033",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Canonical OHLCV pohrana",
+    "depends_on": "TAI-032",
+    "scope": "Definiraj bar schema instrument, timeframe, start/end UTC, O/H/L/C/V, source, fetched_at i unique key; provjeri OHLC invariants.",
+    "acceptance": "loše i duple svijeće su odbijene ili karantenirane",
+    "file": "cursor_tasks/TAI-033.md"
+  },
+  {
+    "id": "TAI-034",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Canonical quote pohrana",
+    "depends_on": "TAI-033",
+    "scope": "Definiraj bid/ask/last, quote_time, received_time, venue, sequence i market_state; preciznost Decimal.",
+    "acceptance": "stale quote i bid veći od ask označeni nevaljanima",
+    "file": "cursor_tasks/TAI-034.md"
+  },
+  {
+    "id": "TAI-035",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Backfill orkestracija",
+    "depends_on": "TAI-034",
+    "scope": "Dodaj incremental backfill s checkpointima, rate-limit throttlingom, restart safe nastavljanjem i evidencijom rupe.",
+    "acceptance": "prekid i nastavak ne dupliciraju zapise",
+    "file": "cursor_tasks/TAI-035.md"
+  },
+  {
+    "id": "TAI-036",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Data quality provjere",
+    "depends_on": "TAI-035",
+    "scope": "Automatski provjeri nedostajuće barove, outliere, nekonzistentne time zone, negativan volumen i stari timestamp.",
+    "acceptance": "quality report generira fail reason za svaki loš primjer",
+    "file": "cursor_tasks/TAI-036.md"
+  },
+  {
+    "id": "TAI-037",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Corporate actions model",
+    "depends_on": "TAI-036",
+    "scope": "Dodaj split/dividend/currency change i adjusted/unadjusted price koncepte s point-in-time podacima.",
+    "acceptance": "test splita 2:1 čuva ekonomsku vrijednost pozicije",
+    "file": "cursor_tasks/TAI-037.md"
+  },
+  {
+    "id": "TAI-038",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "FX referentni tečajevi",
+    "depends_on": "TAI-037",
+    "scope": "Napravi provider za povijesne i aktualne FX tečajeve, konverzije u EUR, source timestamp i fallback politiku.",
+    "acceptance": "USD->EUR obračun reproducibilan na povijesni datum",
+    "file": "cursor_tasks/TAI-038.md"
+  },
+  {
+    "id": "TAI-039",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Market data entitlement status",
+    "depends_on": "TAI-038",
+    "scope": "Dodaj evidenciju odgođenih i real-time feedova, mogućih zabrana redistribucije te fail-closed kada odgođeni feed nije dopušten za strategiju.",
+    "acceptance": "testovi blokiraju odluku s nedozvoljenim feed statusom",
+    "file": "cursor_tasks/TAI-039.md"
+  },
+  {
+    "id": "TAI-040",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Data lineage i dataset snapshot",
+    "depends_on": "TAI-039",
+    "scope": "Spremi identitet izvora, import batch, checksum, verziju transformacije i immutable snapshot dataset ID.",
+    "acceptance": "isti dataset ID reproducira iste primjere",
+    "file": "cursor_tasks/TAI-040.md"
+  },
+  {
+    "id": "TAI-041",
+    "phase": "02",
+    "phase_title": "Market data i integritet podataka",
+    "title": "Market data health API",
+    "depends_on": "TAI-040",
+    "scope": "Dodaj /market-data/status s lagom, rupama, zadnjim ingestom i provider greškama, bez otkrivanja ključeva.",
+    "acceptance": "API test i graf podataka za demo status PASS",
+    "file": "cursor_tasks/TAI-041.md"
+  },
+  {
+    "id": "TAI-042",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Trade intent schema",
+    "depends_on": "TAI-041",
+    "scope": "Kreiraj order_intents s account, instrument, side, quantity/notional, source signal, timestamps i correlation ID; nema izravnog slanja preko modela.",
+    "acceptance": "validacija BUY/SELL i pogrešnog instrumenta PASS",
+    "file": "cursor_tasks/TAI-042.md"
+  },
+  {
+    "id": "TAI-043",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Order lifecycle state machine",
+    "depends_on": "TAI-042",
+    "scope": "Definiraj DRAFT, APPROVED, SUBMITTING, SUBMITTED, PARTIAL, FILLED, CANCEL_PENDING, CANCELLED, REJECTED, UNKNOWN te dozvoljene prijelaze.",
+    "acceptance": "property tests odbijaju nedozvoljena stanja",
+    "file": "cursor_tasks/TAI-043.md"
+  },
+  {
+    "id": "TAI-044",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Virtualni cash account",
+    "depends_on": "TAI-043",
+    "scope": "Implementiraj paper račun u EUR s rezerviranim/raspoloživim saldom i pravima samo simuliranih operacija.",
+    "acceptance": "kupnja ne može potrošiti više od raspoloživog novca",
+    "file": "cursor_tasks/TAI-044.md"
+  },
+  {
+    "id": "TAI-045",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Double-entry ledger",
+    "depends_on": "TAI-044",
+    "scope": "Implementiraj uravnotežene journal_entries i journal_lines za svaku novčanu promjenu i proviziju; audit trace.",
+    "acceptance": "suma debita/kredita=0; migracijski test PASS",
+    "file": "cursor_tasks/TAI-045.md"
+  },
+  {
+    "id": "TAI-046",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "PaperBroker adapter",
+    "depends_on": "TAI-045",
+    "scope": "Implementiraj standardni BrokerAdapter u paper modu koji ne koristi nikakav vanjski private endpoint.",
+    "acceptance": "integration test prati da nema mrežnog slanja naloga",
+    "file": "cursor_tasks/TAI-046.md"
+  },
+  {
+    "id": "TAI-047",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Instrument precision validator",
+    "depends_on": "TAI-046",
+    "scope": "Provjeri tick size, min lot, min notional i Decimal rounding prije kreiranja naloga.",
+    "acceptance": "rubni lot i min notional testovi PASS",
+    "file": "cursor_tasks/TAI-047.md"
+  },
+  {
+    "id": "TAI-048",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Order matching simulacija",
+    "depends_on": "TAI-047",
+    "scope": "Implementiraj determinističko izvršavanje na sljedećem dostupnom quote/bar događaju, bez gledanja budućih cijena.",
+    "acceptance": "replay fixtures daje isti rezultat nakon 2 pokretanja",
+    "file": "cursor_tasks/TAI-048.md"
+  },
+  {
+    "id": "TAI-049",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Market i limit nalozi",
+    "depends_on": "TAI-048",
+    "scope": "Simuliraj market i limit naloge s realnim uvjetima dostupnosti i neprihvaćanja, bez implicitnog garantiranja fill-a.",
+    "acceptance": "limit order izvan cijene ostaje otvoren",
+    "file": "cursor_tasks/TAI-049.md"
+  },
+  {
+    "id": "TAI-050",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Partial fills",
+    "depends_on": "TAI-049",
+    "scope": "Podrži djelomična izvršenja, više fillova po nalogu, naknade po fillu i preostalu količinu.",
+    "acceptance": "30% + 70% fill točno zatvara nalog",
+    "file": "cursor_tasks/TAI-050.md"
+  },
+  {
+    "id": "TAI-051",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Fee and spread model",
+    "depends_on": "TAI-050",
+    "scope": "Napravi konfigurabilne spread/commission/taker-maker fee strukture po instrumentu i venueu, versionirane kroz vrijeme.",
+    "acceptance": "fee testovi za 2 tržišta i bez naknade PASS",
+    "file": "cursor_tasks/TAI-051.md"
+  },
+  {
+    "id": "TAI-052",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Slippage i likvidnost",
+    "depends_on": "TAI-051",
+    "scope": "Dodaj konzervativan model slippagea i ograničene dubine likvidnosti; nemoj garantirati stop cijenu tijekom gapova.",
+    "acceptance": "scenarij gap-a bilježi veći gubitak od ciljanog",
+    "file": "cursor_tasks/TAI-052.md"
+  },
+  {
+    "id": "TAI-053",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Positions i cost basis",
+    "depends_on": "TAI-052",
+    "scope": "Izvedi pozicije iz fillova, ponderiranu nabavnu cijenu i realizirani/nerealizirani PnL; razdvoji računovodstveno i porezno praćenje.",
+    "acceptance": "sekvenca kupi/prodaj ima točan PnL",
+    "file": "cursor_tasks/TAI-053.md"
+  },
+  {
+    "id": "TAI-054",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Reserved funds i otkazi",
+    "depends_on": "TAI-053",
+    "scope": "Kod otvorenog buy naloga rezerviraj novac; partial/cancel oslobađa samo preostalo; SELL provjerava raspoloživu količinu.",
+    "acceptance": "paralelni buy nalozi ne mogu dvostruko potrošiti cash",
+    "file": "cursor_tasks/TAI-054.md"
+  },
+  {
+    "id": "TAI-055",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Portfolio snapshots",
+    "depends_on": "TAI-054",
+    "scope": "Kreiraj snapshots na poznati timestamp, market value i available cash, with stale valuation status.",
+    "acceptance": "dnevni snapshoti ne mijenjaju se retroaktivno bez korekcijskog eventa",
+    "file": "cursor_tasks/TAI-055.md"
+  },
+  {
+    "id": "TAI-056",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Cash, fills i positions reconciliation",
+    "depends_on": "TAI-055",
+    "scope": "Uvedi provjeru ledger saldo vs pozicije vs stanje brokera; mismatch => HALT, audit incident.",
+    "acceptance": "namjerno pokvaren fill detektiran bez automatskog prikrivanja",
+    "file": "cursor_tasks/TAI-056.md"
+  },
+  {
+    "id": "TAI-057",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Paper trading REST API",
+    "depends_on": "TAI-056",
+    "scope": "Izloži read-only portfelj, naloge i transakcije te kontrolirani testni order-intent endpoint s auth i risk checkom.",
+    "acceptance": "OpenAPI i e2e mock scenariji PASS",
+    "file": "cursor_tasks/TAI-057.md"
+  },
+  {
+    "id": "TAI-058",
+    "phase": "03",
+    "phase_title": "Paper broker, knjiga transakcija i portfelj",
+    "title": "Historical paper replay",
+    "depends_on": "TAI-057",
+    "scope": "Omogući puštanje vremenski označenih fixture događaja kroz isti broker/risk pipeline kao u stvarnoj simulaciji.",
+    "acceptance": "deterministički replay kroz 3 instrumenta PASS",
+    "file": "cursor_tasks/TAI-058.md"
+  },
+  {
+    "id": "TAI-059",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Versioned risk policies",
+    "depends_on": "TAI-058",
+    "scope": "Implementiraj risk_policy schema s defaultima 5% po kupnji, 0.5% planiranog rizika, 2% dnevni stop, 5% tjedni, 10% drawdown, 25% kripto izloženost; PAPER only default.",
+    "acceptance": "svaki policy ima verziju, vlasnika i audit događaj",
+    "file": "cursor_tasks/TAI-059.md"
+  },
+  {
+    "id": "TAI-060",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Pre-trade risk pipeline",
+    "depends_on": "TAI-059",
+    "scope": "Implementiraj sinkronu provjeru svakog order_intenta kroz isti workflow koji može APPROVE, RESIZE ili REJECT.",
+    "acceptance": "bez tokena risk approvala izvršavanje je nemoguće",
+    "file": "cursor_tasks/TAI-060.md"
+  },
+  {
+    "id": "TAI-061",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Max single order exposure",
+    "depends_on": "TAI-060",
+    "scope": "Ograniči kupnju po pojedinom nalogu i min/max veličine; ako minimum venuea prelazi dopušten limit odbij nalog.",
+    "acceptance": "test 5% notional limita i min-size konflikta PASS",
+    "file": "cursor_tasks/TAI-061.md"
+  },
+  {
+    "id": "TAI-062",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Position sizing model",
+    "depends_on": "TAI-061",
+    "scope": "Izračunaj količinu prema stop distance, volatilnosti i planiranom risk budgetu; upozori da gap može premašiti planirani iznos.",
+    "acceptance": "nulta volatilnost i premali stop distance ne dijele s nulom",
+    "file": "cursor_tasks/TAI-062.md"
+  },
+  {
+    "id": "TAI-063",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Overall gross exposure",
+    "depends_on": "TAI-062",
+    "scope": "Uvedi ukupni exposure limit i pravila da više istodobnih naloga rezervira buduću izloženost.",
+    "acceptance": "paralelni nalozi ne prelaze limit",
+    "file": "cursor_tasks/TAI-063.md"
+  },
+  {
+    "id": "TAI-064",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Crypto allocation cap",
+    "depends_on": "TAI-063",
+    "scope": "Ukupni kripto exposure limit 25% u PAPER default profilu; računaj postojeće i pending buy pozicije.",
+    "acceptance": "simultani BTC/ETH intent ne probija limit",
+    "file": "cursor_tasks/TAI-064.md"
+  },
+  {
+    "id": "TAI-065",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Symbol concentration cap",
+    "depends_on": "TAI-064",
+    "scope": "Ograniči udio jednog instrumenta/izdavatelja; povezane pozicije računaj zajedno kada se zna povezani exposure.",
+    "acceptance": "dva tickera istog izdavatelja ne zaobilaze limit",
+    "file": "cursor_tasks/TAI-065.md"
+  },
+  {
+    "id": "TAI-066",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Correlation/concentration guard",
+    "depends_on": "TAI-065",
+    "scope": "Dodaj opcionalno ograničenje koreliranih izloženosti i fallback u slučaju nedovoljno povijesti.",
+    "acceptance": "bez podataka sustav odbija povećanje previše koncentrirane pozicije",
+    "file": "cursor_tasks/TAI-066.md"
+  },
+  {
+    "id": "TAI-067",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Daily stop logic",
+    "depends_on": "TAI-066",
+    "scope": "Dnevni stop na stvarni mark-to-market gubitak od početka trgovačkog dana; uz jasnu timezone i reset politiku.",
+    "acceptance": "ostvareni + nerealizirani gubitak uključeni u test",
+    "file": "cursor_tasks/TAI-067.md"
+  },
+  {
+    "id": "TAI-068",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Weekly stop logic",
+    "depends_on": "TAI-067",
+    "scope": "Implementiraj tjedni stop i reset prema eksplicitno definiranoj kalendarskoj konvenciji.",
+    "acceptance": "test tjedna s prijelazom mjeseca PASS",
+    "file": "cursor_tasks/TAI-068.md"
+  },
+  {
+    "id": "TAI-069",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Drawdown halt",
+    "depends_on": "TAI-068",
+    "scope": "Izračunaj high-water mark portfelja i aktiviraj HALT na zadani drawdown; snapshoti i FX uključeni.",
+    "acceptance": "10% pad aktivira blokadu novih naloga",
+    "file": "cursor_tasks/TAI-069.md"
+  },
+  {
+    "id": "TAI-070",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Stale data guard",
+    "depends_on": "TAI-069",
+    "scope": "Blokiraj trgovanje kada je quote/starost feeda iznad instrument-specific praga ili je calendar nedostupan.",
+    "acceptance": "stale i missing bid/ask scenario FAIL CLOSED",
+    "file": "cursor_tasks/TAI-070.md"
+  },
+  {
+    "id": "TAI-071",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Price deviation / fat-finger guard",
+    "depends_on": "TAI-070",
+    "scope": "Odbij kupnju po znatno odstupajućoj cijeni od referentne, nelikvidne instrumente i neprihvatljiv spread.",
+    "acceptance": "ekstremna cijena i negativna likvidnost odbijene",
+    "file": "cursor_tasks/TAI-071.md"
+  },
+  {
+    "id": "TAI-072",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Order rate limiter",
+    "depends_on": "TAI-071",
+    "scope": "Ograniči broj naloga, izmjena i otkaza po vremenu, instrumentu i računu da spriječi petlje.",
+    "acceptance": "burst od 100 identičnih signala ne kreira 100 naloga",
+    "file": "cursor_tasks/TAI-072.md"
+  },
+  {
+    "id": "TAI-073",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Idempotent request handling",
+    "depends_on": "TAI-072",
+    "scope": "Uvedi jedinstveni idempotency_key kroz decision->risk->execution->broker; unique constraints + safe retry.",
+    "acceptance": "paralelni duplikati rezultiraju najviše jednim stvarnim intentom",
+    "file": "cursor_tasks/TAI-073.md"
+  },
+  {
+    "id": "TAI-074",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Unknown order quarantine",
+    "depends_on": "TAI-073",
+    "scope": "Nakon timeouta slanja označi UNKNOWN i blokiraj ponovno slanje do reconciliationa s brokerom.",
+    "acceptance": "inject timeout nakon submit-a ne stvara dvostruki nalog",
+    "file": "cursor_tasks/TAI-074.md"
+  },
+  {
+    "id": "TAI-075",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Emergency STOP ALL i latch",
+    "depends_on": "TAI-074",
+    "scope": "STOP blokira nove naloge na svim putanjama; reset uz owner auth, razlog i audit; postojeće pozicije ne likvidiraj automatski.",
+    "acceptance": "STOP preživljava restart i nikakav buy prolaz ne radi",
+    "file": "cursor_tasks/TAI-075.md"
+  },
+  {
+    "id": "TAI-076",
+    "phase": "04",
+    "phase_title": "Risk engine i fail-safe zaštite",
+    "title": "Security fault injection matrix",
+    "depends_on": "TAI-075",
+    "scope": "Automatiziraj testove: DB outage, broker disconnect, stale feed, Redis down, clock skew, restart između fillova i stop signal.",
+    "acceptance": "svaki kritični kvar završava HALT ili kontroliranim degradiranim stanjem",
+    "file": "cursor_tasks/TAI-076.md"
+  },
+  {
+    "id": "TAI-077",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Feature store point-in-time",
+    "depends_on": "TAI-076",
+    "scope": "Implementiraj versionirani feature_store koji koristi samo podatke raspoložive u trenutku odluke, s valid_from i availability_time.",
+    "acceptance": "look-ahead test ne dopušta buduću informaciju",
+    "file": "cursor_tasks/TAI-077.md"
+  },
+  {
+    "id": "TAI-078",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Technical indicators library",
+    "depends_on": "TAI-077",
+    "scope": "Dodaj EMA, SMA, ATR, RSI, realized volatility, volume change i normalizirani trend s minimalnim warmup razdobljima.",
+    "acceptance": "testovi uspoređeni s ručno provjerenim serijama",
+    "file": "cursor_tasks/TAI-078.md"
+  },
+  {
+    "id": "TAI-079",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "No-trade baseline",
+    "depends_on": "TAI-078",
+    "scope": "Strategija koja uvijek drži cash, služi kao kontrola za provjeru troška i rizika.",
+    "acceptance": "backtest bez naloga i PnL=0 prije FX promjena",
+    "file": "cursor_tasks/TAI-079.md"
+  },
+  {
+    "id": "TAI-080",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Buy-and-hold benchmark",
+    "depends_on": "TAI-079",
+    "scope": "Benchmark kupnje i držanja pojedinog instrumenta uz realne troškove, usporediv početni datum i raspodjelu.",
+    "acceptance": "output benchmarka reproducibilan",
+    "file": "cursor_tasks/TAI-080.md"
+  },
+  {
+    "id": "TAI-081",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Equal-weight benchmark",
+    "depends_on": "TAI-080",
+    "scope": "Implementiraj periodični jednako ponderirani rebalans s troškovima za odabrani svemir instrumenata.",
+    "acceptance": "rebalans zadovoljava sumu ciljanih težina i fee model",
+    "file": "cursor_tasks/TAI-081.md"
+  },
+  {
+    "id": "TAI-082",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Trend-following 1.0",
+    "depends_on": "TAI-081",
+    "scope": "Napiši jednostavnu transparentnu trend strategiju (npr. EMA cross s filterom) i konfiguracijski registry parametara.",
+    "acceptance": "deterministički BUY/HOLD/SELL fixtures",
+    "file": "cursor_tasks/TAI-082.md"
+  },
+  {
+    "id": "TAI-083",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Momentum ranking 1.0",
+    "depends_on": "TAI-082",
+    "scope": "Rangiraj instrumente po prošlom momentumu uz kontrolu volatilnosti i minimalnu povijest.",
+    "acceptance": "nema rangiranja instrumenta bez dovoljno podataka",
+    "file": "cursor_tasks/TAI-083.md"
+  },
+  {
+    "id": "TAI-084",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Volatility filter 1.0",
+    "depends_on": "TAI-083",
+    "scope": "Napravi zasebni volatility gate koji smanjuje ili blokira pozicije pri nestabilnosti, ne predviđa siguran profit.",
+    "acceptance": "volatility spike mijenja risk decision",
+    "file": "cursor_tasks/TAI-084.md"
+  },
+  {
+    "id": "TAI-085",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Regime classifier (rule-based)",
+    "depends_on": "TAI-084",
+    "scope": "Uvedi rule-based trend/range/high volatility režime i evidenciju razloga prebacivanja.",
+    "acceptance": "jasne granice i test prijelaza režima",
+    "file": "cursor_tasks/TAI-085.md"
+  },
+  {
+    "id": "TAI-086",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Signal contract standard",
+    "depends_on": "TAI-085",
+    "scope": "Standardiziraj signal: strategy_id, version, instrument, score, direction, confidence metadata, generated_at, valid_until i source data hash.",
+    "acceptance": "schema contract test PASS",
+    "file": "cursor_tasks/TAI-086.md"
+  },
+  {
+    "id": "TAI-087",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Signal aggregation",
+    "depends_on": "TAI-086",
+    "scope": "Kombiniraj više kompatibilnih signala u kandidatski trade intent, uz konfliktno pravilo i mogućnost NO TRADE.",
+    "acceptance": "suprotni signali ne uzrokuju dvije suprotne kupnje",
+    "file": "cursor_tasks/TAI-087.md"
+  },
+  {
+    "id": "TAI-088",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Portfolio optimizer v0",
+    "depends_on": "TAI-087",
+    "scope": "Pretvori kandidatske signale u ciljane težine uz cash buffer, caps i izbjegavanje nepotrebnog turnovera.",
+    "acceptance": "ciljane težine i ukupni cash uvijek unutar limita",
+    "file": "cursor_tasks/TAI-088.md"
+  },
+  {
+    "id": "TAI-089",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Rebalancing planner",
+    "depends_on": "TAI-088",
+    "scope": "Generiraj minimalni set naloga do ciljnih težina uz proviziju, minimalne lotove i porezne implikacije kao informaciju.",
+    "acceptance": "male razlike ispod praga ne trguju",
+    "file": "cursor_tasks/TAI-089.md"
+  },
+  {
+    "id": "TAI-090",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Decision explainability log",
+    "depends_on": "TAI-089",
+    "scope": "Uz svaku odluku zabilježi featuree, signal, model/policy verziju, troškove i razlog BUY/HOLD/SELL/REJECT.",
+    "acceptance": "svaki nalog ima pregledan uzročni trag",
+    "file": "cursor_tasks/TAI-090.md"
+  },
+  {
+    "id": "TAI-091",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Strategy parameter registry",
+    "depends_on": "TAI-090",
+    "scope": "Omogući deklarativne, versionirane parametre po instrumentu i timeframeu s validation schema.",
+    "acceptance": "pogrešan parametar ne može do produkcijskog starta",
+    "file": "cursor_tasks/TAI-091.md"
+  },
+  {
+    "id": "TAI-092",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Universe selection guard",
+    "depends_on": "TAI-091",
+    "scope": "Odabir instrumenata samo iz whiteliste/availability liste, bez survivorship biasa za povijesne eksperimente.",
+    "acceptance": "delistirani instrumenti u starim podacima ne nestaju iz backtesta",
+    "file": "cursor_tasks/TAI-092.md"
+  },
+  {
+    "id": "TAI-093",
+    "phase": "05",
+    "phase_title": "Strategije, signali i konstrukcija portfelja",
+    "title": "Multi-asset market exposure",
+    "depends_on": "TAI-092",
+    "scope": "Računaj korelaciju i zajednički beta/risk exposure dionica, ETF-ova i kripta za pregled, bez automatiziranog ignoriranja starih podataka.",
+    "acceptance": "jednostavan fixture pokazuje agregirani exposure",
+    "file": "cursor_tasks/TAI-093.md"
+  },
+  {
+    "id": "TAI-094",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Event-driven backtest engine",
+    "depends_on": "TAI-093",
+    "scope": "Izgradi backtest koji pušta market evente vremenskim redom kroz istu strategiju, risk i paper execution logiku.",
+    "acceptance": "deterministički test 2 instrumenta, ne koristi buduće barove",
+    "file": "cursor_tasks/TAI-094.md"
+  },
+  {
+    "id": "TAI-095",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "As-of availability model",
+    "depends_on": "TAI-094",
+    "scope": "Separiraj event_time, received_time i usable_at kako cijena zatvaranja ne bi bila poznata prije zatvaranja svijeće.",
+    "acceptance": "test namjernog look-ahead bug-a FAIL",
+    "file": "cursor_tasks/TAI-095.md"
+  },
+  {
+    "id": "TAI-096",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Point-in-time universe",
+    "depends_on": "TAI-095",
+    "scope": "Historijski selection koristi tada poznate simbole, delistinge, corporate actions i podatke, bez današnjeg filtra pobjednika.",
+    "acceptance": "stari fixture uključuje uklonjeni instrument",
+    "file": "cursor_tasks/TAI-096.md"
+  },
+  {
+    "id": "TAI-097",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Corporate actions replay",
+    "depends_on": "TAI-096",
+    "scope": "U backtestu ispravno prilagodi split, cash dividend i promjenu tickera u odgovarajućem trenutku.",
+    "acceptance": "2:1 split ne generira lažan PnL",
+    "file": "cursor_tasks/TAI-097.md"
+  },
+  {
+    "id": "TAI-098",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Execution cost scenarios",
+    "depends_on": "TAI-097",
+    "scope": "Podrži optimističan, bazni i konzervativni troškovni profil te stresni slippage/gap.",
+    "acceptance": "report jasno pokazuje osjetljivost na trošak",
+    "file": "cursor_tasks/TAI-098.md"
+  },
+  {
+    "id": "TAI-099",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Data splitting by time",
+    "depends_on": "TAI-098",
+    "scope": "Implementiraj train/validation/test prema vremenu, uz configurable embargo tamo gdje postoji label overlap.",
+    "acceptance": "nijedan training zapis ne gleda u test prihodnost",
+    "file": "cursor_tasks/TAI-099.md"
+  },
+  {
+    "id": "TAI-100",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Walk-forward validation",
+    "depends_on": "TAI-099",
+    "scope": "Orkestriraj rolling/expanding train/test foldove, uz spremanje konfiguracije i random seedova.",
+    "acceptance": "izvještaj po foldovima i agregat PASS",
+    "file": "cursor_tasks/TAI-100.md"
+  },
+  {
+    "id": "TAI-101",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Model-independent benchmark suite",
+    "depends_on": "TAI-100",
+    "scope": "Usporedi sa cash, buy-and-hold i equal-weight, uz jednake datume i izloženost koliko je izvedivo.",
+    "acceptance": "benchmarki jasno prikazani uz strategiju",
+    "file": "cursor_tasks/TAI-101.md"
+  },
+  {
+    "id": "TAI-102",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Performance metrics package",
+    "depends_on": "TAI-101",
+    "scope": "Neto prinos, CAGR kada ima smisla, volatility, Sharpe, Sortino, max drawdown, Calmar, hit rate, profit factor i turnover.",
+    "acceptance": "numerički unit testovi i nule/negativni slučajevi PASS",
+    "file": "cursor_tasks/TAI-102.md"
+  },
+  {
+    "id": "TAI-103",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Trade attribution report",
+    "depends_on": "TAI-102",
+    "scope": "Analiza PnL po instrumentu, strategiji, sektoru/klasi imovine, naknadama i periodu.",
+    "acceptance": "suma atribucija slaže se s ukupnim PnL-om",
+    "file": "cursor_tasks/TAI-103.md"
+  },
+  {
+    "id": "TAI-104",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Sensitivity and parameter sweep",
+    "depends_on": "TAI-103",
+    "scope": "Za ograničen skup parametara izračunaj surface rezultata; razdvoji od finalnog test seta.",
+    "acceptance": "finale nije optimizirano na test segmentu",
+    "file": "cursor_tasks/TAI-104.md"
+  },
+  {
+    "id": "TAI-105",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Bootstrap uncertainty analysis",
+    "depends_on": "TAI-104",
+    "scope": "Dodaj blok bootstrap / scenario resampling i intervale pouzdanosti za metrike s jasno navedenim ograničenjima.",
+    "acceptance": "seed daje reproducibilan interval",
+    "file": "cursor_tasks/TAI-105.md"
+  },
+  {
+    "id": "TAI-106",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Stress test historical regimes",
+    "depends_on": "TAI-105",
+    "scope": "Pokreni scenarije tržišnog pada, povećanog spreda, praznika, manjkavog feeda i velikog gap-a.",
+    "acceptance": "svaki scenarij ima eksplicitan rezultat i event trace",
+    "file": "cursor_tasks/TAI-106.md"
+  },
+  {
+    "id": "TAI-107",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Backtest report artifact",
+    "depends_on": "TAI-106",
+    "scope": "Generiraj HTML/JSON/CSV izvještaj s verzijama koda, podataka, strategije, risk pravila, troškova i razlozima neuspjeha.",
+    "acceptance": "report ponovljiv iz spremljenih inputa",
+    "file": "cursor_tasks/TAI-107.md"
+  },
+  {
+    "id": "TAI-108",
+    "phase": "06",
+    "phase_title": "Backtesting, evaluacija i znanstvena provjera",
+    "title": "Promotion gate for paper",
+    "depends_on": "TAI-107",
+    "scope": "Definiraj formalni gate iz backtesta u real-time PAPER; potrebni su troškovi, no-leakage, benchmark i risk testovi, ne samo pozitivan PnL.",
+    "acceptance": "automatski gate odbija strategiju bez minimuma dokaza",
+    "file": "cursor_tasks/TAI-108.md"
+  },
+  {
+    "id": "TAI-109",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "ML data labeling",
+    "depends_on": "TAI-108",
+    "scope": "Izradi label pipeline za buduće povrate/rizike s horizonima i verzijama, bez curenja kroz overlapping target.",
+    "acceptance": "testovi availability i embargo zaštite PASS",
+    "file": "cursor_tasks/TAI-109.md"
+  },
+  {
+    "id": "TAI-110",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "ML baseline classifier/regressor",
+    "depends_on": "TAI-109",
+    "scope": "Istreniraj jednostavan logistički/GBM model kao challenger postojećoj transparentnoj strategiji, bez live integracije.",
+    "acceptance": "model artifact + reproducibilna evaluacija",
+    "file": "cursor_tasks/TAI-110.md"
+  },
+  {
+    "id": "TAI-111",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "ML feature pipeline",
+    "depends_on": "TAI-110",
+    "scope": "Uvedi train/inference parity, imputaciju, scaling samo na treningu i schema hash.",
+    "acceptance": "offline i inference feature matrice identične",
+    "file": "cursor_tasks/TAI-111.md"
+  },
+  {
+    "id": "TAI-112",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "Hyperparameter experiment tracking",
+    "depends_on": "TAI-111",
+    "scope": "Evidentiraj skup parametara, seed, dataset/version, commit SHA i ishode u experiment registryju.",
+    "acceptance": "dva pokretanja s istim seedom usporediva",
+    "file": "cursor_tasks/TAI-112.md"
+  },
+  {
+    "id": "TAI-113",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "Probability calibration",
+    "depends_on": "TAI-112",
+    "scope": "Dodaj reliability / calibration analizu ako model emitira vjerojatnosti; zabraniti neinterpretirane confidence brojeve.",
+    "acceptance": "reliability report po segmentima",
+    "file": "cursor_tasks/TAI-113.md"
+  },
+  {
+    "id": "TAI-114",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "Champion-challenger framework",
+    "depends_on": "TAI-113",
+    "scope": "Stari model ostaje aktivan dok challenger ne prođe validaciju i kontroliranu promociju; rollback podržan.",
+    "acceptance": "promjena modela je auditirana i reverzibilna",
+    "file": "cursor_tasks/TAI-114.md"
+  },
+  {
+    "id": "TAI-115",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "Model registry artifact integrity",
+    "depends_on": "TAI-114",
+    "scope": "Spremi hash modela, data schema, train config, vrijeme treniranja, potpis i dozvoljeni deployment stage.",
+    "acceptance": "izmijenjeni artifact se odbija pri učitavanju",
+    "file": "cursor_tasks/TAI-115.md"
+  },
+  {
+    "id": "TAI-116",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "Drift and data-shift monitor",
+    "depends_on": "TAI-115",
+    "scope": "Uvedi upozorenja za promjenu distribucije featurea, performansi i dostupnosti podataka; drift sam po sebi ne pokreće kupnju.",
+    "acceptance": "synthetic drift aktivira upozorenje",
+    "file": "cursor_tasks/TAI-116.md"
+  },
+  {
+    "id": "TAI-117",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "Scheduled retraining sandbox",
+    "depends_on": "TAI-116",
+    "scope": "Periodično retreniranje radi u izoliranoj okolini bez trading ključeva, a samo stvara kandidata za evaluaciju.",
+    "acceptance": "job ne mijenja aktivni champion bez gate-a",
+    "file": "cursor_tasks/TAI-117.md"
+  },
+  {
+    "id": "TAI-118",
+    "phase": "07",
+    "phase_title": "Machine Learning i upravljanje modelima",
+    "title": "Model safety governance",
+    "depends_on": "TAI-117",
+    "scope": "Zapiši jasno da generativni AI može objašnjavati ali ne mijenja risk limite niti šalje naloge; testiraj authorization granice.",
+    "acceptance": "LLM input ne može promijeniti odobrene limte niti adapter",
+    "file": "cursor_tasks/TAI-118.md"
+  },
+  {
+    "id": "TAI-119",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Real-time paper orchestrator",
+    "depends_on": "TAI-118",
+    "scope": "Složi market data -> features -> strategy -> risk -> PaperBroker pipeline sa schedulerom, dedupe i observability.",
+    "acceptance": "autonomni PAPER test izvršava virtualne naloge",
+    "file": "cursor_tasks/TAI-119.md"
+  },
+  {
+    "id": "TAI-120",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Market session controller",
+    "depends_on": "TAI-119",
+    "scope": "Dionice mogu stvarati naloge samo u dopuštenim session prozorima; kripto radi 24/7 uz maintenance pauze.",
+    "acceptance": "američki i europski praznik blokiraju naloge",
+    "file": "cursor_tasks/TAI-120.md"
+  },
+  {
+    "id": "TAI-121",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Paper account daily reset rules",
+    "depends_on": "TAI-120",
+    "scope": "Definiraj dnevne granice bez resetiranja cash-a, izračun daily PnL-a i referentne vrijednosti za stop.",
+    "acceptance": "prijelaz dana ne resetira portfelj",
+    "file": "cursor_tasks/TAI-121.md"
+  },
+  {
+    "id": "TAI-122",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Crash recovery paper worker",
+    "depends_on": "TAI-121",
+    "scope": "Nakon restarta posloži pending naloge, lockove i checkpoint bez duplikata, uz primjere crash prije/poslije fill-a.",
+    "acceptance": "forced crash replay ne stvara višak pozicija",
+    "file": "cursor_tasks/TAI-122.md"
+  },
+  {
+    "id": "TAI-123",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Provider outage contingency",
+    "depends_on": "TAI-122",
+    "scope": "Na stale stream ili timeout prijeđi u HALT, odgodi nove signale i pošalji incident s jasnim uvjetima oporavka.",
+    "acceptance": "test outage i recovery s manual reset pravilom PASS",
+    "file": "cursor_tasks/TAI-123.md"
+  },
+  {
+    "id": "TAI-124",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Paper performance daily snapshot",
+    "depends_on": "TAI-123",
+    "scope": "Svaki dan stvaraj snapshot, promjene net worth, open risk, fill rate i warning; bez sakrivanja neuspješnih naloga.",
+    "acceptance": "batch report za 7 virtualnih dana PASS",
+    "file": "cursor_tasks/TAI-124.md"
+  },
+  {
+    "id": "TAI-125",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Paper journal API",
+    "depends_on": "TAI-124",
+    "scope": "Izloži pregled objašnjenja odluka i operativnih incidenata s cursor paginacijom i filterima.",
+    "acceptance": "list query i auth testovi PASS",
+    "file": "cursor_tasks/TAI-125.md"
+  },
+  {
+    "id": "TAI-126",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "90-day evaluation tracker",
+    "depends_on": "TAI-125",
+    "scope": "Dodaj izvještaj o napretku kroz najmanje 90 kalendarskih dana i minimalnom broju odlukâ/različitih režima, bez automatske LIVE promocije.",
+    "acceptance": "gate ne prolazi bez trajanja i dokaza",
+    "file": "cursor_tasks/TAI-126.md"
+  },
+  {
+    "id": "TAI-127",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Shadow feed comparison",
+    "depends_on": "TAI-126",
+    "scope": "Kada su konektori dostupni, prati stvarne brokere read-only i usporedi papirnate fill cijene sa stvarnim quoteovima bez live naloga.",
+    "acceptance": "razlike se bilježe, nema place-order poziva",
+    "file": "cursor_tasks/TAI-127.md"
+  },
+  {
+    "id": "TAI-128",
+    "phase": "08",
+    "phase_title": "Neprekidni real-time paper trading",
+    "title": "Paper soak and chaos tests",
+    "depends_on": "TAI-127",
+    "scope": "Višednevna ubrzana simulacija s prekidima feeda, restartovima, rate-limitovima, stale FX i queue timeoutima.",
+    "acceptance": "reproducibilan PASS/FAIL evidence bundle",
+    "file": "cursor_tasks/TAI-128.md"
+  },
+  {
+    "id": "TAI-129",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Android app scaffold",
+    "depends_on": "TAI-128",
+    "scope": "Postavi Compose projekt s Hilt, Retrofit/Ktor client, lifecycle i debug/release konfiguracijama; bez API tajni u APK-u.",
+    "acceptance": "gradle test i debug build PASS",
+    "file": "cursor_tasks/TAI-129.md"
+  },
+  {
+    "id": "TAI-130",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Navigation i UI design system",
+    "depends_on": "TAI-129",
+    "scope": "Kreiraj navigaciju Dashboard, Portfolio, Orders, Decisions, Analytics, Settings; Material3 theme i reusable states.",
+    "acceptance": "Compose UI smoke test PASS",
+    "file": "cursor_tasks/TAI-130.md"
+  },
+  {
+    "id": "TAI-131",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Login i secure session",
+    "depends_on": "TAI-130",
+    "scope": "Izradi login/logout, short-lived token i secure Android keystore storage, error i reauth states.",
+    "acceptance": "ne postoji token u plain SharedPreferences",
+    "file": "cursor_tasks/TAI-131.md"
+  },
+  {
+    "id": "TAI-132",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Dashboard status i mode",
+    "depends_on": "TAI-131",
+    "scope": "Prikaži portfelj, PAPER/SHADOW/LIVE mode, feed/broker health, dnevni PnL i zadnje ažuriranje.",
+    "acceptance": "badge mode vezan na API, nikad hardcode",
+    "file": "cursor_tasks/TAI-132.md"
+  },
+  {
+    "id": "TAI-133",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Portfolio screen",
+    "depends_on": "TAI-132",
+    "scope": "Pozicije, količina, cost basis, real/unrealized PnL, udjeli, cash i period osvježenja.",
+    "acceptance": "test praznog i djelomičnog podataka PASS",
+    "file": "cursor_tasks/TAI-133.md"
+  },
+  {
+    "id": "TAI-134",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Orders & executions screen",
+    "depends_on": "TAI-133",
+    "scope": "Filtrirane liste naloga, stanja PARTIAL/UNKNOWN, fillovi i naknade, s objašnjenjem grešaka.",
+    "acceptance": "paging i status filter UI test PASS",
+    "file": "cursor_tasks/TAI-134.md"
+  },
+  {
+    "id": "TAI-135",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "AI decisions explain screen",
+    "depends_on": "TAI-134",
+    "scope": "Prikaži signal, strategy/model version, risk decision i razlog HOLD/REJECT, kao i korištene podatke.",
+    "acceptance": "complete decision trace na demo podacima",
+    "file": "cursor_tasks/TAI-135.md"
+  },
+  {
+    "id": "TAI-136",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Analytics graphs and metrics",
+    "depends_on": "TAI-135",
+    "scope": "Graf vrijednosti, drawdown, PnL, fees i benchmark za odabrani period; indikacija nekompletnih podataka.",
+    "acceptance": "sample fixtures i UI screenshot smoke PASS",
+    "file": "cursor_tasks/TAI-136.md"
+  },
+  {
+    "id": "TAI-137",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Risk settings read-only first",
+    "depends_on": "TAI-136",
+    "scope": "Prikaži aktivnu risk policy i limte, inicijalno read-only, uz objašnjenje planiranog rizika vs garancije.",
+    "acceptance": "promjena limita ne postoji prije auth API gate-a",
+    "file": "cursor_tasks/TAI-137.md"
+  },
+  {
+    "id": "TAI-138",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Risk settings controlled editing",
+    "depends_on": "TAI-137",
+    "scope": "Dodaj owner-authorized promjenu PAPER risk parametara s potvrdom, audit razlogom i server-side validacijom.",
+    "acceptance": "nedopušteni limiti vraćaju validation error",
+    "file": "cursor_tasks/TAI-138.md"
+  },
+  {
+    "id": "TAI-139",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "STOP ALL action",
+    "depends_on": "TAI-138",
+    "scope": "Istaknuta STOP akcija s potvrdom, owner auth, prikazom latched statusa i odvojenim postupkom za resume.",
+    "acceptance": "backend STOP efekt testiran, ne samo UI",
+    "file": "cursor_tasks/TAI-139.md"
+  },
+  {
+    "id": "TAI-140",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Notifications and incidents",
+    "depends_on": "TAI-139",
+    "scope": "Prikaži incident inbox i Android push za HALT, outage i dnevne izvještaje, bez osjetljivih podataka u notifikaciji.",
+    "acceptance": "instrumentirani handler test PASS",
+    "file": "cursor_tasks/TAI-140.md"
+  },
+  {
+    "id": "TAI-141",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Offline-safe UI",
+    "depends_on": "TAI-140",
+    "scope": "Cache samo read-only podatke, jasno označi offline/stale stanje, zabrani prikaz fiktivnog live uspjeha.",
+    "acceptance": "airplane mode UI nije 'connected'",
+    "file": "cursor_tasks/TAI-141.md"
+  },
+  {
+    "id": "TAI-142",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Biometric owner protection",
+    "depends_on": "TAI-141",
+    "scope": "Za osjetljive kontrole dodaj biometrics/PIN step-up, uz server-side neovisnu autorizaciju.",
+    "acceptance": "samo biometric bypass nije dovoljan za unlock",
+    "file": "cursor_tasks/TAI-142.md"
+  },
+  {
+    "id": "TAI-143",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Accessibility & responsive layout",
+    "depends_on": "TAI-142",
+    "scope": "Provjeri TalkBack labelove, kontraste, loading/empty/error states i male ekrane.",
+    "acceptance": "lint i UI smoke za 2 veličine ekrana PASS",
+    "file": "cursor_tasks/TAI-143.md"
+  },
+  {
+    "id": "TAI-144",
+    "phase": "09",
+    "phase_title": "Android Kotlin / Compose aplikacija",
+    "title": "Android end-to-end demo",
+    "depends_on": "TAI-143",
+    "scope": "Spoji aplikaciju s demo backendom i izradi snimljive smoke scenarije login->dashboard->orders->STOP.",
+    "acceptance": "svaki scenarij reproducibilan uz upute",
+    "file": "cursor_tasks/TAI-144.md"
+  },
+  {
+    "id": "TAI-145",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "BrokerAdapter canonical contract",
+    "depends_on": "TAI-144",
+    "scope": "Definiraj broker contract get_account, positions, orders, quote, place, cancel, fills, health; jasno razdvoji read-only i trade ovlasti.",
+    "acceptance": "contract test radi na MockBroker i PaperBroker",
+    "file": "cursor_tasks/TAI-145.md"
+  },
+  {
+    "id": "TAI-146",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Kraken public metadata connector",
+    "depends_on": "TAI-145",
+    "scope": "Dohvati Kraken parove, min količine, korak cijene i dozvoljene statusne oznake; pretvori u canonical instrument.",
+    "acceptance": "testovi precision i unavailable pair PASS",
+    "file": "cursor_tasks/TAI-146.md"
+  },
+  {
+    "id": "TAI-147",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Kraken private read-only client",
+    "depends_on": "TAI-146",
+    "scope": "Dodaj HMAC auth i samo read-only balances/orders endpoints s testnim key mockovima; secret masking.",
+    "acceptance": "HTTP fixture test, nema withdrawal prava",
+    "file": "cursor_tasks/TAI-147.md"
+  },
+  {
+    "id": "TAI-148",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Kraken order adapter dry-run",
+    "depends_on": "TAI-147",
+    "scope": "Implementiraj mapiranje canonical naloga u Kraken REST/WebSocket order request, ali poziv ide na mock u svim default okruženjima.",
+    "acceptance": "test request payload, precision i forbidden fields",
+    "file": "cursor_tasks/TAI-148.md"
+  },
+  {
+    "id": "TAI-149",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Kraken broker error taxonomy",
+    "depends_on": "TAI-148",
+    "scope": "Standardiziraj insufficient funds, invalid pair, rate limit, auth expired, unknown submit, rejected i partial fill.",
+    "acceptance": "error mapping fixture suite PASS",
+    "file": "cursor_tasks/TAI-149.md"
+  },
+  {
+    "id": "TAI-150",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Kraken private order stream parser",
+    "depends_on": "TAI-149",
+    "scope": "Obradi order status i fills kroz adapter na mock streamu, s idempotentnim event insertima.",
+    "acceptance": "replay duplih događaja bez duplog PnL-a",
+    "file": "cursor_tasks/TAI-150.md"
+  },
+  {
+    "id": "TAI-151",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Kraken cancel/reconcile dry-run",
+    "depends_on": "TAI-150",
+    "scope": "Implementiraj cancel i status lookup preko mock transporta; timeout => UNKNOWN + read reconciliation.",
+    "acceptance": "ne ponavlja create nakon nepoznatog ishoda",
+    "file": "cursor_tasks/TAI-151.md"
+  },
+  {
+    "id": "TAI-152",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Kraken API permissions audit",
+    "depends_on": "TAI-151",
+    "scope": "Izradi skriptu/proceduru za provjeru potrebnih API ovlasti; zabrani withdrawal/transfer; dokumentiraj IP restriction ako dostupno.",
+    "acceptance": "provjera faila ako nepotrebne ovlasti postoje",
+    "file": "cursor_tasks/TAI-152.md"
+  },
+  {
+    "id": "TAI-153",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "IBKR adapter feasibility note",
+    "depends_on": "TAI-152",
+    "scope": "Napravi aktualnu provjeru službene IBKR dokumentacije o TWS/IB Gateway/Web API, autentifikaciji, paper account i market data ograničenjima.",
+    "acceptance": "ADR s dokumentiranim manual login i tjednim reauth ograničenjem",
+    "file": "cursor_tasks/TAI-153.md"
+  },
+  {
+    "id": "TAI-154",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "IBKR session watcher",
+    "depends_on": "TAI-153",
+    "scope": "Implementiraj pasivni monitor TWS/IB Gateway statusa, readiness, auth expiry i safe HALT, bez automatiziranog zaobilaženja prijave.",
+    "acceptance": "session-expiry mock test blokira nove naloge",
+    "file": "cursor_tasks/TAI-154.md"
+  },
+  {
+    "id": "TAI-155",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "IBKR market data read-only",
+    "depends_on": "TAI-154",
+    "scope": "Dodaj IBKR instrument resolution (conId/contract) i read-only market data adapter u paper/development okruženju.",
+    "acceptance": "ticker/contract disambiguation i stale data tests PASS",
+    "file": "cursor_tasks/TAI-155.md"
+  },
+  {
+    "id": "TAI-156",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "IBKR paper order adapter",
+    "depends_on": "TAI-155",
+    "scope": "Implementiraj place/cancel samo za eksplicitno konfigurirani IBKR paper račun; zadani env sve odbija.",
+    "acceptance": "IBKR paper fixture / sandbox contract PASS",
+    "file": "cursor_tasks/TAI-156.md"
+  },
+  {
+    "id": "TAI-157",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "IBKR execution + corporate event parser",
+    "depends_on": "TAI-156",
+    "scope": "Mapiraj broker events u canonical fills, statusne promjene i corporate action events s Decimal preciznošću.",
+    "acceptance": "duplicate fill i out-of-order event fixtures PASS",
+    "file": "cursor_tasks/TAI-157.md"
+  },
+  {
+    "id": "TAI-158",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "IBKR reconnect & reconciliation",
+    "depends_on": "TAI-157",
+    "scope": "Nakon prekida stanja naloga ne zaključuj po pretpostavci; dohvati orders, fills, positions i cash prije ponovnog dopuštanja.",
+    "acceptance": "UNKNOWN order nakon reconnecta razriješen bez dupla",
+    "file": "cursor_tasks/TAI-158.md"
+  },
+  {
+    "id": "TAI-159",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Cross-broker contract test suite",
+    "depends_on": "TAI-158",
+    "scope": "Pokreni isti skup mock scenarija na PaperBroker, Kraken adapteru i IBKR adapteru; dokumentiraj razlike.",
+    "acceptance": "20+ canonical edge case testova, bez LIVE poziva",
+    "file": "cursor_tasks/TAI-159.md"
+  },
+  {
+    "id": "TAI-160",
+    "phase": "10",
+    "phase_title": "Brokerski konektori — read-only i paper prvo",
+    "title": "Broker readiness matrix",
+    "depends_on": "TAI-159",
+    "scope": "Evidentiraj razine DATA, READ_ONLY, PAPER, LIVE_LOCKED, LIVE_READY i uvjete svake; objavi u admin API-ju.",
+    "acceptance": "slučaj bez MFA/auth ne može biti LIVE_READY",
+    "file": "cursor_tasks/TAI-160.md"
+  },
+  {
+    "id": "TAI-161",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Secret storage and rotation",
+    "depends_on": "TAI-160",
+    "scope": "Implementiraj loader tajni iz okoline/secret storea, nikad u Git-u, mobile APK-u ni logovima; plan rotacije ključeva.",
+    "acceptance": "secret scan i masked logging test PASS",
+    "file": "cursor_tasks/TAI-161.md"
+  },
+  {
+    "id": "TAI-162",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Environment isolation",
+    "depends_on": "TAI-161",
+    "scope": "Razdvoji local, staging PAPER i prod LIVE network, DB, env i ključeve; `LIVE` se ne pokreće s dev postavkama.",
+    "acceptance": "integration test odbija cross-env račun",
+    "file": "cursor_tasks/TAI-162.md"
+  },
+  {
+    "id": "TAI-163",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Hardened Docker images",
+    "depends_on": "TAI-162",
+    "scope": "Non-root runtime, minimalne slike, read-only FS gdje moguće, pin dependencies i resource limits.",
+    "acceptance": "container scan / container smoke PASS",
+    "file": "cursor_tasks/TAI-163.md"
+  },
+  {
+    "id": "TAI-164",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "TLS and network exposure",
+    "depends_on": "TAI-163",
+    "scope": "Backend preko HTTPS, ograniči javne portove i pristup brokerskim tajnama; nema izravnog public Redis/Postgres.",
+    "acceptance": "infra validation i curl security headers PASS",
+    "file": "cursor_tasks/TAI-164.md"
+  },
+  {
+    "id": "TAI-165",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "API rate limits and abuse defenses",
+    "depends_on": "TAI-164",
+    "scope": "Rate limit login, policy edit, STOP i backend API, CSRF ako se koristi cookie auth; security event log.",
+    "acceptance": "burst test demonstrira throttling",
+    "file": "cursor_tasks/TAI-165.md"
+  },
+  {
+    "id": "TAI-166",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Observability structured logs",
+    "depends_on": "TAI-165",
+    "scope": "JSON logovi s event type, correlation_id, mode, account i redacted fields; log sampling bez gubitka financijskih audita.",
+    "acceptance": "test bez API key leakova",
+    "file": "cursor_tasks/TAI-166.md"
+  },
+  {
+    "id": "TAI-167",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Prometheus metrics & health",
+    "depends_on": "TAI-166",
+    "scope": "Broker/feed age, worker heartbeat, trade rejects, UNKNOWN orders, mismatch count, position exposure, queue depth i DB health.",
+    "acceptance": "synthetic metric scrape PASS",
+    "file": "cursor_tasks/TAI-167.md"
+  },
+  {
+    "id": "TAI-168",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Alert routing and severity",
+    "depends_on": "TAI-167",
+    "scope": "HIGH/Critical incidenti (STOP, unknown order, live disconnect) šalju push/email prema pravilima i dedupe/cooldownu.",
+    "acceptance": "mock delivery test bez beskonačnog spam-a",
+    "file": "cursor_tasks/TAI-168.md"
+  },
+  {
+    "id": "TAI-169",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Backups and restore drill",
+    "depends_on": "TAI-168",
+    "scope": "Postgres backup, enkripcija, retention i restore na novu bazu; document RPO/RTO ciljeve.",
+    "acceptance": "stvarni restore test i hash važnih tablica PASS",
+    "file": "cursor_tasks/TAI-169.md"
+  },
+  {
+    "id": "TAI-170",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Disaster recovery runbook",
+    "depends_on": "TAI-169",
+    "scope": "Postupci server down, DB corruption, compromised key, broker unreachable i stale quotes, s fail-closed fazama.",
+    "acceptance": "tabletop scenarij pokriva 5 incidenta",
+    "file": "cursor_tasks/TAI-170.md"
+  },
+  {
+    "id": "TAI-171",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Secure audit export",
+    "depends_on": "TAI-170",
+    "scope": "Izvoz evidencije naloga, fillova, policy promjena i modela za owner; potpis/sha256 i bez tajni.",
+    "acceptance": "svaka export serija ima checksum",
+    "file": "cursor_tasks/TAI-171.md"
+  },
+  {
+    "id": "TAI-172",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Tax/accounting export Croatia",
+    "depends_on": "TAI-171",
+    "scope": "CSV/JSON izvoz za nabave, otuđenja, naknade, EUR/FX tečajeve i vremenske oznake, uz napomenu da to nije porezni obračun.",
+    "acceptance": "trade FIFO/specific cost evidence transparentno i testirano",
+    "file": "cursor_tasks/TAI-172.md"
+  },
+  {
+    "id": "TAI-173",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Data retention and cleanup",
+    "depends_on": "TAI-172",
+    "scope": "Politika čuvanja market data, PII, audit i logova; oprezno purge samo nefinancijskih tmp podataka.",
+    "acceptance": "dry-run purge ne dira ledger/audit",
+    "file": "cursor_tasks/TAI-173.md"
+  },
+  {
+    "id": "TAI-174",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "CI security and dependencies",
+    "depends_on": "TAI-173",
+    "scope": "SAST/secret/dependency scanning, SBOM i provjera licence; fix kritičnih ranjivosti prije releasea.",
+    "acceptance": "pregledan security report bez kritičnih nalaza",
+    "file": "cursor_tasks/TAI-174.md"
+  },
+  {
+    "id": "TAI-175",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Server PAPER deployment",
+    "depends_on": "TAI-174",
+    "scope": "Compose/staging deploy na odvojen Linux server s health/rollback i isključivo PAPER konfiguracijom.",
+    "acceptance": "postdeploy smoke + vraćanje prethodne verzije PASS",
+    "file": "cursor_tasks/TAI-175.md"
+  },
+  {
+    "id": "TAI-176",
+    "phase": "11",
+    "phase_title": "Sigurnost, nadzor i infrastruktura",
+    "title": "Operational runbook and release tag",
+    "depends_on": "TAI-175",
+    "scope": "Runbook za update, rollback, manual unlock, STOP, alarm test, maintenance prozor i changelog release tag.",
+    "acceptance": "nova osoba može reproducirati release iz dokumenta",
+    "file": "cursor_tasks/TAI-176.md"
+  },
+  {
+    "id": "TAI-177",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "90-day PAPER gate evidence",
+    "depends_on": "TAI-176",
+    "scope": "Sastavi automatizirani evidence bundle: povijest 90+ dana, tržišni režimi, backtest, forward PnL, troškovi, risk incidents i tehničke greške.",
+    "acceptance": "gate report može rezultirati PASS ili FAIL bez manualnog uljepšavanja",
+    "file": "cursor_tasks/TAI-177.md"
+  },
+  {
+    "id": "TAI-178",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "Broker/legal readiness checklist",
+    "depends_on": "TAI-177",
+    "scope": "Prije LIVE provjeri ovlasti računa, dostupnost tržišta, brokerske uvjete, licencu kripto pružatelja prema ESMA/HANFA registru te hrvatsko porezno evidentiranje.",
+    "acceptance": "dokumentirana provjera s datumom i izvorima",
+    "file": "cursor_tasks/TAI-178.md"
+  },
+  {
+    "id": "TAI-179",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "LIVE deployment immutable gate",
+    "depends_on": "TAI-178",
+    "scope": "Izradi odvojeno LIVE okruženje s trgovinskim ovlastima po principu deny by default; backend mora provjeriti deploy mode, account mode i auth proof.",
+    "acceptance": "test konfiguracije s jednim nedostajućim uvjetom odbija place",
+    "file": "cursor_tasks/TAI-179.md"
+  },
+  {
+    "id": "TAI-180",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "Explicit owner unlock workflow",
+    "depends_on": "TAI-179",
+    "scope": "Implementiraj svjesnu aktivaciju LIVE uz reauth + MFA + potvrdu iznosa + vremensko ograničenje + audit; nakon aktivacije strategije mogu raditi bez potvrde svakog naloga.",
+    "acceptance": "istekao unlock ili STOP odmah blokira nove naloge",
+    "file": "cursor_tasks/TAI-180.md"
+  },
+  {
+    "id": "TAI-181",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "Pilot capital containment",
+    "depends_on": "TAI-180",
+    "scope": "Dodaj dnevni hard notional cap i odvojeni pilot account/strategy whitelist, nezavisno od standardne policy konfiguracije.",
+    "acceptance": "testovi ne dopuštaju izlaz iz pilot limita",
+    "file": "cursor_tasks/TAI-181.md"
+  },
+  {
+    "id": "TAI-182",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "LIVE observation read-only",
+    "depends_on": "TAI-181",
+    "scope": "Najprije poveži stvarni broker read-only, uskladi balances, quotes i session status s našom bazom bez slanja naloga.",
+    "acceptance": "audit potvrđuje nula stvarnih order API poziva",
+    "file": "cursor_tasks/TAI-182.md"
+  },
+  {
+    "id": "TAI-183",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "LIVE order preview only",
+    "depends_on": "TAI-182",
+    "scope": "Za brokerske naloge napravi simulaciju payload-a, planirane provizije i očekivanog slippagea bez slanja; owner vidi razloge odbijanja.",
+    "acceptance": "dry-run proof ne doseže private trade endpoint",
+    "file": "cursor_tasks/TAI-183.md"
+  },
+  {
+    "id": "TAI-184",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "Kraken spot micro-pilot",
+    "depends_on": "TAI-183",
+    "scope": "Tek nakon korisnikove izričite dozvole i prethodnih PASS gateova omogući jedan ograničeni stvarni spot nalog uz minimalni iznos, risk approval i evidentirano izvršenje.",
+    "acceptance": "confirmed fill + broker/local reconciliation + STOP test; inače FAIL",
+    "file": "cursor_tasks/TAI-184.md"
+  },
+  {
+    "id": "TAI-185",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "IBKR paper-to-live controlled handoff",
+    "depends_on": "TAI-184",
+    "scope": "Nakon paper dokaza i korisnikove autorizacije izvedi najmanji dopušteni dionički nalog samo preko LIVE konfiguracije s provjerom sesije i provizije.",
+    "acceptance": "confirmed fill, no duplicate i reconciled account",
+    "file": "cursor_tasks/TAI-185.md"
+  },
+  {
+    "id": "TAI-186",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "Live partial/timeout incident rehearsal",
+    "depends_on": "TAI-185",
+    "scope": "U kontroliranim uvjetima testiraj partial fills, cancel rejected i unknown submit te prekide veze; bez pretpostavljene likvidacije pozicija.",
+    "acceptance": "dokazano no-resubmit ponašanje i incident evidencija",
+    "file": "cursor_tasks/TAI-186.md"
+  },
+  {
+    "id": "TAI-187",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "Formal LIVE pilot review",
+    "depends_on": "TAI-186",
+    "scope": "Izvještaj nakon ograničenog pilota: stvarni fill vs model, fees, drawdown, incidenti, matching kvaliteta i odluka nastaviti/zaustaviti.",
+    "acceptance": "odluka temeljem dokumentiranih kriterija, bez automatskog povećanja kapitala",
+    "file": "cursor_tasks/TAI-187.md"
+  },
+  {
+    "id": "TAI-188",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "Controlled autonomous release",
+    "depends_on": "TAI-187",
+    "scope": "Uključivanje autonomnih naloga tek nakon posebne potvrde ownera, dokumentiranih limita, revokacije, rollbacka i tjednog nadzora.",
+    "acceptance": "end-to-end rehearsal STOP/restore + live gate proof PASS",
+    "file": "cursor_tasks/TAI-188.md"
+  },
+  {
+    "id": "TAI-189",
+    "phase": "12",
+    "phase_title": "Gateovi, ograničeni LIVE pilot i produkcijska autonomija",
+    "title": "Ongoing model and risk monitoring",
+    "depends_on": "TAI-188",
+    "scope": "Definiraj dnevne i tjedne provjere drifta, prinos/rizik, broker reconciliations i automatski rollback strategije na prethodni sigurni champion ili HALT.",
+    "acceptance": "false-positive/false-negative incident testovi PASS",
+    "file": "cursor_tasks/TAI-189.md"
+  }
+]

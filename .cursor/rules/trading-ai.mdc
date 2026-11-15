@@ -1,0 +1,13 @@
+---
+description: Sigurnosna i inženjerska pravila za TRADING AI repo
+alwaysApply: true
+---
+
+- Za svaku promjenu pročitaj `PROJECT_SPEC.md` i aktivni zadatak iz `cursor_tasks`.
+- Izvrši samo eksplicitno zadani TAI-XXX. Ne nastavljaj dalje bez nove korisničke upute.
+- Režim PAPER mora biti zadani i jedini dopušten do eksplicitnog LIVE unlock zadatka i dokazanih gateova.
+- Nema stvarnih brokerskih API ključeva u kodu, datotekama, mobilnom APK-u, commitima ili logovima.
+- Najmanji opravdani patch, tipizacija, dokumentacija, testovi; ne tvrdi PASS bez izlaza komandi.
+- Upotrebljavaj Decimal za novac, UTC s jasnim market timezone, audit i idempotency za naloge.
+- Ne manipuliraj pozicijama bez pre-trade risk approvala; broker UNKNOWN = HALT i reconciliation.
+- Izvještaj: TASK, STATUS, SHA, FILES, IMPLEMENTED, TESTS, SAFETY, MIGRATIONS, EVIDENCE, RISKS, NEXT (not execute).
