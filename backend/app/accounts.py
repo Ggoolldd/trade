@@ -12,6 +12,7 @@ from app.models.accounts import (
     DevelopmentEnvironment,
     PaperAccount,
 )
+from app.models.auth import User, UserRole
 
 
 class AccountAccessDenied(PermissionError):
@@ -28,6 +29,17 @@ def resolve_paper_account(
 ) -> PaperAccount:
     if intent_mode is not TradingMode.PAPER:
         raise AccountAccessDenied("Only PAPER account resolution is implemented")
+    principal = session.get(User, principal_id)
+    if (
+        principal is None
+        or not principal.enabled
+        or principal.role
+        not in {
+            UserRole.OWNER,
+            UserRole.SYSTEM_WORKER,
+        }
+    ):
+        raise AccountAccessDenied("Verified trading principal required")
     account = session.get(PaperAccount, account_id)
     if (
         account is None

@@ -1,7 +1,7 @@
 # Backend
 
-Python 3.12, FastAPI, Uvicorn. No API keys or external services needed for the
-current skeleton. `uv.lock` records exact resolved dependencies.
+Python 3.12, FastAPI, Uvicorn. Health endpoints start without API keys; auth and
+domain storage require local PostgreSQL. `uv.lock` records exact dependencies.
 
 From this directory, with uv installed:
 
@@ -160,8 +160,8 @@ Composite profile/permission foreign keys prevent mixing environment identities.
 `resolve_paper_account()` requires exact PAPER mode, enabled account, matching
 environment and PAPER_TRADE grant for the principal. It rejects unknown accounts,
 wrong principal, wrong environment, SHADOW/LIVE and missing grants. It resolves
-identity only; it does not approve risk or submit any order. Principal IDs are
-opaque UUIDs until authentication/authorization tasks bind them to verified users.
+identity only; it does not approve risk or submit any order. TAI-020 binds principal
+UUIDs to verified users; account grants remain independent of global roles.
 No account mutation API is exposed by this task. Allowed scopes exclude withdrawals,
 transfers and LIVE trading. Initial cash/ledger is a later task, not stored here.
 
@@ -240,6 +240,39 @@ Reviewed sources:
 [OWASP password storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html),
 [OWASP sessions](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html).
 Opaque server-side sessions were chosen instead of JWTs for immediate DB revocation.
+
+## Roles and permission guards (TAI-020)
+
+Revision 0006_authorization adds checked user roles, default readonly for existing
+and new users, and links account permission principals to verified users by FK.
+No migration elevates an existing user. Roles are fetched from DB on every bearer
+verification; downgrading a role affects the next request for the same token.
+X-Role or other client-provided role headers have no authority.
+
+| Role | Read status/portfolio/orders/risk | PAPER intents/cancel | Config/risk edit | STOP/resume |
+| --- | --- | --- | --- | --- |
+| owner | Yes | Yes | Yes | Yes |
+| readonly | Yes | No | No | No |
+| system_worker | Yes | Yes | No | No |
+
+Use `Depends(require_permission(Permission...))` at server routes. Denials return
+403 and append typed authorization audit metadata; missing/invalid bearer is 401.
+`/api/v1/capabilities` reports the authenticated role and permissions. There are no
+config/risk/order/STOP mutation APIs yet: their later implementations must use these
+guards plus account-level scope, mode, risk and lifecycle validation. Integration
+tests use explicitly named synthetic probe routes to verify HTTP denial; they do
+not claim an implemented STOP engine or order execution.
+
+The PAPER resolver additionally requires an enabled verified owner/system_worker,
+a per-account PAPER_TRADE grant and the environment/mode conditions. A readonly
+user cannot trade even if mistakenly given that account grant. Worker-triggered
+automatic safety HALT is an internal risk responsibility, separate from owner-only
+interactive STOP/resume control permissions.
+
+Local operator creation supports `--role owner|readonly|system_worker`, default
+readonly. For example, append `--role owner` to the hidden-password creation command
+above when explicitly provisioning the private owner. No user/role was auto-created
+or elevated by this task. No role grants LIVE or bypasses risk/MFA/unlock requirements.
 
 ## Workspace tooling on Windows
 

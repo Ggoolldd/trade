@@ -1,13 +1,20 @@
 """Local user credentials and revocable opaque session identities."""
 
 from datetime import datetime
+from enum import StrEnum
 from uuid import UUID
 
-from sqlalchemy import Boolean, CheckConstraint, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import Boolean, CheckConstraint, Enum, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
 from app.orm_types import EntityColumns, UtcDateTime
+
+
+class UserRole(StrEnum):
+    OWNER = "owner"
+    READONLY = "readonly"
+    SYSTEM_WORKER = "system_worker"
 
 
 class User(EntityColumns, Base):
@@ -20,6 +27,19 @@ class User(EntityColumns, Base):
     username: Mapped[str] = mapped_column(String(64), nullable=False)
     password_hash: Mapped[str] = mapped_column(String(512), nullable=False)
     enabled: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    role: Mapped[UserRole] = mapped_column(
+        Enum(
+            UserRole,
+            name="user_role",
+            native_enum=False,
+            create_constraint=True,
+            validate_strings=True,
+            values_callable=lambda enum: [item.value for item in enum],
+        ),
+        default=UserRole.READONLY,
+        server_default="readonly",
+        nullable=False,
+    )
 
 
 class AuthSession(EntityColumns, Base):

@@ -18,7 +18,7 @@ from app.audit import append_event
 from app.database import Database
 from app.domain_types import utc_now
 from app.models.audit import AuditReason, AuditType
-from app.models.auth import AuthSession, LoginThrottle, User
+from app.models.auth import AuthSession, LoginThrottle, User, UserRole
 
 password_hasher = PasswordHash.recommended()
 # A non-user dummy hash equalizes expensive verification for unknown usernames.
@@ -39,6 +39,7 @@ class Identity:
     user_id: UUID
     username: str
     session_id: UUID
+    role: UserRole
 
 
 @dataclass(frozen=True)
@@ -157,7 +158,7 @@ class AuthService:
             if row is None:
                 raise AuthenticationDenied()
             active, user = row
-            return Identity(user.id, user.username, active.id)
+            return Identity(user.id, user.username, active.id, user.role)
 
     def logout(self, identity: Identity, correlation_id: UUID) -> None:
         with self.database.transaction() as session:

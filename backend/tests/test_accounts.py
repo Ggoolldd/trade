@@ -1,10 +1,12 @@
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 import pytest
+from pydantic import SecretStr
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 
 from app.accounts import AccountAccessDenied, resolve_paper_account
+from app.auth import create_user
 from app.database import Database
 from app.domain_types import TradingMode
 from app.models.accounts import (
@@ -14,14 +16,27 @@ from app.models.accounts import (
     PaperAccount,
     TradingProfile,
 )
+from app.models.auth import User, UserRole
 
 pytestmark = pytest.mark.integration
+
+
+def create_principal(database: Database) -> UUID:
+    with database.transaction() as session:
+        user = create_user(
+            session,
+            username="account_" + uuid4().hex,
+            password=SecretStr("synthetic-account-password"),
+            enabled=True,
+        )
+        user.role = UserRole.OWNER
+        return user.id
 
 
 def test_paper_resolution_requires_identity_mode_environment_and_permission(
     database: Database,
 ) -> None:
-    principal = uuid4()
+    principal = create_principal(database)
     with database.transaction() as session:
         account = PaperAccount(
             name="paper-" + uuid4().hex, environment=DevelopmentEnvironment.LOCAL
@@ -52,6 +67,14 @@ def test_paper_resolution_requires_identity_mode_environment_and_permission(
         )
         session.flush()
         assert resolve_paper_account(session, **arguments).id == account.id
+        user = session.get(User, principal)
+        assert user is not None
+        user.role = UserRole.READONLY
+        session.flush()
+        with pytest.raises(AccountAccessDenied):
+            resolve_paper_account(session, **arguments)
+        user.role = UserRole.OWNER
+        session.flush()
         for overrides in [
             {"intent_mode": TradingMode.LIVE},
             {"intent_mode": TradingMode.SHADOW},
@@ -119,7 +142,7 @@ def test_live_and_production_storage_are_forbidden(database: Database) -> None:
 
 
 def test_permissions_are_unique_and_never_withdrawal(database: Database) -> None:
-    principal = uuid4()
+    principal = create_principal(database)
     with database.transaction() as session:
         account = PaperAccount(
             name="permissions-" + uuid4().hex, environment=DevelopmentEnvironment.LOCAL

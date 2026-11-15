@@ -7,6 +7,7 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     Enum,
+    ForeignKey,
     ForeignKeyConstraint,
     String,
     UniqueConstraint,
@@ -109,7 +110,7 @@ class AccountPermission(EntityColumns, Base):
         ),
         nullable=False,
     )
-    principal_id: Mapped[UUID] = mapped_column(nullable=False)
+    principal_id: Mapped[UUID] = mapped_column(ForeignKey("trading.users.id"), nullable=False)
     scope: Mapped[AccountScope] = mapped_column(
         Enum(
             AccountScope,
