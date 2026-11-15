@@ -1,0 +1,3 @@
+﻿PASS: docs/TRADING_EVENTS.md title, encoding and local links
+PASS: 2 local links resolved. Semantic review is not automated.
+REVIEW: Correlation and idempotency separated; cancel request is not cancellation; UNKNOWN forbids resubmit; late fills retain financial truth.
