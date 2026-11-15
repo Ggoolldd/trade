@@ -1,5 +1,6 @@
 """Virtual account identities; production and broker identities are not accepted."""
 
+from decimal import Decimal
 from enum import StrEnum
 from uuid import UUID
 
@@ -16,7 +17,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
 from app.domain_types import TradingMode
-from app.orm_types import EntityColumns
+from app.orm_types import EntityColumns, FinancialNumeric
 
 
 class DevelopmentEnvironment(StrEnum):
@@ -36,9 +37,14 @@ class PaperAccount(EntityColumns, Base):
         UniqueConstraint("environment", "name"),
         UniqueConstraint("id", "environment", name="uq_paper_accounts_identity_environment"),
         CheckConstraint("account_mode = 'PAPER'", name="paper_only"),
+        CheckConstraint("initial_cash_eur >= 0", name="initial_cash_nonnegative"),
         CheckConstraint("length(btrim(name)) > 0", name="name_required"),
     )
     name: Mapped[str] = mapped_column(String(100), nullable=False)
+    # Scenario input only: this is not a spendable balance or a ledger entry.
+    initial_cash_eur: Mapped[Decimal] = mapped_column(
+        FinancialNumeric(), default=Decimal("0"), server_default="0", nullable=False
+    )
     account_mode: Mapped[TradingMode] = mapped_column(
         Enum(
             TradingMode,

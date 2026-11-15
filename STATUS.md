@@ -26,13 +26,17 @@
 | TAI-022 | PASS | [Report](docs/reports/TAI-022.md) |
 | TAI-023 | PASS | [Report](docs/reports/TAI-023.md) |
 | TAI-024 | PASS | [Report](docs/reports/TAI-024.md) |
+| TAI-025 | PASS | [Report](docs/reports/TAI-025.md) |
 
-Next: TAI-025 ? deterministic demo seed. No unresolved TAI-024 blocker.
+Next: TAI-026 ? canonical BTC/EUR and ETH/EUR venue metadata.
+TAI-025: 103 real tests passed; seed CLI executed twice; four dev services healthy.
+Development revision 0009_demo_cash; disabled local PAPER fixture only.
+Initial 10000 EUR is scenario input, not a spendable balance.
 Owner approved Ggoolldd/trade upload and public visibility. Main is protected by
 active ruleset 27327041 (strict required-quality, no bypass). A real unchecked
 empty push was rejected with GH013. Real Android project now executes test/lint/
 assembleDebug locally and in GitHub Actions; remote run 43751964422 is all green.
-Final report changes are delivered through the protected PR and required checks.
+TAI-024 merged through PR #1 after all required checks (run 43752922454).
 TAI-129 remains pending beyond this minimal Android CI prerequisite.
 See docs/CI.md and the TAI-024 report for logs, warnings and historical failures.
 Default PAPER. Backend/auth/roles/catalog/audit/worker/scheduler/read API verified;
