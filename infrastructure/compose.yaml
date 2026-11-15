@@ -1,0 +1,78 @@
+name: trading-ai-dev
+
+services:
+  postgres:
+    image: postgres:17.12-bookworm
+    environment:
+      POSTGRES_USER: trading
+      POSTGRES_DB: trading_ai
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run scripts/init-dev-env.py first}
+    ports:
+      - "127.0.0.1:15432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trading -d trading_ai"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+    restart: "no"
+
+  redis:
+    image: redis:7.2.17-bookworm
+    environment:
+      REDISCLI_AUTH: ${REDIS_PASSWORD:?Run scripts/init-dev-env.py first}
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?Run scripts/init-dev-env.py first}"]
+    ports:
+      - "127.0.0.1:16379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    security_opt:
+      - no-new-privileges:true
+    restart: "no"
+
+  backend:
+    image: trading-ai-backend:dev
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    environment:
+      TAI_TRADING_MODE: PAPER
+      TAI_DATABASE_URL: postgresql+psycopg://trading:${POSTGRES_PASSWORD:?Run scripts/init-dev-env.py first}@postgres:5432/trading_ai
+      TAI_REDIS_URL: redis://:${REDIS_PASSWORD:?Run scripts/init-dev-env.py first}@redis:6379/0
+      TAI_FEED_PROVIDER: FIXTURE
+      TAI_FEED_MAX_AGE_SECONDS: "60"
+      TAI_SERVICE_TIMEOUT_SECONDS: "5"
+    ports:
+      - "127.0.0.1:18000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=2).read()"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: "no"
+
+volumes:
+  postgres-data:
+  redis-data:

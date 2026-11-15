@@ -25,8 +25,13 @@ with (root / "docs" / "reports" / f"{args.task}-checks.txt").open("w", encoding=
         log.write(header)
         print(header, end="", flush=True)
         result = subprocess.run(
-            command, cwd=root / "backend", stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace",
+            command,
+            cwd=root / "backend",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
         )
         log.write(result.stdout)
         log.write(f"EXIT CODE: {result.returncode}\n")

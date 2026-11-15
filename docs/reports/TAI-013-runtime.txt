@@ -1,0 +1,41 @@
+COMMAND: docker --config D:\TRADING\tmp\docker desktop start --detach --timeout 45
+EXIT CODE: 0
+OUTPUT: Starting Docker Desktop
+
+COMMAND: docker --config D:\TRADING\tmp\docker info --format '{{.ServerVersion}}'
+RESULT: Failed; HTTP 500 from Docker engine API.
+
+COMMAND: docker --config D:\TRADING\tmp\docker desktop status
+OUTPUT: Status starting
+
+DIAGNOSTIC SOURCE: C:\Users\goran\AppData\Local\Docker\log\host\com.docker.backend.exe.log
+OBSERVED ERROR (2026-11-15T15:40:02Z):
+starting engine: engine linux/wsl failed to start: listing WSL distros:
+DockerDesktop/Wsl/CommandTimedOut: c:\windows\system32\wsl.exe -l -v --all: exit status 1
+
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up --build -d --wait --wait-timeout 60
+EXIT CODE: 1
+OUTPUT: unable to get image 'redis:7.2.17-bookworm': Error response from daemon: Docker Desktop is unable to start
+
+COMMAND: wsl --status
+RESULT: Stalled without output; diagnostic cancelled.
+
+SUBSEQUENT OWNER REQUEST: reset WSL.
+COMMAND: wsl --shutdown
+RESULT: Stalled; WslService StopPending.
+RECOVERY: Exact wslservice service PID checked and stopped by an administrator
+process, then WslService started. Non-administrator attempt was denied first.
+RESULT: PASS: WslService reset and running. No distribution or data was deleted.
+COMMAND: wsl --list --quiet (20 second process timeout)
+EXIT CODE: 0
+OUTPUT: Ubuntu; docker-desktop.
+COMMAND: docker --config D:\TRADING\tmp\docker desktop restart --detach --timeout 45
+EXIT CODE: 0
+OUTPUT: Starting Docker Desktop.
+
+POST-RESET: compose up --build -d --wait --wait-timeout 120 exited 0.
+Backend image built: sha256:412ed762c7a641997a5d6c9e63a53a0f77ba240e029399364dee1c420d92cf9e
+PostgreSQL, Redis and backend all became Healthy.
+Docker info server version: 29.9.3.
+Further actual smoke: docs/reports/TAI-013-smoke.txt.
+No distribution or volume deletion, factory reset or host restart performed.

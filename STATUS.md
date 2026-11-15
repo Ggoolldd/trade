@@ -14,8 +14,15 @@
 | TAI-010 | PASS | [Report](docs/reports/TAI-010.md) |
 | TAI-011 | PASS | [Report](docs/reports/TAI-011.md) |
 | TAI-012 | PASS | [Report](docs/reports/TAI-012.md) |
+| TAI-013 | PASS | [Report](docs/reports/TAI-013.md) |
 
-Next: TAI-013. Default PAPER. Backend health API and validated config; no broker transport.
+Next: TAI-014.
+Default PAPER. Backend health API and validated config; no broker transport.
+
+Docker/WSL startup blockage resolved after explicit owner-requested WSL reset.
+WslService Running; distribution listing succeeds; Docker engine 29.9.3 responds.
+All three project containers healthy; runtime evidence in TAI-013-smoke.txt.
+No distribution, volume or data was deleted; no Docker factory reset was performed.
 
 Owner instruction on 2026-11-15 authorizes sequential continuation through feasible
 tasks. It overrides per-task stopping instructions in supplied templates.
