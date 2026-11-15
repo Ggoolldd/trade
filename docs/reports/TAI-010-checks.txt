@@ -1,0 +1,3 @@
+﻿PASS: docs/CAPACITY_COSTS.md title, encoding and local links
+PASS: 2 local links resolved. Semantic review is not automated.
+REVIEW: Crypto row count 1051200 and stocks estimate 1965600 verified; source OHLC cap and incomplete candle checked; prices are planning assumptions, feed prices unknown.
