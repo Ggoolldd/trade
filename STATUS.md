@@ -27,8 +27,11 @@
 | TAI-023 | PASS | [Report](docs/reports/TAI-023.md) |
 | TAI-024 | PASS | [Report](docs/reports/TAI-024.md) |
 | TAI-025 | PASS | [Report](docs/reports/TAI-025.md) |
+| TAI-026 | PASS | [Report](docs/reports/TAI-026.md) |
 
-Next: TAI-026 ? canonical BTC/EUR and ETH/EUR venue metadata.
+Next: TAI-027 ? configurable stock/UCITS metadata candidates.
+TAI-026: 124 real tests PASS; two public metadata CLI imports; rules versioning,
+strict canonical mapping and suspended instruments. Dev revision 0010_spot_rules.
 TAI-025: 103 real tests passed; seed CLI executed twice; four dev services healthy.
 Development revision 0009_demo_cash; disabled local PAPER fixture only.
 Initial 10000 EUR is scenario input, not a spendable balance.

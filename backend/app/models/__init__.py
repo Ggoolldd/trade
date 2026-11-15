@@ -4,10 +4,12 @@ from app.models.accounts import AccountPermission, PaperAccount, TradingProfile
 from app.models.audit import AuditEvent
 from app.models.auth import AuthSession, LoginThrottle, User
 from app.models.catalog import Instrument, InstrumentAlias, QuoteCurrency, TradingHours, Venue
+from app.models.instrument_rules import InstrumentRules
 from app.models.jobs import DeadLetter, Job
 from app.models.schedules import Schedule, ScheduledRun
 
 __all__ = [
+    "InstrumentRules",
     "Schedule",
     "ScheduledRun",
     "DeadLetter",

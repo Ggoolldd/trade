@@ -1,0 +1,6 @@
+{
+  "source": "https://api.kraken.com/0/public/AssetPairs?pair=XBTEUR,ETHEUR",
+  "captured_at": "2026-11-15T19:39:38+00:00",
+  "sha256": "572900077d2be1a820e77487493df5f54299301a39d63838f69bbcb732390f50",
+  "kind": "actual public response, historical fixture; not current availability proof"
+}
