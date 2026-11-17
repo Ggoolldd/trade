@@ -27,6 +27,7 @@ def test_baseline_up_down_up_on_empty_postgres(database: Database) -> None:
             "quote_currencies",
             "instruments",
             "instrument_rules",
+            "history_imports",
             "instrument_aliases",
             "trading_hours",
             "paper_accounts",
