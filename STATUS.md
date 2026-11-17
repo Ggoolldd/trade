@@ -33,8 +33,11 @@
 | TAI-029 | PASS | [Report](docs/reports/TAI-029.md) |
 | TAI-030 | PASS | [Report](docs/reports/TAI-030.md) |
 | TAI-031 | PASS | [Report](docs/reports/TAI-031.md) |
+| TAI-032 | PARTIAL | [Report](docs/reports/TAI-032.md) |
 
-Next: TAI-032 historical stock provider with explicit licensed-source gate.
+Next: finish TAI-032 after a permitted historical stock source is available.
+TAI-032: synthetic-only CSV adapter and PostgreSQL provenance implemented;
+real-source license/coverage remains unresolved, as confirmed by owner. TAI-033 held.
 TAI-031: 222 tests PASS; real Windows/Linux public ticker samples accepted three
 quotes each after owner-approved Windows Time synchronization on 2026-11-17.
 Earlier future quote rejection traced to host clock lag; guard remains unchanged.

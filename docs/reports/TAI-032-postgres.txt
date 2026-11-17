@@ -1,0 +1,20 @@
+PostgreSQL server: ('17.12 (Debian 17.12-1.pgdg12+1)',)
+COMMAND: python -m pytest -q --maxfail=3 --tb=short --basetemp <new workspace tmp> (TEST_DATABASE_URL set; value redacted)
+........................................................................ [ 30%]
+........................................................................ [ 60%]
+........................................................................ [ 91%]
+.....................                                                    [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  D:\TRADING\backend\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_exchange_calendar.py: 12 warnings
+  D:\TRADING\backend\.venv\Lib\site-packages\pandas\core\series.py:848: Pandas4Warning: Series.values returning an ndarray that drops timezone information for DatetimeTZDtype is deprecated. In a future version, this will return the underlying DatetimeArray instead. Use 'Series.dt.tz_convert(None).to_numpy()' to get a NumPy array of UTC values, or 'Series.array' to get the ExtensionArray.
+  See https://pandas.pydata.org/docs/dev/whatsnew/v3.1.0.html#whatsnew-310-deprecations-values for more details.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+237 passed, 13 warnings in 77.00s (0:01:17)
+EXIT CODE: 0
+Removed newly-created ephemeral test database tai_test_f51544202d33489182c2e7d86f98ba3a
