@@ -1,0 +1,187 @@
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml build backend
+#1 [internal] load local bake definitions
+#1 reading from stdin 511B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 746B 0.5s done
+#2 DONE 1.0s
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.13.8
+#3 DONE 4.7s
+
+#4 [internal] load metadata for docker.io/library/python:3.12.16-slim-bookworm
+#4 DONE 4.8s
+
+#5 [internal] load .dockerignore
+#5 transferring context:
+#5 transferring context: 260B 0.2s done
+#5 DONE 0.4s
+
+#6 [uv 1/1] FROM ghcr.io/astral-sh/uv:0.13.8@sha256:5cc1805e2426484abca4ad46ea783bab281fdb225fd82d8ce6d66a81254bac85
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 DONE 0.0s
+
+#8 [stage-1 1/9] FROM docker.io/library/python:3.12.16-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#8 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 137.15kB 1.0s done
+#7 DONE 1.0s
+
+#9 [stage-1 2/9] COPY --from=uv /uv /usr/local/bin/uv
+#9 CACHED
+
+#10 [stage-1 3/9] WORKDIR /app
+#10 CACHED
+
+#11 [stage-1 4/9] COPY pyproject.toml uv.lock ./
+#11 DONE 1.4s
+
+#12 [stage-1 5/9] RUN uv sync --locked --no-dev --no-install-project     && groupadd --gid 10001 app     && useradd --uid 10001 --gid app --no-create-home app
+#12 48.74 Using CPython 3.12.16 interpreter at: /usr/local/bin/python3
+#12 49.04 Creating virtual environment at: .venv
+#12 55.90 Resolved 53 packages in 3.78s
+#12 63.34 Downloading pydantic-core (2.2MiB)
+#12 63.63 Downloading pandas (11.5MiB)
+#12 63.66 Downloading psycopg-binary (3.7MiB)
+#12 64.09 Downloading sqlalchemy (3.3MiB)
+#12 64.20 Downloading numpy (16.0MiB)
+#12 82.61  Downloaded pydantic-core
+#12 84.39  Downloaded psycopg-binary
+#12 84.55  Downloaded sqlalchemy
+#12 97.82  Downloaded pandas
+#12 98.38  Downloaded numpy
+#12 98.42 Prepared 41 packages in 41.12s
+#12 122.9 Installed 41 packages in 24.38s
+#12 123.0  + alembic==1.20.1
+#12 123.0  + annotated-doc==0.0.6
+#12 123.0  + annotated-types==0.8.0
+#12 123.0  + anyio==4.16.0
+#12 123.0  + argon2-cffi==25.1.0
+#12 123.0  + argon2-cffi-bindings==26.2.0
+#12 123.0  + certifi==2026.10.23
+#12 123.0  + cffi==2.1.1
+#12 123.0  + click==8.5.1
+#12 123.0  + exchange-calendars==4.13.3
+#12 123.0  + fastapi==0.163.1
+#12 123.0  + greenlet==3.5.6
+#12 123.0  + h11==0.16.0
+#12 123.0  + httpcore==1.0.9
+#12 123.0  + httpx==0.28.1
+#12 123.0  + idna==3.20
+#12 123.0  + korean-lunar-calendar==0.4.0
+#12 123.0  + mako==1.4.3
+#12 123.0  + markupsafe==3.0.4
+#12 123.0  + numpy==2.5.4
+#12 123.0  + opentelemetry-api==1.45.2
+#12 123.0  + pandas==3.1.1
+#12 123.0  + psycopg==3.3.9
+#12 123.0  + psycopg-binary==3.3.9
+#12 123.0  + pwdlib==0.4.2
+#12 123.0  + pycparser==3.12
+#12 123.0  + pydantic==2.14.3
+#12 123.0  + pydantic-core==2.50.4
+#12 123.0  + pydantic-settings==2.16.3
+#12 123.0  + pyluach==2.3.0
+#12 123.0  + python-dateutil==4.0.0
+#12 123.0  + python-dotenv==1.2.4
+#12 123.0  + redis==8.1.0
+#12 123.0  + sqlalchemy==2.0.57
+#12 123.0  + starlette==1.10.0
+#12 123.0  + toolz==1.2.0
+#12 123.0  + typing-extensions==4.16.0
+#12 123.0  + typing-inspection==0.4.5
+#12 123.0  + tzdata==2026.6
+#12 123.0  + uvicorn==0.54.0
+#12 123.0  + websockets==17.4
+#12 DONE 124.9s
+
+#13 [stage-1 6/9] COPY --chown=app:app app ./app
+#13 DONE 0.7s
+
+#14 [stage-1 7/9] COPY --chown=app:app config ./config
+#14 DONE 0.5s
+
+#15 [stage-1 8/9] COPY --chown=app:app alembic.ini ./
+#15 DONE 1.7s
+
+#16 [stage-1 9/9] COPY --chown=app:app migrations ./migrations
+#16 DONE 0.8s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 5.6s done
+#17 writing image sha256:962080a1c9e0d79a9f0508dffc67729d993c2a77c1301568f71a4ac856a87487 0.0s done
+#17 naming to docker.io/library/trading-ai-backend:dev 0.0s done
+#17 DONE 5.7s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image trading-ai-backend:dev Building
+ Image trading-ai-backend:dev Built
+
+EXIT CODE: 0
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml run --rm backend python -m app.kraken_stream --public --quotes 3 --seconds 30
+Public WS tick 1: symbol=BTC/EUR, exchange_at=2026-11-17T20:07:50.436099+00:00, observed_at=2026-11-17T20:07:51.916674+00:00; price omitted
+Public WS tick 2: symbol=BTC/EUR, exchange_at=2026-11-17T20:07:52.942111+00:00, observed_at=2026-11-17T20:07:53.023069+00:00; price omitted
+Public WS tick 3: symbol=BTC/EUR, exchange_at=2026-11-17T20:07:53.281568+00:00, observed_at=2026-11-17T20:07:53.726212+00:00; price omitted
+PASS: actual public WS sample ticks=3, connections=1, disconnects=0, duplicate=2, out_of_order=0; stream closed
+ Container trading-ai-dev-postgres-1 Running
+ Container trading-ai-dev-redis-1 Running
+ Container trading-ai-dev-postgres-1 Waiting
+ Container trading-ai-dev-redis-1 Waiting
+ Container trading-ai-dev-postgres-1 Healthy
+ Container trading-ai-dev-redis-1 Healthy
+ Container trading-ai-dev-backend-run-be1d05222247 Creating
+ Container trading-ai-dev-backend-run-be1d05222247 Created
+
+EXIT CODE: 0
+COMMAND: docker --config D:\TRADING\tmp\docker compose --env-file infrastructure/.env -f infrastructure/compose.yaml up -d --wait --wait-timeout 120 backend worker
+ Container trading-ai-dev-postgres-1 Running
+ Container trading-ai-dev-redis-1 Running
+ Container trading-ai-dev-backend-1 Recreate
+ Container trading-ai-dev-worker-1 Recreate
+ Container trading-ai-dev-worker-1 Recreated
+ Container trading-ai-dev-backend-1 Recreated
+ Container trading-ai-dev-postgres-1 Waiting
+ Container trading-ai-dev-redis-1 Waiting
+ Container trading-ai-dev-postgres-1 Healthy
+ Container trading-ai-dev-redis-1 Healthy
+ Container trading-ai-dev-worker-1 Starting
+ Container trading-ai-dev-backend-1 Starting
+ Container trading-ai-dev-worker-1 Started
+ Container trading-ai-dev-backend-1 Started
+ Container trading-ai-dev-redis-1 Waiting
+ Container trading-ai-dev-backend-1 Waiting
+ Container trading-ai-dev-worker-1 Waiting
+ Container trading-ai-dev-postgres-1 Waiting
+ Container trading-ai-dev-redis-1 Healthy
+ Container trading-ai-dev-postgres-1 Healthy
+ Container trading-ai-dev-backend-1 Healthy
+ Container trading-ai-dev-worker-1 Healthy
+
+EXIT CODE: 0
+COMMAND: D:\TRADING\backend\.venv\Scripts\python.exe scripts/smoke-compose.py --docker-config D:\TRADING\tmp\docker
+PASS: backend running/healthy; container c9c188abb75b
+IMAGE: backend sha256:962080a1c9e0d79a9f0508dffc67729d993c2a77c1301568f71a4ac856a87487
+PASS: postgres running/healthy; container 1871762455bf
+IMAGE: postgres sha256:431b070f8300b219ab7e6597e7ebb158df31767739896f53a936cfc749d8437a
+PASS: redis running/healthy; container 88e2ae551655
+IMAGE: redis sha256:a0d24678e92d89456dd5e332aae0b4b63d4b7556b166e6893e35de24cc1deaf6
+PASS: worker running/healthy; container ff3a069e38ff
+IMAGE: worker sha256:962080a1c9e0d79a9f0508dffc67729d993c2a77c1301568f71a4ac856a87487
+PASS: backend UID 10001
+PASS: backend read-only root filesystem
+PASS: Redis authenticated PONG
+PASS: PostgreSQL query on trading_ai
+PASS: actual backend DB role trading_ai_app; audit SELECT/INSERT only
+PASS: /health/live 200 PAPER scope=process
+PASS: /health/ready 200 PAPER scope=process
+PASS: OpenAPI 200; order route absent (404)
+
+EXIT CODE: 0
+PASS: actual public WebSocket adapter sample on Linux; tick timestamps/counts logged without prices; existing 12 candidates suspended; no automatic feed/DB migration.
