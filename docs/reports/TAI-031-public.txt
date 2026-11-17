@@ -1,0 +1,9 @@
+Actual host command after synchronization:
+backend/.venv/Scripts/python.exe -m app.kraken_stream --public --quotes 3 --seconds 30
+Public WS tick 1: symbol=BTC/EUR, exchange_at=2026-11-17T20:04:29.196274+00:00, observed_at=2026-11-17T20:04:29.473987+00:00; price omitted
+Public WS tick 2: symbol=BTC/EUR, exchange_at=2026-11-17T20:04:30.125219+00:00, observed_at=2026-11-17T20:04:30.146996+00:00; price omitted
+Public WS tick 3: symbol=BTC/EUR, exchange_at=2026-11-17T20:04:30.317448+00:00, observed_at=2026-11-17T20:04:30.349809+00:00; price omitted
+PASS: actual public WS sample ticks=3, connections=1, disconnects=0, duplicate=0, out_of_order=0; stream closed
+Exit code: 0
+Earlier pre-sync real sample failed INVALID_DATA because of host clock lag;
+that failure was not converted into a synthetic success.

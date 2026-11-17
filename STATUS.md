@@ -32,8 +32,12 @@
 | TAI-028 | PASS | [Report](docs/reports/TAI-028.md) |
 | TAI-029 | PASS | [Report](docs/reports/TAI-029.md) |
 | TAI-030 | PASS | [Report](docs/reports/TAI-030.md) |
+| TAI-031 | PASS | [Report](docs/reports/TAI-031.md) |
 
-Next: TAI-031 ? Kraken public WebSocket stream.
+Next: TAI-032 historical stock provider with explicit licensed-source gate.
+TAI-031: 222 tests PASS; real Windows/Linux public ticker samples accepted three
+quotes each after owner-approved Windows Time synchronization on 2026-11-17.
+Earlier future quote rejection traced to host clock lag; guard remains unchanged.
 TAI-030: 209 tests PASS; real host/Linux public OHLC samples, 59 closed bars with
 explicit PROVIDER_TIME_AHEAD/incomplete coverage. No automatic feed or OHLC DB store.
 Owner confirmed no permitted stock history source yet (relevant to TAI-032).

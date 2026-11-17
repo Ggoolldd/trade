@@ -1,0 +1,25 @@
+TAI-031 clock synchronization, owner explicitly authorized 2026-11-17.
+Initial state: Windows Time Stopped / Manual; configured NTP Microsoft peer.
+Ordinary process could not start service; administrator helper started W32Time.
+First resync reported no time data. Clock advanced from approximately
+20:01:10 UTC to 20:03:28 UTC. Do not treat first helper's PASS text as
+synchronization-status proof: query still reported Leap Indicator 3.
+A subsequent administrator resync completed successfully.
+Sending resync command to local computer
+The command completed successfully.
+Leap Indicator: 0(no warning)
+Stratum: 5 (secondary reference - syncd by (S)NTP)
+Precision: -23 (119.209ns per tick)
+Root Delay: 0.0318838s
+Root Dispersion: 7.7701864s
+ReferenceId: 0x33917B1D (source IP:  51.145.123.29)
+Last Successful Sync Time: 11/17/2026 9:04:55 PM
+Source: time.windows.com,0x9
+Poll Interval: 10 (1024s)
+
+Tracking time.windows.com [51.145.123.29:123].
+Collecting 3 samples.
+The current time is 11/17/2026 9:04:58 PM.
+21:04:58, +00.0003694s
+21:04:59, +00.0013353s
+21:05:00, +00.0006621s
